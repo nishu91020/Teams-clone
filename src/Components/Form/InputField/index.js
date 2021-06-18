@@ -14,11 +14,11 @@ const InputField = props => {
     return (
         <div>
             <TextField
+                type={props.type}
                 className={classes.input}
-                id="outlined-basic"
+                id="standard-basic"
                 size="small"
                 label={props.label}
-                variant="outlined"
             />
         </div>
     );
