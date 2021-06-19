@@ -1,5 +1,4 @@
-.item {
-    width: 100px;
-    height: 100px;
-    background: #3f51b5;
+.cardContainer {
+    display: inline-block;
+    width: 50%;
 }
