@@ -5,7 +5,7 @@ import { makeStyles, TextField } from '@material-ui/core';
 const useStyle = makeStyles({
     input: {
         width: '250px',
-        margin: '3%'
+        margin: '1%'
     }
 });
 
