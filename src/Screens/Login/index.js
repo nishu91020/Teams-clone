@@ -24,7 +24,7 @@ const Login = () => {
             .signInWithEmailAndPassword(email, password)
             .then(res => {
                 console.log(`user logged in with email ${email} and password ${password}`);
-                history.replace('/home');
+                history.push('/home');
             })
             .catch(err => {
                 alert(err.message);
