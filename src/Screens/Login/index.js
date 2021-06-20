@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Header from '../../Components/Header';
 import { Form } from '../../Components/Form';
 import { Link, Route, useHistory } from 'react-router-dom';
 import './styles.css';
-import { TextField, makeStyles, BottomNavigationAction } from '@material-ui/core';
+// import { AuthContext } from '../../Auth';
+import { UserContext } from '../../Context/AuthContext';
+import { TextField, makeStyles } from '@material-ui/core';
 import app from '../../firebase';
 const useStyle = makeStyles({
     input: {
@@ -16,20 +18,28 @@ const useStyle = makeStyles({
 const Login = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const { login } = useContext(UserContext);
     const classes = useStyle();
-    const history = useHistory();
+
     const handleLogin = () => {
-        app
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(res => {
-                console.log(`user logged in with email ${email} and password ${password}`);
-                history.push('/home');
-            })
-            .catch(err => {
-                alert(err.message);
-            });
+        login(email, password);
     };
+    // const history = useHistory();
+    // const { setCurrentUser } = useContext(AuthContext);
+    // const handleLogin = () => {
+    //     app
+    //         .auth()            .signInWithEmailAndPassword(email, password)
+    //         .then(res => {
+    //             const user = res.user;
+    //             console.log(`user logged in with email ${user.email}`);
+    //             setCurrentUser(user);
+    //             history.push('/home');
+    //         })
+    //         .catch(err => {
+    //             alert(err.message);
+    //         });
+
+    // };
     return (
         <div className="container">
             <Header />
