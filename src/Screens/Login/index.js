@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Header from '../../Components/Header';
 import { Form } from '../../Components/Form';
-import { Link, Route, useHistory } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import './styles.css';
-// import { AuthContext } from '../../Auth';
+import history from '../../../src/history';
 import { UserContext } from '../../Context/AuthContext';
 import { TextField, makeStyles } from '@material-ui/core';
 import app from '../../firebase';
@@ -18,28 +18,17 @@ const useStyle = makeStyles({
 const Login = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const { login } = useContext(UserContext);
+    const { login, state } = useContext(UserContext);
     const classes = useStyle();
-
+    useEffect(() => {
+        if (state.token) {
+            history.push('/home');
+        }
+    });
     const handleLogin = () => {
         login(email, password);
     };
-    // const history = useHistory();
-    // const { setCurrentUser } = useContext(AuthContext);
-    // const handleLogin = () => {
-    //     app
-    //         .auth()            .signInWithEmailAndPassword(email, password)
-    //         .then(res => {
-    //             const user = res.user;
-    //             console.log(`user logged in with email ${user.email}`);
-    //             setCurrentUser(user);
-    //             history.push('/home');
-    //         })
-    //         .catch(err => {
-    //             alert(err.message);
-    //         });
 
-    // };
     return (
         <div className="container">
             <Header />
@@ -70,7 +59,6 @@ const Login = () => {
                     <Form.BtnForm content="Login" />
                 </div>
             </Form.AuthModal>
-            <Link to="/home">Home</Link>
         </div>
     );
 };

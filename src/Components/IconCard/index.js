@@ -6,9 +6,9 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles({
     card: {
         background: '#3f51b5',
-        padding: '5%',
+        padding: '2%',
         display: 'inline-block',
-        margin: '10%',
+        margin: '4%',
         color: 'white'
     }
 });

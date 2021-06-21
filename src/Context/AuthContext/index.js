@@ -9,12 +9,16 @@ const reducer = (state, action) => {
             return { ...state, ...action.payload };
         case 'SIGNUP':
             return { ...state, ...action.payload };
+        case 'LOGOUT':
+            return { ...state, ...action.payload };
+        case 'RESTORE_TOKEN':
+            return { ...state, ...action.payload };
         default:
             return state;
     }
 };
 export const UserProvider = ({ children }) => {
-    const [ state, dispatch ] = useReducer(reducer, { user: { displayName: 'xyz' } });
+    const [ state, dispatch ] = useReducer(reducer, { user: {} });
     const signup = (username, email, password) => {
         app
             .auth()
@@ -48,6 +52,40 @@ export const UserProvider = ({ children }) => {
                 alert(err.message);
             });
     };
+    const logout = async () => {
+        await app
+            .auth()
+            .signOut()
+            .then(() => {
+                dispatch({ type: 'LOGOUT', payload: { user: null, token: null } });
+                history.push('/');
+                console.log('user logged out');
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    };
+    const restore = () => {
+        app.auth().onAuthStateChanged(user => {
+            user
+                .getIdToken()
+                .then(token => {
+                    dispatch({
+                        type: 'RESTORE_TOKEN',
+                        payload: {
+                            user,
+                            token
+                        }
+                    });
+                })
+                .catch(() => {
+                    dispatch({
+                        type: 'RESTORE_TOKEN',
+                        payload: { user: null, token: null }
+                    });
+                });
+        });
+    };
 
-    return <UserContext.Provider value={{ state, signup, login }}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={{ state, signup, login, logout, restore }}>{children}</UserContext.Provider>;
 };
