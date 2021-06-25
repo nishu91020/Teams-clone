@@ -8,6 +8,8 @@ import VideoChat from './Screens/VideoChat';
 import TextChat from './Screens/TextChat';
 import history from './history';
 import { UserContext } from '../src/Context/AuthContext';
+import CreateRoom from '../src/Screens/CreateRoom';
+import JoinRoom from '../src/Screens/JoinRoom';
 function App () {
     const { restore } = useContext(UserContext);
     useEffect(() => {
@@ -21,6 +23,8 @@ function App () {
                 <Route path="/home" exact component={Home} />
                 <Route path="/VideoChat" exact component={VideoChat} />
                 <Route path="/TextChat" exact component={TextChat} />
+                <Route path="/CreateRoom" exact component={CreateRoom} />
+                <Route path="/JoinRoom" exact component={JoinRoom} />
             </div>
         </Router>
     );
