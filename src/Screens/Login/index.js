@@ -6,6 +6,7 @@ import './styles.css';
 import history from '../../../src/history';
 import { UserContext } from '../../Context/AuthContext';
 import { TextField, makeStyles } from '@material-ui/core';
+
 import app from '../../firebase';
 const useStyle = makeStyles({
     input: {
@@ -28,11 +29,19 @@ const Login = () => {
     const handleLogin = () => {
         login(email, password);
     };
-
+    const navigateSignup = () => {
+        history.push('/');
+    };
     return (
         <div className="container">
             <Header />
             <Form.AuthModal>
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"
+                    width="48"
+                    height="48"
+                    alt="Teams"
+                />
                 <Form.Title heading="Login" />
                 <TextField
                     value={email}
@@ -52,11 +61,12 @@ const Login = () => {
                     size="small"
                     label="Password"
                 />
-                <p>
-                    Don't have an account?<Link to="/">Signup</Link>
-                </p>
+
                 <div onClick={handleLogin}>
                     <Form.BtnForm content="Login" />
+                </div>
+                <div onClick={navigateSignup}>
+                    <Form.BtnOutline content="Signup" />
                 </div>
             </Form.AuthModal>
         </div>

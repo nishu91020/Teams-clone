@@ -24,6 +24,9 @@ const Signup = () => {
     const handleSignup = () => {
         signup(username, email, password);
     };
+    const navigateLogin = () => {
+        history.push('/login');
+    };
     useEffect(() => {
         if (state.token) {
             history.push('/home');
@@ -33,6 +36,12 @@ const Signup = () => {
         <div className="container">
             <Header />
             <Form.AuthModal className="card">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"
+                    width="48"
+                    height="48"
+                    alt="Teams"
+                />
                 <Form.Title heading="Signup" />
                 <TextField
                     value={email}
@@ -61,11 +70,11 @@ const Signup = () => {
                     size="small"
                     label="Password"
                 />
-                <p>
-                    Already have an account?<Link to="/Login">Login</Link>
-                </p>
                 <div onClick={handleSignup}>
                     <Form.BtnForm content="Signup" />
+                </div>
+                <div onClick={navigateLogin}>
+                    <Form.BtnOutline content="Login" />
                 </div>
             </Form.AuthModal>
         </div>
