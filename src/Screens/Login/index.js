@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Header from '../../Components/Header';
+
 import { Form } from '../../Components/Form';
 import { Link, Route } from 'react-router-dom';
 import './styles.css';
@@ -34,7 +34,6 @@ const Login = () => {
     };
     return (
         <div className="container">
-            <Header />
             <Form.AuthModal>
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"

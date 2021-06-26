@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Header from '../../Components/Header';
 import { Form } from '../../Components/Form';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../Context/AuthContext';
@@ -34,7 +33,6 @@ const Signup = () => {
     });
     return (
         <div className="container">
-            <Header />
             <Form.AuthModal className="card">
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"

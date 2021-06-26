@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from '../../Components/Form';
 import TextField from '@material-ui/core/TextField';
-import Header from '../../Components/Header';
+
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -18,7 +18,6 @@ const CreateRoom = () => {
     const [ roomName, , setRoomName ] = useState('');
     return (
         <div>
-            <Header />
             <Form.AuthModal>
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"
@@ -43,6 +42,7 @@ const CreateRoom = () => {
                     size="small"
                     id="outlined-basic"
                 />
+                <Form.BtnForm content="Create" />
             </Form.AuthModal>
         </div>
     );

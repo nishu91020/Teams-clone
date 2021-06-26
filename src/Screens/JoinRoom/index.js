@@ -1,6 +1,5 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import Header from '../../Components/Header';
 import { Form } from '../../Components/Form';
 import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
@@ -14,7 +13,6 @@ const JoinRoom = () => {
     const classes = useStyles();
     return (
         <div>
-            <Header />
             <Form.AuthModal>
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"
@@ -26,6 +24,7 @@ const JoinRoom = () => {
                 <TextField label="Name" className={classes.input} type="text" id="outlined-basic" />
                 <TextField label="Passcode" className={classes.input} type="text" id="outlined-basic" />
                 <TextField label="Room Name" className={classes.input} type="text" id="outlined-basic" />
+                <Form.BtnForm content="Join" />
             </Form.AuthModal>
         </div>
     );

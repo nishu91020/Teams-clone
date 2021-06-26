@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import Header from '../../Components/Header';
+
 import IconCard from '../../Components/IconCard';
 import './styles.css';
 import history from '../../history';
@@ -17,7 +17,6 @@ const Home = () => {
     };
     return state.user ? (
         <div>
-            <Header />
             <div style={{ textAlign: 'center' }}>
                 <h1>Hello {state.user.displayName} !</h1>
                 <h3>Welcome to Microsoft Teams</h3>
