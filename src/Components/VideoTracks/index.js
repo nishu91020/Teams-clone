@@ -6,8 +6,8 @@ const VideoTrack = props => {
     useEffect(
         () => {
             if (props.track) {
-                props.track[0]?.attach(videoRef.current);
-                props.track[1]?.attach(audioRef.current);
+                props.track[0]?.attach(audioRef.current);
+                props.track[1]?.attach(videoRef.current);
             }
         },
         [ props.track ]
@@ -15,8 +15,8 @@ const VideoTrack = props => {
     // console.log(props.track);
     return (
         <React.Fragment>
-            <video ref={videoRef} />
             <audio ref={audioRef} />
+            <video ref={videoRef} />
         </React.Fragment>
     );
 };
