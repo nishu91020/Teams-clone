@@ -1,7 +1,8 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import React, { useState, useContext } from 'react';
+import { TextField, makeStyles } from '@material-ui/core';
 import { Form } from '../../Components/Form';
-import { makeStyles } from '@material-ui/core';
+import history from '../../history';
+import { VideoContext } from '../../Context/VideoContext';
 const useStyles = makeStyles({
     input: {
         width: '240px',
@@ -11,6 +12,13 @@ const useStyles = makeStyles({
 });
 const JoinRoom = () => {
     const classes = useStyles();
+    const [ name, setName ] = useState('');
+    const [ roomId, setRoomId ] = useState('');
+    const { generateToken } = useContext(VideoContext);
+    const handleJoin = () => {
+        generateToken(roomId, name);
+        history.push(`/PreviewScreen/${roomId}`);
+    };
     return (
         <div>
             <Form.AuthModal>
@@ -21,10 +29,25 @@ const JoinRoom = () => {
                     alt="Teams"
                 />
                 <Form.Title heading="Join a room" />
-                <TextField label="Name" className={classes.input} type="text" id="outlined-basic" />
-                <TextField label="Passcode" className={classes.input} type="text" id="outlined-basic" />
-                <TextField label="Room Name" className={classes.input} type="text" id="outlined-basic" />
-                <Form.BtnForm content="Join" />
+                <TextField
+                    value={name}
+                    label="Name"
+                    className={classes.input}
+                    type="text"
+                    id="outlined-basic"
+                    onChange={e => setName(e.target.value)}
+                />
+                <TextField
+                    value={roomId}
+                    label="Room ID"
+                    className={classes.input}
+                    type="text"
+                    id="outlined-basic"
+                    onChange={e => setRoomId(e.target.value)}
+                />
+                <div onClick={handleJoin}>
+                    <Form.BtnForm content="Join" />
+                </div>
             </Form.AuthModal>
         </div>
     );

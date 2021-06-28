@@ -1,11 +1,25 @@
 import React, { useContext, useEffect } from 'react';
-
+import { Typography, makeStyles } from '@material-ui/core';
 import IconCard from '../../Components/IconCard';
 import './styles.css';
 import history from '../../history';
 import { UserContext } from '../../Context/AuthContext';
 import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles({
+    one: {
+        padding: '2%',
+        fontSize: '40px',
+        fontStyle: 'Lato',
+        fontWeight: 'bold'
+    },
+    two: {
+        fontSize: '30px',
+        fontStyle: 'Lato'
+    }
+});
 const Home = () => {
+    const classes = useStyles();
     const { state, logout } = useContext(UserContext);
     useEffect(() => {
         if (!state.token) {
@@ -18,8 +32,8 @@ const Home = () => {
     return state.user ? (
         <div>
             <div style={{ textAlign: 'center' }}>
-                <h1>Hello {state.user.displayName} !</h1>
-                <h3>Welcome to Microsoft Teams</h3>
+                <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
+                <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
                 <IconCard />
                 <div onClick={handleLogout} style={{ textAlign: 'center' }}>
                     <Button size="small" variant="outlined" color="secondary">

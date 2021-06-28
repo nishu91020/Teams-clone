@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form } from '../../Components/Form';
 import TextField from '@material-ui/core/TextField';
-
 import { makeStyles } from '@material-ui/core';
-
+import { VideoContext } from '../../Context/VideoContext';
 const useStyles = makeStyles({
     input: {
         width: '240px',
@@ -15,7 +14,8 @@ const useStyles = makeStyles({
 const CreateRoom = () => {
     const classes = useStyles();
     const [ name, setName ] = useState('');
-    const [ roomName, , setRoomName ] = useState('');
+    const [ roomName, setRoomName ] = useState('');
+    const { room } = useContext(VideoContext);
     return (
         <div>
             <Form.AuthModal>
@@ -33,6 +33,7 @@ const CreateRoom = () => {
                     type="text"
                     size="small"
                     id="outlined-basic"
+                    onChange={e => setName(e.target.value)}
                 />
                 <TextField
                     label="Room Name"
@@ -41,8 +42,11 @@ const CreateRoom = () => {
                     type="text"
                     size="small"
                     id="outlined-basic"
+                    onChange={e => setRoomName(e.target.value)}
                 />
-                <Form.BtnForm content="Create" />
+                <div onClick={room}>
+                    <Form.BtnForm content="Create" />
+                </div>
             </Form.AuthModal>
         </div>
     );

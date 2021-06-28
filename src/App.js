@@ -11,6 +11,8 @@ import { UserContext } from '../src/Context/AuthContext';
 import CreateRoom from '../src/Screens/CreateRoom';
 import JoinRoom from '../src/Screens/JoinRoom';
 import Header from './Components/Header';
+import VideoScreen from '../src/Screens/VideoScreen';
+import PreviewScreen from '../src/Screens/PreviewScreen';
 function App () {
     const { restore } = useContext(UserContext);
     useEffect(() => {
@@ -28,6 +30,8 @@ function App () {
                     <Route path="/TextChat" exact component={TextChat} />
                     <Route path="/CreateRoom" exact component={CreateRoom} />
                     <Route path="/JoinRoom" exact component={JoinRoom} />
+                    <Route path="/PreviewScreen/:id" component={PreviewScreen} />
+                    <Route path="/VideoScreen/:id" exact component={VideoScreen} />
                 </Switch>
             </div>
         </Router>
