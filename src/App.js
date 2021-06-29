@@ -31,7 +31,7 @@ function App () {
                     <Route path="/CreateRoom" exact component={CreateRoom} />
                     <Route path="/JoinRoom" exact component={JoinRoom} />
                     <Route path="/PreviewScreen/:id" component={PreviewScreen} />
-                    <Route path="/VideoScreen/:id" exact component={VideoScreen} />
+                    <Route path="/VideoScreen" exact component={VideoScreen} />
                 </Switch>
             </div>
         </Router>

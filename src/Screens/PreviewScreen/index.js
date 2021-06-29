@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Paper, Button, makeStyles } from '@material-ui/core';
+import { Paper, Button, makeStyles, Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
+import history from '../../history';
 import VideoTrack from '../../Components/VideoTracks';
 import { useMedia } from '../../Hooks/useMedia'; //named
 import MediaConstraints from '../../constants/MediaConstraints';
@@ -11,8 +12,7 @@ const useStyles = makeStyles({
         display: 'flex',
         textAlign: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
-        margin: '2%'
+        justifyContent: 'center'
     },
     videoComp: {
         position: 'absolute',
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
         AlignItems: 'center',
         justifyContent: 'center',
         transform: 'translate(-50%, -50%)',
-        height: '50%',
+        height: '62%',
         width: '40%'
     }
 });
@@ -50,24 +50,28 @@ const PreviewScreen = () => {
             setMediaState({ ...mediaState, isCameraOff: false });
         }
     };
+    const handleJoin = () => {
+        history.push(`/VideoScreen`);
+    };
     return (
         <div>
             <div className="preview">
-                <div className={classes.btncontrol}>
-                    <div onClick={handleCamera}>
-                        <Button variant="outlined" color="primary">
-                            {mediaState.isCameraOff ? <VideocamOff /> : <Videocam />}
-                        </Button>
-                    </div>
-                    <div onClick={handleMic}>
-                        <Button variant="outlined" color="primary">
-                            {mediaState.isMuted ? <MicOff /> : <Mic />}
-                        </Button>
-                    </div>
-                </div>
                 <Paper className={classes.videoComp}>
                     <div className="videoBox">
                         <VideoTrack track={media} />
+                    </div>
+                    <div className={classes.btncontrol}>
+                        <div style={{ margin: '1%' }} onClick={handleCamera}>
+                            <Fab color="primary">{mediaState.isCameraOff ? <VideocamOff /> : <Videocam />}</Fab>
+                        </div>
+                        <div style={{ margin: '1%' }} onClick={handleMic}>
+                            <Fab color="primary">{mediaState.isMuted ? <MicOff /> : <Mic />}</Fab>
+                        </div>
+                        <div style={{ marginLeft: '20%' }} onClick={handleJoin}>
+                            <Button variant="outlined" color="primary">
+                                Join
+                            </Button>
+                        </div>
                     </div>
                 </Paper>
             </div>
