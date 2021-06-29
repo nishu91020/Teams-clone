@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Button, makeStyles, Fab } from '@material-ui/core';
+import { makeStyles, Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
 import VideoTrack from '../VideoTracks';
 import { useMedia } from '../../Hooks/useMedia'; //named
@@ -11,7 +11,8 @@ const useStyles = makeStyles({
         display: 'flex',
         textAlign: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginLeft: '130%'
     },
     videoComp: {
         height: '62%',
@@ -50,11 +51,27 @@ const Preview = () => {
                         <VideoTrack track={media} />
                     </div>
                     <div className={classes.btncontrol}>
-                        <div style={{ margin: '1%' }} onClick={handleCamera}>
-                            <Fab color="primary">{mediaState.isCameraOff ? <VideocamOff /> : <Videocam />}</Fab>
+                        <div onClick={handleCamera}>
+                            {mediaState.isCameraOff ? (
+                                <Fab className={classes.btn} color="default">
+                                    <VideocamOff />
+                                </Fab>
+                            ) : (
+                                <Fab className={classes.btn} color="primary">
+                                    <Videocam />
+                                </Fab>
+                            )}
                         </div>
-                        <div style={{ margin: '1%' }} onClick={handleMic}>
-                            <Fab color="primary">{mediaState.isMuted ? <MicOff /> : <Mic />}</Fab>
+                        <div onClick={handleMic}>
+                            {mediaState.isMuted ? (
+                                <Fab className={classes.btn} color="default">
+                                    <MicOff />
+                                </Fab>
+                            ) : (
+                                <Fab className={classes.btn} color="primary">
+                                    <Mic />
+                                </Fab>
+                            )}
                         </div>
                     </div>
                 </div>

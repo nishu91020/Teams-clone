@@ -33,12 +33,6 @@ const JoinRoom = () => {
     return (
         <div>
             <Paper className={classes.form}>
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"
-                    width="34"
-                    height="34"
-                    alt="Teams"
-                />
                 <Form.Title heading="Join a room" />
                 <Grid container>
                     <Grid Item>

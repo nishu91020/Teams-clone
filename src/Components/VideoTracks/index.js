@@ -14,9 +14,9 @@ const VideoTrack = props => {
     );
     // console.log(props.track);
     return (
-        <React.Fragment>
-            <audio ref={audioRef} />
-            <video ref={videoRef} />
+        <React.Fragment >
+            <audio style={{borderRadius:'10px'}}  ref={audioRef} />
+            <video style={{borderRadius:'10px'}} ref={videoRef} />
         </React.Fragment>
     );
 };

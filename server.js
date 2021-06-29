@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 dotenv.config();
 
 const app = express();
-PORT = 8080 || process.env.PORT;
+const PORT = 8080 || process.env.PORT;
 
 const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const AccessToken = require('twilio').jwt.AccessToken;
