@@ -1,7 +1,11 @@
 .chat {
     align-items: right;
-    text-align: right;
     justify-content: right;
-    width: 10%;
-    height: 93vh;
+    width: 32%;
+    padding: 1%;
+    height: 85vh;
+}
+.message {
+    display: inline-block;
+    margin-top: 135%;
 }

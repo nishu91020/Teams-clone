@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Paper, Button, makeStyles, Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
-import history from '../../history';
-import VideoTrack from '../../Components/VideoTracks';
+import VideoTrack from '../VideoTracks';
 import { useMedia } from '../../Hooks/useMedia'; //named
 import MediaConstraints from '../../constants/MediaConstraints';
 import './styles.css';
@@ -15,18 +14,11 @@ const useStyles = makeStyles({
         justifyContent: 'center'
     },
     videoComp: {
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        textAlign: 'center',
-        AlignItems: 'center',
-        justifyContent: 'center',
-        transform: 'translate(-50%, -50%)',
         height: '62%',
         width: '40%'
     }
 });
-const PreviewScreen = () => {
+const Preview = () => {
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
     const media = useMedia(MediaConstraints);
     const classes = useStyles();
@@ -50,13 +42,10 @@ const PreviewScreen = () => {
             setMediaState({ ...mediaState, isCameraOff: false });
         }
     };
-    const handleJoin = () => {
-        history.push(`/VideoScreen`);
-    };
     return (
         <div>
             <div className="preview">
-                <Paper className={classes.videoComp}>
+                <div className={classes.videoComp}>
                     <div className="videoBox">
                         <VideoTrack track={media} />
                     </div>
@@ -67,15 +56,10 @@ const PreviewScreen = () => {
                         <div style={{ margin: '1%' }} onClick={handleMic}>
                             <Fab color="primary">{mediaState.isMuted ? <MicOff /> : <Mic />}</Fab>
                         </div>
-                        <div style={{ marginLeft: '20%' }} onClick={handleJoin}>
-                            <Button variant="outlined" color="primary">
-                                Join
-                            </Button>
-                        </div>
                     </div>
-                </Paper>
+                </div>
             </div>
         </div>
     );
 };
-export default PreviewScreen;
+export default Preview;

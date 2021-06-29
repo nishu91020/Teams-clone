@@ -1,13 +1,24 @@
 import React, { useState, useContext } from 'react';
-import { TextField, makeStyles } from '@material-ui/core';
+import { TextField, makeStyles, Paper, Grid } from '@material-ui/core';
 import { Form } from '../../Components/Form';
 import history from '../../history';
 import { VideoContext } from '../../Context/VideoContext';
+import Preview from '../../Components/Preview';
 const useStyles = makeStyles({
     input: {
         width: '240px',
         margin: '4%',
         display: 'flex'
+    },
+    form: {
+        padding: '1%',
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)'
+    },
+    element: {
+        padding: '2%'
     }
 });
 const JoinRoom = () => {
@@ -17,11 +28,11 @@ const JoinRoom = () => {
     const { generateToken } = useContext(VideoContext);
     const handleJoin = () => {
         generateToken(roomId, name);
-        history.push(`/PreviewScreen/${roomId}`);
+        history.push(`/VideoScreen/${roomId}`);
     };
     return (
         <div>
-            <Form.AuthModal>
+            <Paper className={classes.form}>
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"
                     width="34"
@@ -29,26 +40,33 @@ const JoinRoom = () => {
                     alt="Teams"
                 />
                 <Form.Title heading="Join a room" />
-                <TextField
-                    value={name}
-                    label="Name"
-                    className={classes.input}
-                    type="text"
-                    id="outlined-basic"
-                    onChange={e => setName(e.target.value)}
-                />
-                <TextField
-                    value={roomId}
-                    label="Room ID"
-                    className={classes.input}
-                    type="text"
-                    id="outlined-basic"
-                    onChange={e => setRoomId(e.target.value)}
-                />
-                <div onClick={handleJoin}>
-                    <Form.BtnForm content="Join" />
-                </div>
-            </Form.AuthModal>
+                <Grid container>
+                    <Grid Item>
+                        <Preview />
+                    </Grid>
+                    <Grid Item>
+                        <TextField
+                            value={name}
+                            label="Name"
+                            className={classes.input}
+                            type="text"
+                            id="outlined-basic"
+                            onChange={e => setName(e.target.value)}
+                        />
+                        <TextField
+                            value={roomId}
+                            label="Room ID"
+                            className={classes.input}
+                            type="text"
+                            id="outlined-basic"
+                            onChange={e => setRoomId(e.target.value)}
+                        />
+                        <div onClick={handleJoin}>
+                            <Form.BtnOutline content="Join" />
+                        </div>
+                    </Grid>
+                </Grid>
+            </Paper>
         </div>
     );
 };

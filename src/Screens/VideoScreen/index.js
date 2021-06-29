@@ -11,8 +11,17 @@ const useStyles = makeStyles({
 });
 const VideoScreen = () => {
     const classes = useStyles();
+    const [ chat, setChat ] = useState({ active: false });
+    const handleChat = () => {
+        if (chat.active === true) {
+            setChat({ active: false });
+        }
+        else {
+            setChat({ active: true });
+        }
+    };
     return (
-        <div>
+        <div style={{ display: 'flex', overflowY: 'hidden' }}>
             <div className="videoContainer">
                 <div className="controlContainer">
                     <ButtonGroup
@@ -31,7 +40,7 @@ const VideoScreen = () => {
                         <Button>
                             <PresentToAll />
                         </Button>
-                        <Button>
+                        <Button onClick={handleChat}>
                             <Chat />
                         </Button>
                         <Button>
@@ -43,6 +52,7 @@ const VideoScreen = () => {
                     </ButtonGroup>
                 </div>
             </div>
+            {chat.active ? <ChatBox /> : null}
         </div>
     );
 };
