@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Paper, Button, makeStyles } from '@material-ui/core';
-import { Camera, Mic } from '@material-ui/icons';
+import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
 import VideoTrack from '../../Components/VideoTracks';
 import { useMedia } from '../../Hooks/useMedia'; //named
 import MediaConstraints from '../../constants/MediaConstraints';
@@ -33,21 +33,21 @@ const PreviewScreen = () => {
     const handleMic = () => {
         if (!mediaState.isMuted) {
             media[0].disable();
-            setMediaState({ isMuted: true });
+            setMediaState({ ...mediaState, isMuted: true });
         }
         else {
             media[0].enable();
-            setMediaState({ isMuted: false });
+            setMediaState({ ...mediaState, isMuted: false });
         }
     };
     const handleCamera = () => {
-        if (!mediaState.isCamerOff) {
+        if (!mediaState.isCameraOff) {
             media[1].disable();
-            setMediaState({ isCamerOff: true });
+            setMediaState({ ...mediaState, isCameraOff: true });
         }
         else {
             media[1].enable();
-            setMediaState({ isCamera: false });
+            setMediaState({ ...mediaState, isCameraOff: false });
         }
     };
     return (
@@ -55,13 +55,13 @@ const PreviewScreen = () => {
             <div className="preview">
                 <div className={classes.btncontrol}>
                     <div onClick={handleCamera}>
-                        <Button variant="outlined" color="primary" startIcon={<Camera />}>
-                            Camera
+                        <Button variant="outlined" color="primary">
+                            {mediaState.isCameraOff ? <VideocamOff /> : <Videocam />}
                         </Button>
                     </div>
                     <div onClick={handleMic}>
-                        <Button variant="outlined" color="primary" startIcon={<Mic />}>
-                            Mic
+                        <Button variant="outlined" color="primary">
+                            {mediaState.isMuted ? <MicOff /> : <Mic />}
                         </Button>
                     </div>
                 </div>
