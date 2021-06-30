@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { TextField, makeStyles, Paper, Grid } from '@material-ui/core';
 import { Form } from '../../Components/Form';
-import history from '../../history';
 import { VideoContext } from '../../Context/VideoContext';
 import Preview from '../../Components/Preview';
 const useStyles = makeStyles({
@@ -10,12 +9,11 @@ const useStyles = makeStyles({
         margin: '4%',
         display: 'flex'
     },
-    form: {
-        padding: '1%',
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)'
+    container: {
+        padding: '2%',
+        height: '93vh',
+        width: '100vw',
+        display: 'flex'
     },
     element: {
         padding: '2%'
@@ -25,43 +23,42 @@ const JoinRoom = () => {
     const classes = useStyles();
     const [ name, setName ] = useState('');
     const [ roomId, setRoomId ] = useState('');
-    const { generateToken } = useContext(VideoContext);
+    const { getRoom } = useContext(VideoContext);
     const handleJoin = () => {
-        generateToken(roomId, name);
-        history.push(`/VideoScreen/${roomId}`);
+        getRoom(roomId);
     };
     return (
-        <div>
-            <Paper className={classes.form}>
+        <Grid className={classes.container} container direction="row" alignItems="center" justify="center" xs={12}>
+            <Grid Item container sm={6} xs={12}>
+                <Preview />
+            </Grid>
+            <Grid Item container alignItems="center" direction="column" xs={12} sm={3} justify="space-evenly">
                 <Form.Title heading="Join a room" />
-                <Grid container>
-                    <Grid Item>
-                        <Preview />
-                    </Grid>
-                    <Grid Item>
-                        <TextField
-                            value={name}
-                            label="Name"
-                            className={classes.input}
-                            type="text"
-                            id="outlined-basic"
-                            onChange={e => setName(e.target.value)}
-                        />
-                        <TextField
-                            value={roomId}
-                            label="Room ID"
-                            className={classes.input}
-                            type="text"
-                            id="outlined-basic"
-                            onChange={e => setRoomId(e.target.value)}
-                        />
-                        <div onClick={handleJoin}>
-                            <Form.BtnOutline content="Join" />
-                        </div>
-                    </Grid>
-                </Grid>
-            </Paper>
-        </div>
+                <TextField
+                    value={name}
+                    label="Name"
+                    className={classes.input}
+                    type="text"
+                    size="small"
+                    id="outlined-basic"
+                    variant="outlined"
+                    onChange={e => setName(e.target.value)}
+                />
+                <TextField
+                    value={roomId}
+                    size="small"
+                    label="Room ID"
+                    className={classes.input}
+                    type="text"
+                    variant="outlined"
+                    id="outlined-basic"
+                    onChange={e => setRoomId(e.target.value)}
+                />
+                <div onClick={handleJoin}>
+                    <Form.BtnForm content="Join" />
+                </div>
+            </Grid>
+        </Grid>
     );
 };
 

@@ -1,8 +1,6 @@
 const express = require('express');
-const path = require('path');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
 dotenv.config();
 
@@ -37,7 +35,6 @@ app.get('/token', (req, res) => {
         process.env.TWILIO_API_KEY_SECRET,
         process.env.TWILIO_API_KEY_SID
     );
-    //room aayega
     token.identity = identity;
     const grant = new VideoGrant({ room: req.params.room });
     token.addGrant(grant);
@@ -46,7 +43,19 @@ app.get('/token', (req, res) => {
         token: token.toJwt()
     });
 });
-
+app.get('/room', (req, res) => {
+    const roomId = req.params.room;
+    console.log(roomId);
+    client.video
+        .rooms(roomId)
+        .fetch()
+        .then(room => {
+            res.send({ room: room, status: 'success' });
+        })
+        .catch(e => {
+            res.send({ status: 'falied', error: e });
+        });
+});
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`);
 });

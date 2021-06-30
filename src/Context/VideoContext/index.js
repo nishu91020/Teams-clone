@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-import { connect, createLocalTracks } from 'twilio-video';
-
+import history from '../../history';
 export const VideoContext = React.createContext();
 
 const reducer = (state, action) => {
@@ -10,16 +9,9 @@ const reducer = (state, action) => {
             return { ...state, ...action.payload };
         case 'GENERATETOKEN':
             return { ...state, ...action.payload };
-        case 'LOCALTRACK':
+        case 'GETROOM':
             return { ...state, ...action.payload };
-        case 'DISABLETRACK':
-            return { ...state, ...action.payload };
-        case 'CAMERA':
-            return { ...state, ...action.payload };
-        case 'MIC':
-            return { ...state, ...action.payload };
-        case 'ERROR':
-            return { ...state, ...action.payload };
+
         default:
             return state;
     }
@@ -57,5 +49,21 @@ export const VideoProvider = ({ children }) => {
                 dispatch({ type: 'ERROR', payload: { err: err } });
             });
     };
-    return <VideoContext.Provider value={{ state, room, generateToken }}>{children}</VideoContext.Provider>;
+    const getRoom = roomId => {
+        api
+            .get('/room', {
+                params: { room: roomId }
+            })
+            .then(res => {
+                console.log(res.data);
+
+                dispatch({ type: 'GETROOM', payload: { room: res.data.room } });
+                history.push(`/VideoScreen/${res.data.room.uniqueName}`);
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch({ type: 'ERROR', payload: { err: err } });
+            });
+    };
+    return <VideoContext.Provider value={{ state, room, generateToken, getRoom }}>{children}</VideoContext.Provider>;
 };

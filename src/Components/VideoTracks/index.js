@@ -1,12 +1,35 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect,useState, useRef } from 'react';
+import Measure from 'react-measure';
+
+import { useCardRatio } from '../../Hooks/useCardRatio';
+import {useOffsets} from '../../Hooks/useOffset';
+
+
 const VideoTrack = props => {
-    // const track = props.track;
-    const videoRef = useRef(null);
-    const audioRef = useRef(null);
+    const videoRef = useRef();
+    const [ container, setContainer ] = useState({ height: 0 });
+    const [ aspectRatio, setAspectRatio ] = useCardRatio(1.3334);
+const offsets = useOffsets(
+    videoRef.current && videoRef.current.videoWidth,
+    videoRef.current && videoRef.current.videoHeight,
+    container.width,
+    container.height
+  );
+    function handleResize (contentRect) {
+        setContainer({
+            height: Math.round(contentRect.bounds.width / aspectRatio),
+            width: contentRect.bounds.width
+        });
+    }
+
+    function handleCanPlay () {
+        setAspectRatio(videoRef.current.videoHeight, videoRef.current.videoWidth);
+        videoRef.current.play();
+    }
     useEffect(
         () => {
             if (props.track) {
-                props.track[0]?.attach(audioRef.current);
+                // props.track[0]?.attach(audioRef.current);
                 props.track[1]?.attach(videoRef.current);
             }
         },
@@ -14,10 +37,20 @@ const VideoTrack = props => {
     );
     // console.log(props.track);
     return (
-        <React.Fragment >
-            <audio style={{borderRadius:'10px'}}  ref={audioRef} />
-            <video style={{borderRadius:'10px'}} ref={videoRef} />
-        </React.Fragment>
+       <Measure bounds onResize={handleResize}>
+      {({ measureRef }) => (
+        <div  ref={measureRef} style={{ height: `${container.height}px`,maxWidth:'90%'}}>
+          <video 
+            ref={videoRef}
+            onCanPlay={handleCanPlay}
+            style={{height:'100%',width:'100%', top: `-${offsets.y}px`, left: `-${offsets.x}px`,borderRadius:'10px' }}
+            autoPlay 
+            playsInline 
+            muted
+          />
+        </div>
+      )}
+    </Measure>
     );
 };
 

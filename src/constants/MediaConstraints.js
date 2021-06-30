@@ -1,5 +1,12 @@
 const MeadiaConstraints = {
-    audio: true,
-    video: { width: 320 }
+    audio: {
+        echoCancellation: true,
+        noiseSuppression: true
+    },
+    video: {
+        resizeMode: 'crop-and-scale',
+        aspectRatio: { ideal: 1.77778 },
+        facingMode: 'environment'
+    }
 };
 export default MeadiaConstraints;

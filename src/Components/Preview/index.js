@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
-import { makeStyles, Fab } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
 import VideoTrack from '../VideoTracks';
 import { useMedia } from '../../Hooks/useMedia'; //named
 import MediaConstraints from '../../constants/MediaConstraints';
 import './styles.css';
 
-const useStyles = makeStyles({
-    btncontrol: {
-        display: 'flex',
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: '130%'
-    },
-    videoComp: {
-        height: '62%',
-        width: '40%'
-    }
-});
 const Preview = () => {
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
     const media = useMedia(MediaConstraints);
-    const classes = useStyles();
+
     const handleMic = () => {
         if (!mediaState.isMuted) {
             media[0].disable();
@@ -45,36 +32,27 @@ const Preview = () => {
     };
     return (
         <div>
-            <div className="preview">
-                <div className={classes.videoComp}>
-                    <div className="videoBox">
-                        <VideoTrack track={media} />
-                    </div>
-                    <div className={classes.btncontrol}>
-                        <div onClick={handleCamera}>
-                            {mediaState.isCameraOff ? (
-                                <Fab className={classes.btn} color="default">
-                                    <VideocamOff />
-                                </Fab>
-                            ) : (
-                                <Fab className={classes.btn} color="primary">
-                                    <Videocam />
-                                </Fab>
-                            )}
-                        </div>
-                        <div onClick={handleMic}>
-                            {mediaState.isMuted ? (
-                                <Fab className={classes.btn} color="default">
-                                    <MicOff />
-                                </Fab>
-                            ) : (
-                                <Fab className={classes.btn} color="primary">
-                                    <Mic />
-                                </Fab>
-                            )}
-                        </div>
-                    </div>
-                </div>
+            <VideoTrack track={media} />
+            <div className="btngroup">
+                {mediaState.isCameraOff ? (
+                    <Fab onClick={handleCamera} color="default" style={{ margin: '1%' }}>
+                        <VideocamOff />
+                    </Fab>
+                ) : (
+                    <Fab onClick={handleCamera} color="primary" style={{ margin: '1%' }}>
+                        <Videocam />
+                    </Fab>
+                )}
+
+                {mediaState.isMuted ? (
+                    <Fab onClick={handleMic} color="default" style={{ margin: '1%' }}>
+                        <MicOff />
+                    </Fab>
+                ) : (
+                    <Fab onClick={handleMic} color="primary" style={{ margin: '1%' }}>
+                        <Mic />
+                    </Fab>
+                )}
             </div>
         </div>
     );
