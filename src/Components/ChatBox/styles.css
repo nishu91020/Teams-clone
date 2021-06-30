@@ -9,3 +9,8 @@
     display: inline-block;
     margin-top: 135%;
 }
+.cross {
+    text-align: right;
+    justify-content: right;
+    align-items: right;
+}
