@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, ButtonGroup, makeStyles } from '@material-ui/core';
 import { Videocam, Mic, Chat, CallEnd, PresentToAll, Group } from '@material-ui/icons';
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import history from '../../history';
 import app from '../../firebase';
 export const UserContext = React.createContext();

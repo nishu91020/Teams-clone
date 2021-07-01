@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Form } from '../../Components/Form';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles, Paper, Grid } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 import { VideoContext } from '../../Context/VideoContext';
 import Preview from '../../Components/Preview';
+import { useMedia } from '../../Hooks/useMedia';
+import MediaConstraints from '../../constants/MediaConstraints';
 const useStyles = makeStyles({
     input: {
         width: '240px',
@@ -25,13 +27,21 @@ const CreateRoom = () => {
     const classes = useStyles();
     const { state, generateToken } = useContext(VideoContext);
     const [ name, setName ] = useState('');
-
+    const { getLocalVideo, getLocalAudio, removeLocalAudio, removeLocalVideo } = useMedia(MediaConstraints);
+    useEffect(() => {
+        getLocalVideo();
+        getLocalAudio();
+        return () => {
+            removeLocalVideo();
+            removeLocalAudio();
+        };
+    }, []);
     const handleEnter = () => {
         console.log(state.room.uniqueName);
         generateToken(state.room.uniqueName, name);
     };
     return (
-        <Grid className={classes.container} container xs={12} justify="center" direction="row" alignItems="center">
+        <Grid item className={classes.container} container xs={12} justify="center" direction="row" alignItems="center">
             <Grid item container xs={12} sm={6}>
                 <Preview />
             </Grid>

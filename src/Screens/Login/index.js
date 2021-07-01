@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 import { Form } from '../../Components/Form';
-import { Link, Route } from 'react-router-dom';
 import './styles.css';
 import history from '../../../src/history';
 import { UserContext } from '../../Context/AuthContext';
 import { TextField, makeStyles } from '@material-ui/core';
-
-import app from '../../firebase';
 const useStyle = makeStyles({
     input: {
         width: '250px',

@@ -15,6 +15,7 @@ const offsets = useOffsets(
     container.width,
     container.height
   );
+  // console.log(props.track);
     function handleResize (contentRect) {
         setContainer({
             height: Math.round(contentRect.bounds.width / aspectRatio),
@@ -30,7 +31,7 @@ const offsets = useOffsets(
         () => {
             if (props.track) {
                 // props.track[0]?.attach(audioRef.current);
-                props.track[1]?.attach(videoRef.current);
+                props.track?.attach(videoRef.current);
             }
         },
         [ props.track ]
