@@ -3,8 +3,6 @@ import { TextField, makeStyles, Grid } from '@material-ui/core';
 import { Form } from '../../Components/Form';
 import { VideoContext } from '../../Context/VideoContext';
 import Preview from '../../Components/Preview';
-import { useMedia } from '../../Hooks/useMedia';
-import MediaConstraints from '../../constants/MediaConstraints';
 const useStyles = makeStyles({
     input: {
         width: '240px',

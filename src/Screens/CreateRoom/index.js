@@ -4,8 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles, Grid } from '@material-ui/core';
 import { VideoContext } from '../../Context/VideoContext';
 import Preview from '../../Components/Preview';
-import { useMedia } from '../../Hooks/useMedia';
-import MediaConstraints from '../../constants/MediaConstraints';
 const useStyles = makeStyles({
     input: {
         width: '240px',
@@ -27,15 +25,7 @@ const CreateRoom = () => {
     const classes = useStyles();
     const { state, generateToken } = useContext(VideoContext);
     const [ name, setName ] = useState('');
-    const { getLocalVideo, getLocalAudio, removeLocalAudio, removeLocalVideo } = useMedia(MediaConstraints);
-    useEffect(() => {
-        getLocalVideo();
-        getLocalAudio();
-        return () => {
-            removeLocalVideo();
-            removeLocalAudio();
-        };
-    }, []);
+
     const handleEnter = () => {
         console.log(state.room.uniqueName);
         generateToken(state.room.uniqueName, name);

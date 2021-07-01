@@ -5,7 +5,7 @@ import VideoTrack from '../VideoTracks';
 import './styles.css';
 import { useMedia } from '../../Hooks/useMedia';
 import MediaConstraints from '../../constants/MediaConstraints';
-//phir to override ho jayega
+
 const Preview = () => {
     const {
         getLocalVideo,
@@ -25,13 +25,15 @@ const Preview = () => {
         getLocalAudio();
         getLocalVideo();
     }, []);
-    // console.log(localAudioTrack);
-    // console.log(localVideoTrack);
+    console.log(localAudioTrack);
+    console.log(localVideoTrack);
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
 
     const handleMic = () => {
         if (!mediaState.isMuted) {
-            localAudioTrack.disable();
+            if (localAudioTrack) {
+                localAudioTrack.disable();
+            }
             setMediaState({ ...mediaState, isMuted: true });
         }
         else {
@@ -41,7 +43,7 @@ const Preview = () => {
     };
     const handleCamera = () => {
         if (!mediaState.isCameraOff) {
-            localVideoTrack.disable();
+            if (localAudioTrack) localVideoTrack.disable();
             setMediaState({ ...mediaState, isCameraOff: true });
         }
         else {
