@@ -32,8 +32,8 @@ app.get('/token', (req, res) => {
     const identity = req.params.name;
     const token = new AccessToken(
         process.env.TWILIO_ACCOUNT_SID,
-        process.env.TWILIO_API_KEY_SECRET,
-        process.env.TWILIO_API_KEY_SID
+        process.env.TWILIO_API_KEY_SID,
+        process.env.TWILIO_API_KEY_SECRET
     );
     token.identity = identity;
     const grant = new VideoGrant({ room: req.params.room });

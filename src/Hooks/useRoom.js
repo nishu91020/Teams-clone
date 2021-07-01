@@ -18,7 +18,9 @@ const useRoom = (localTracks, options) => {
                 newRoom => {
                     setRoom(newRoom);
                     const disconnect = () => newRoom.disconnect();
+
                     newRoom.setMaxListeners(15);
+
                     newRoom.once('disconnect', () => {
                         setTimeout(() => setTimeout(null));
                         window.removeEventListener('beforeunload', disconnect);
