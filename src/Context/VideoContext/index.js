@@ -21,11 +21,12 @@ const api = axios.create({
 });
 export const VideoProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {} });
-    const room = () => {
+    const createRoom = () => {
         api
             .get('/rooms', {})
-            .then(room => {
-                dispatch({ type: 'ROOM', payload: { room } });
+            .then(res => {
+                dispatch({ type: 'ROOM', payload: { room: res.data } });
+                history.push(`/CreateRoom/${res.data.uniqueName}`);
             })
             .catch(err => {
                 dispatch({ type: 'ERROR', payload: { err } });
@@ -44,6 +45,8 @@ export const VideoProvider = ({ children }) => {
                     type: 'GENERATETOKEN',
                     payload: { accessToken: res.data.token }
                 });
+                console.log('token=', res.data.token);
+                history.push(`/VideoScreen/${roomId}`);
             })
             .catch(err => {
                 dispatch({ type: 'ERROR', payload: { err: err } });
@@ -65,5 +68,7 @@ export const VideoProvider = ({ children }) => {
                 dispatch({ type: 'ERROR', payload: { err: err } });
             });
     };
-    return <VideoContext.Provider value={{ state, room, generateToken, getRoom }}>{children}</VideoContext.Provider>;
+    return (
+        <VideoContext.Provider value={{ state, createRoom, generateToken, getRoom }}>{children}</VideoContext.Provider>
+    );
 };

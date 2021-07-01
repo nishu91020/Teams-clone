@@ -23,8 +23,13 @@ const useStyles = makeStyles({
 
 const CreateRoom = () => {
     const classes = useStyles();
+    const { state, generateToken } = useContext(VideoContext);
     const [ name, setName ] = useState('');
-    const { room } = useContext(VideoContext);
+
+    const handleEnter = () => {
+        console.log(state.room.uniqueName);
+        generateToken(state.room.uniqueName, name);
+    };
     return (
         <Grid className={classes.container} container xs={12} justify="center" direction="row" alignItems="center">
             <Grid item container xs={12} sm={6}>
@@ -51,8 +56,8 @@ const CreateRoom = () => {
                     variant="outlined"
                     onChange={e => setName(e.target.value)}
                 />
-                <div onClick={room}>
-                    <Form.BtnForm content="Create" />
+                <div onClick={handleEnter}>
+                    <Form.BtnForm content="Enter" />
                 </div>
             </Grid>
         </Grid>

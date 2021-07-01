@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form } from '../../Components/Form';
 import './styles.css';
 import history from '../../history';
+import { VideoContext } from '../../Context/VideoContext';
+
 const VideoChat = () => {
-    const create = () => {
-        history.push('/CreateRoom');
+    const { createRoom, state } = useContext(VideoContext);
+    const handleCreate = () => {
+        createRoom();
     };
     const join = () => {
         history.push('/JoinRoom');
@@ -19,7 +22,7 @@ const VideoChat = () => {
                 />
             </div>
             <div>
-                <div onClick={create} className="btnGroup">
+                <div onClick={handleCreate} className="btnGroup">
                     <Form.BtnForm content="Create a room" />
                 </div>
                 <div onClick={join} className="btnGroup">

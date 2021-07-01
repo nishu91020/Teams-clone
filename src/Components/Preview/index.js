@@ -2,37 +2,37 @@ import React, { useState } from 'react';
 import { Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
 import VideoTrack from '../VideoTracks';
-import { useMedia } from '../../Hooks/useMedia'; //named
+import { useMedia } from '../../Hooks/useMedia';
 import MediaConstraints from '../../constants/MediaConstraints';
 import './styles.css';
 
 const Preview = () => {
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
-    const media = useMedia(MediaConstraints);
+    const { localTracks } = useMedia(MediaConstraints);
 
     const handleMic = () => {
         if (!mediaState.isMuted) {
-            media[0].disable();
+            localTracks[0].disable();
             setMediaState({ ...mediaState, isMuted: true });
         }
         else {
-            media[0].enable();
+            localTracks[0].enable();
             setMediaState({ ...mediaState, isMuted: false });
         }
     };
     const handleCamera = () => {
         if (!mediaState.isCameraOff) {
-            media[1].disable();
+            localTracks[1].disable();
             setMediaState({ ...mediaState, isCameraOff: true });
         }
         else {
-            media[1].enable();
+            localTracks[1].enable();
             setMediaState({ ...mediaState, isCameraOff: false });
         }
     };
     return (
         <div>
-            <VideoTrack track={media} />
+            <VideoTrack track={localTracks} />
             <div className="btngroup">
                 {mediaState.isCameraOff ? (
                     <Fab onClick={handleCamera} color="default" style={{ margin: '1%' }}>

@@ -27,7 +27,7 @@ function App () {
                     <Route path="/home" exact component={Home} />
                     <Route path="/VideoChat" exact component={VideoChat} />
                     <Route path="/TextChat" exact component={TextChat} />
-                    <Route path="/CreateRoom" exact component={CreateRoom} />
+                    <Route path="/CreateRoom/:id" exact component={CreateRoom} />
                     <Route path="/JoinRoom" exact component={JoinRoom} />
                     <Route path="/VideoScreen/:id" exact component={VideoScreen} />
                 </Switch>

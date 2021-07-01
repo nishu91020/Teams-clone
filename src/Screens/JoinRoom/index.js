@@ -23,9 +23,10 @@ const JoinRoom = () => {
     const classes = useStyles();
     const [ name, setName ] = useState('');
     const [ roomId, setRoomId ] = useState('');
-    const { getRoom } = useContext(VideoContext);
+    const { generateToken, state } = useContext(VideoContext);
     const handleJoin = () => {
-        getRoom(roomId);
+        console.log(state.room.uniqueName);
+        generateToken(roomId, name);
     };
     return (
         <Grid className={classes.container} container direction="row" alignItems="center" justify="center" xs={12}>
