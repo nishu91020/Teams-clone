@@ -5,7 +5,7 @@ import history from '../../history';
 import { VideoContext } from '../../Context/VideoContext';
 
 const VideoChat = () => {
-    const { createRoom, state } = useContext(VideoContext);
+    const { createRoom } = useContext(VideoContext);
     const handleCreate = () => {
         createRoom();
     };
