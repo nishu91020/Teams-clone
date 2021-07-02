@@ -6,11 +6,14 @@ import { Grid } from '@material-ui/core';
 import CardContainer from '../../Components/CardContainer';
 import { RoomContext } from '../../Context/RoomContext';
 import { VideoContext } from '../../Context/VideoContext';
-
+import { RoomProvider } from '../../Context/RoomContext';
 const VideoScreen = () => {
-    const { connect, isConnecting } = useContext(RoomContext);
+    const { connect, isConnecting, settings, localTracks } = useContext(RoomContext);
     const { state } = useContext(VideoContext);
     const [ chat, setChat ] = useState({ active: false });
+
+    console.log(settings);
+    console.log(localTracks);
 
     useEffect(() => {
         console.log(state.accessToken);
@@ -39,4 +42,8 @@ const VideoScreen = () => {
     );
 };
 
-export default VideoScreen;
+export default () => (
+    <RoomProvider>
+        <VideoScreen />
+    </RoomProvider>
+);

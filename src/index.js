@@ -5,15 +5,13 @@ import App from './App';
 // import { AuthProvider } from './Auth';
 import { UserProvider } from './Context/AuthContext';
 import { VideoProvider } from '../src/Context/VideoContext';
-import { RoomProvider } from './Context/RoomContext';
+
 ReactDOM.render(
     <UserProvider>
         <VideoProvider>
-            <RoomProvider>
-                <React.StrictMode>
-                    <App />
-                </React.StrictMode>
-            </RoomProvider>
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
         </VideoProvider>
     </UserProvider>,
     document.getElementById('root')

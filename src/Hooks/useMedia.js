@@ -1,80 +1,80 @@
 import { useCallback } from 'react';
-import { useState } from 'react';
-import Video, { createLocalTracks } from 'twilio-video';
+import { useEffect, useState } from 'react';
+import { createLocalTracks } from 'twilio-video';
 
 export const useMedia = mediaConstraints => {
-    const [ localAudioTrack, setLocalAudioTrack ] = useState(undefined);
-    const [ localVideoTrack, setLocalVideoTrack ] = useState(undefined);
-    const [ isloading, setIsloading ] = useState(false);
+    const [ localTracks, setLocalTracks ] = useState([]);
+    const [ settings, setSettings ] = useState([]);
+    // const [ localAudioTrack, setLocalAudioTracks ] = useState(undefined);
+    // const [ localVideoTrack, setLocalVideoTracks ] = useState(undefined);
+    const [ isLoading, setIsLoading ] = useState(false);
 
-    const getLocalAudio = useCallback(() => {
-        setIsloading(true);
-        return Video.createLocalAudioTrack(mediaConstraints).then(audioTrack => {
-            setLocalAudioTrack(audioTrack);
-            setIsloading(false);
-            return audioTrack;
-        });
-    }, []);
-    const getLocalVideo = useCallback(() => {
-        setIsloading(true);
-        return Video.createLocalVideoTrack(mediaConstraints).then(videoTrack => {
-            setLocalVideoTrack(videoTrack);
-            setIsloading(false);
-            return videoTrack;
-        });
-    }, []);
-    const removeLocalAudio = useCallback(
+    useEffect(
         () => {
-            if (localAudioTrack) {
-                localAudioTrack.stop();
-                setLocalAudioTrack(undefined);
+            async function getMedia () {
+                try {
+                    setLocalTracks(await createLocalTracks(mediaConstraints));
+                } catch (err) {
+                    console.log(err);
+                } finally {
+                    setIsLoading(false);
+                }
+            }
+            if (!localTracks.length) {
+                setIsLoading(true);
+                getMedia();
+            }
+            else {
+                return () => {
+                    localTracks.forEach(track => track.stop());
+                };
             }
         },
-        [ localAudioTrack ]
+        [ localTracks, mediaConstraints ]
+    );
+    const removeLocalAudio = useCallback(
+        () => {
+            if (localTracks[0]) {
+                localTracks[0].stop();
+                setLocalTracks(undefined);
+            }
+        },
+        [ localTracks ]
     );
     const removeLocalVideo = useCallback(
         () => {
-            if (localVideoTrack) {
-                localVideoTrack.stop();
-                setLocalVideoTrack(undefined);
+            if (localTracks[1]) {
+                localTracks[1].stop();
+                setLocalTracks(undefined);
             }
         },
-        [ localVideoTrack ]
+        [ localTracks ]
     );
-    const getAudioAndVideoTracks = useCallback(
-        () => {
-            setIsloading(true);
-            const options = {
-                audio: { ...mediaConstraints.audio },
-                video: { ...mediaConstraints.video, name: `camera-${Date.now()}` }
-            };
+    // const getAudioAndVideoTracks = useCallback(
+    //     () => {
+    //         setIsloading(true);
+    //         const options = {
+    //             audio: { ...mediaConstraints.audio },
+    //             video: { ...mediaConstraints.video, name: `camera-${Date.now()}` }
+    //         };
 
-            return createLocalTracks(options)
-                .then(localTrack => {
-                    const videoTrack = localTrack.find(track => track.kind === 'video');
-                    const audioTrack = localTrack.find(track => track.kind === 'audio');
+    //         return createLocalTracks(options)
+    //             .then(localTrack => {
+    //                 const videoTrack = localTrack.find(track => track.kind === 'video');
+    //                 const audioTrack = localTrack.find(track => track.kind === 'audio');
 
-                    if (videoTrack) {
-                        setLocalVideoTrack(videoTrack);
-                    }
+    //                 if (videoTrack) {
+    //                     setLocalVideoTrack(videoTrack);
+    //                 }
 
-                    if (audioTrack) {
-                        setLocalAudioTrack(audioTrack);
-                    }
-                })
-                .finally(() => setIsloading(false));
-        },
-        [ localAudioTrack, localVideoTrack, isloading ]
-    );
+    //                 if (audioTrack) {
+    //                     setLocalAudioTrack(audioTrack);
+    //                 }
+    //             })
+    //             .finally(() => setIsloading(false));
+    //     },
+    //     [ localAudioTrack, localVideoTrack, isloading ]
+    // );
 
-    const localTracks = [ localAudioTrack, localVideoTrack ].filter(track => track !== undefined);
-    return {
-        removeLocalVideo,
-        removeLocalAudio,
-        getLocalAudio,
-        getLocalVideo,
-        getAudioAndVideoTracks,
-        localAudioTrack,
-        localVideoTrack
-    };
+    return { localTracks, removeLocalVideo, removeLocalAudio, setSettings, settings, isLoading };
 };

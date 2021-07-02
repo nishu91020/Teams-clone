@@ -5,6 +5,7 @@ const useRoom = (localTracks, options) => {
     const [ room, setRoom ] = useState(null);
     const [ isconnecting, setIsconnecting ] = useState(false);
     const optionRef = useRef(null);
+
     useEffect(
         () => {
             optionRef.current = options;

@@ -31,7 +31,7 @@ const offsets = useOffsets(
         () => {
             if (props.track) {
                 // props.track[0]?.attach(audioRef.current);
-                props.track?.attach(videoRef.current);
+                props.track[1]?.attach(videoRef.current);
             }
         },
         [ props.track ]

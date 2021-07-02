@@ -6,14 +6,24 @@ import MediaConstraints from '../../constants/MediaConstraints';
 export const RoomContext = createContext(null);
 
 export const RoomProvider = ({ children }) => {
-    const { getLocalAudio, getLocalVideo, removeLocalAudioTrack, removeLocalVideoTrack, isLoading } = useMedia(
+    const { localTracks, removeLocalAudio, removeLocalVideo, setSettings, settings, isLoading } = useMedia(
         MediaConstraints
     );
-    const { room, isConnecting, connect } = useRoom({ getLocalAudio, getLocalVideo }, {});
-    useHandleRoomDisconnect(room, removeLocalAudioTrack, removeLocalVideoTrack);
+    const { room, isConnecting, connect } = useRoom({ localTracks }, {});
+    useHandleRoomDisconnect(room);
     return (
         <RoomContext.Provider
-            value={{ isConnecting, connect, room, removeLocalAudioTrack, removeLocalVideoTrack, isLoading }}
+            value={{
+                isConnecting,
+                connect,
+                room,
+                localTracks,
+                removeLocalAudio,
+                removeLocalVideo,
+                setSettings,
+                settings,
+                isLoading
+            }}
         >
             {children}
         </RoomContext.Provider>
