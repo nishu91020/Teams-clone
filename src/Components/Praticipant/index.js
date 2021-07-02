@@ -63,7 +63,7 @@ const Participant = ({ participant }) => {
         <div className="participant">
             <h3>{participant.identity}</h3>
             {/* <VideoTracks track={localVideoTrack} /> */}
-            <video ref={videoRef} autoPlay={true} />
+            <video style={{borderRadius:'5px',width:'40%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
     );

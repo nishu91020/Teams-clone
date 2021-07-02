@@ -77,13 +77,15 @@ const VideoScreen = () => {
     ));
 
     return (
-        <Grid className="videoContainer">
+        <Grid className="videoContainer" style={{ display: 'flex' }}>
             <Grid>
                 <div className="local-participant">
                     {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
                 </div>
                 <div className="remote-participants">{remoteParticipants}</div>
-                <BtnGroup handleChat={handleChat} dropCall={dropCall} />
+                <div className="controlContainer">
+                    <BtnGroup handleChat={handleChat} dropCall={dropCall} />
+                </div>
             </Grid>
             {chat.active ? <ChatBox handleChat={handleChat} /> : null}
         </Grid>

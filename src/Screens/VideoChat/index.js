@@ -16,7 +16,7 @@ const VideoChat = () => {
         <div>
             <div className="image">
                 <img
-                    src="https://d57439wlqx3vo.cloudfront.net/iblock/5d5/5d56f403033e04db25c5d3bb04e9639f/20f9a94927a2d8b4400129b2c12651b6.jpg"
+                    src="https://image.freepik.com/free-vector/flat-worker-conducts-online-meeting-virtual-team-building-videoconference-home-office_88138-508.jpg"
                     height="350px"
                     alt="teams"
                 />
