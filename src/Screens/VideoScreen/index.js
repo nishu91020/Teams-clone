@@ -13,6 +13,8 @@ const VideoScreen = () => {
     const [ participants, setParticipants ] = useState([]);
     const { state } = useContext(VideoContext);
     const [ chat, setChat ] = useState({ active: false });
+    const [ videoTrack, setVideoTrack ] = useState({ active: true });
+    const [ audioTrack, setAudioTrack ] = useState({ active: true });
 
     useEffect(
         () => {
@@ -51,6 +53,34 @@ const VideoScreen = () => {
         [ state.accessToken ]
     );
 
+    const handleAudioMute = () => {
+        if (audioTrack === true) {
+            room.localParticipant.audioTracks.forEach(trackPublication => {
+                trackPublication.track.disable();
+            });
+            setAudioTrack(false);
+        }
+        else {
+            room.localParticipant.audioTracks.forEach(trackPublication => {
+                trackPublication.track.enable();
+                setAudioTrack(true);
+            });
+        }
+    };
+    const handleVideoMute = () => {
+        if (videoTrack === true) {
+            room.localParticipant.videoTracks.forEach(publication => {
+                publication.track.disable();
+                setVideoTrack(false);
+            });
+        }
+        else {
+            room.localParticipant.videoTracks.forEach(publication => {
+                publication.track.enable();
+                setVideoTrack(true);
+            });
+        }
+    };
     const dropCall = useCallback(() => {
         setRoom(prevRoom => {
             if (prevRoom) {
@@ -77,14 +107,21 @@ const VideoScreen = () => {
     ));
 
     return (
-        <Grid style={{ display: 'flex', overflowY: 'hidden' }}>
+        <Grid style={{ display: 'flex' }}>
             <Grid className="videoContainer">
                 <div className="local-participant">
                     {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
                     {remoteParticipants}
                 </div>
                 <Grid className="controlContainer">
-                    <BtnGroup handleChat={handleChat} dropCall={dropCall} />
+                    <BtnGroup
+                        audioTrack={audioTrack}
+                        videoTrack={videoTrack}
+                        handleVideoMute={handleVideoMute}
+                        handleAudioMute={handleAudioMute}
+                        handleChat={handleChat}
+                        dropCall={dropCall}
+                    />
                 </Grid>
             </Grid>
             {chat.active ? <ChatBox handleChat={handleChat} /> : null}

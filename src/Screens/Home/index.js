@@ -9,7 +9,6 @@ import { Form } from '../../Components/Form';
 
 const useStyles = makeStyles({
     one: {
-        padding: '2%',
         fontSize: '40px',
         fontStyle: 'Lato',
         fontWeight: 'bold'
@@ -38,7 +37,7 @@ const Home = () => {
         history.push('/JoinRoom');
     };
     return state.user ? (
-        <div style={{ padding: '2%' }}>
+        <div style={{ padding: '1%' }}>
             <div style={{ display: 'flex' }}>
                 <div style={{ width: '50%' }}>
                     <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
@@ -56,10 +55,10 @@ const Home = () => {
                 <div className="image">
                     <img
                         src="https://image.freepik.com/free-vector/flat-worker-conducts-online-meeting-virtual-team-building-videoconference-home-office_88138-508.jpg"
-                        height="350px"
+                        height="400px"
                         alt="teams"
                     />
-                    <div onClick={handleLogout} style={{ textAlign: 'right', marginTop: '20%' }}>
+                    <div onClick={handleLogout} style={{ textAlign: 'right', marginTop: '10%' }}>
                         <Button size="small" variant="outlined" color="secondary">
                             Logout
                         </Button>

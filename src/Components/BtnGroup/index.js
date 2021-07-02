@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, ButtonGroup, makeStyles } from '@material-ui/core';
-import { Videocam, Mic, Chat, CallEnd, PresentToAll, Group } from '@material-ui/icons';
+import { Videocam, Mic, Chat, CallEnd, PresentToAll, Group, VideocamOff, MicOff } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     btn: {
@@ -20,12 +20,8 @@ const BtnGroup = props => {
                 color="default"
                 aria-label="contained primary button group"
             >
-                <Button>
-                    <Videocam />
-                </Button>
-                <Button>
-                    <Mic />
-                </Button>
+                <Button onClick={props.handleVideoMute}>{props.videoTrack ? <Videocam /> : <VideocamOff />}</Button>
+                <Button onClick={props.handleAudioMute}>{props.audioTrack ? <Mic /> : <MicOff />}</Button>
                 <Button>
                     <PresentToAll />
                 </Button>
