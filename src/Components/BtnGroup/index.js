@@ -35,7 +35,7 @@ const BtnGroup = props => {
                 <Button>
                     <Group />
                 </Button>
-                <Button color="secondary">
+                <Button color="secondary" onClick={props.dropCall}>
                     <CallEnd />
                 </Button>
             </ButtonGroup>

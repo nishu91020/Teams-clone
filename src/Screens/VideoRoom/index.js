@@ -3,7 +3,6 @@ import './styles.css';
 import ChatBox from '../../Components/ChatBox';
 import BtnGroup from '../../Components/BtnGroup';
 import { Grid } from '@material-ui/core';
-import CardContainer from '../../Components/CardContainer';
 import { RoomContext, RoomProvider } from '../../Context/RoomContext';
 import { VideoContext } from '../../Context/VideoContext';
 import Participant from '../../Components/Praticipant';
@@ -46,6 +45,7 @@ const VideoScreen = () => {
         else {
             setChat({ active: true });
         }
+        console.log(chat);
     };
 
     return (

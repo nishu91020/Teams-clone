@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 });
 const ChatBox = props => {
     const classes = useStyles();
+    // console.log('helooooo');
     return (
         <Grid sm={4} className={classes.box}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>

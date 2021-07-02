@@ -10,6 +10,7 @@ export const RoomProvider = ({ children }) => {
         MediaConstraints
     );
     const { room, isConnecting, connect, participants } = useRoom(localTracks, { name: 'abcd' });
+
     useHandleRoomDisconnect(room);
     return (
         <RoomContext.Provider

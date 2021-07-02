@@ -1,12 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import Video from 'twilio-video';
+import { Grid } from '@material-ui/core';
 import Participant from '../../Components/Praticipant';
 import { VideoContext } from '../../Context/VideoContext';
+import BtnGroup from '../../Components/BtnGroup';
+import ChatBox from '../../Components/ChatBox';
+import './styles.css';
+import history from '../../history';
 
 const VideoScreen = () => {
     const [ room, setRoom ] = useState(null);
     const [ participants, setParticipants ] = useState([]);
     const { state } = useContext(VideoContext);
+    const [ chat, setChat ] = useState({ active: false });
+
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -44,18 +51,42 @@ const VideoScreen = () => {
         [ state.accessToken ]
     );
 
+    const dropCall = useCallback(() => {
+        setRoom(prevRoom => {
+            if (prevRoom) {
+                prevRoom.localParticipant.tracks.forEach(trackPub => {
+                    trackPub.track.stop();
+                });
+                prevRoom.disconnect();
+                history.push('/VideoChat');
+            }
+            return null;
+        });
+    }, []);
+
+    const handleChat = () => {
+        if (chat.active === true) {
+            setChat({ active: false });
+        }
+        else {
+            setChat({ active: true });
+        }
+    };
     const remoteParticipants = participants.map(participant => (
         <Participant key={participant.sid} participant={participant} />
     ));
 
     return (
-        <div className="room">
-            <div className="local-participant">
-                {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
-            </div>
-            <h3>Remote Participants</h3>
-            <div className="remote-participants">{remoteParticipants}</div>
-        </div>
+        <Grid className="videoContainer">
+            <Grid>
+                <div className="local-participant">
+                    {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
+                </div>
+                <div className="remote-participants">{remoteParticipants}</div>
+                <BtnGroup handleChat={handleChat} dropCall={dropCall} />
+            </Grid>
+            {chat.active ? <ChatBox handleChat={handleChat} /> : null}
+        </Grid>
     );
 };
 
