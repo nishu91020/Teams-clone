@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 
-const useHandleRoomDisconnect = (room, removeLocalVideoTrack, removeLocalAudioTrack) => {
+const useHandleRoomDisconnect = room => {
     useEffect(
         () => {
             if (room) {
-                const onDisconnected = (_, error) => {
+                const onDisconnected = (room, error) => {
                     if (error) {
                         console.log(error);
                     }
-                    removeLocalVideoTrack();
-                    removeLocalAudioTrack();
                 };
                 room.on('disconnected', onDisconnected);
                 return function cleanup () {
@@ -17,7 +15,7 @@ const useHandleRoomDisconnect = (room, removeLocalVideoTrack, removeLocalAudioTr
                 };
             }
         },
-        [ room, removeLocalAudioTrack, removeLocalVideoTrack ]
+        [ room ]
     );
 };
 export default useHandleRoomDisconnect;

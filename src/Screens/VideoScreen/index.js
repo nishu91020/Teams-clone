@@ -1,49 +1,62 @@
-import React, { useState, useContext, useEffect } from 'react';
-import './styles.css';
-import ChatBox from '../../Components/ChatBox';
-import BtnGroup from '../../Components/BtnGroup';
-import { Grid } from '@material-ui/core';
-import CardContainer from '../../Components/CardContainer';
-import { RoomContext } from '../../Context/RoomContext';
+import React, { useState, useEffect, useContext } from 'react';
+import Video from 'twilio-video';
+import Participant from '../../Components/Praticipant';
 import { VideoContext } from '../../Context/VideoContext';
-import { RoomProvider } from '../../Context/RoomContext';
+
 const VideoScreen = () => {
-    const { connect, isConnecting, settings, localTracks } = useContext(RoomContext);
+    const [ room, setRoom ] = useState(null);
+    const [ participants, setParticipants ] = useState([]);
     const { state } = useContext(VideoContext);
-    const [ chat, setChat ] = useState({ active: false });
+    useEffect(
+        () => {
+            const participantConnected = participant => {
+                setParticipants(prevParticipants => [ ...prevParticipants, participant ]);
+            };
 
-    console.log(settings);
-    console.log(localTracks);
+            const participantDisconnected = participant => {
+                setParticipants(prevParticipants => prevParticipants.filter(p => p !== participant));
+            };
 
-    useEffect(() => {
-        console.log(state.accessToken);
-        connect(state.accessToken);
-    }, []);
+            Video.connect(state.accessToken, {
+                name: 'ascn'
+            }).then(room => {
+                setRoom(room);
+                room.on('participantConnected', participantConnected);
+                room.on('participantDisconnected', participantDisconnected);
+                room.participants.forEach(participantConnected);
+            });
 
-    const handleChat = () => {
-        if (chat.active === true) {
-            setChat({ active: false });
-        }
-        else {
-            setChat({ active: true });
-        }
-    };
+            return () => {
+                setRoom(currentRoom => {
+                    if (currentRoom && currentRoom.localParticipant.state === 'connected') {
+                        currentRoom.localParticipant.tracks.forEach(function (trackPublication) {
+                            trackPublication.track.stop();
+                        });
+                        currentRoom.disconnect();
+                        return null;
+                    }
+                    else {
+                        return currentRoom;
+                    }
+                });
+            };
+        },
+        [ state.accessToken ]
+    );
+
+    const remoteParticipants = participants.map(participant => (
+        <Participant key={participant.sid} participant={participant} />
+    ));
 
     return (
-        <Grid style={{ display: 'flex', overflowY: 'hidden' }}>
-            <Grid className="videoContainer">
-                <CardContainer />
-                <Grid className="controlContainer">
-                    <BtnGroup handleChat={handleChat} />
-                </Grid>
-            </Grid>
-            {chat.active ? <ChatBox handleChat={handleChat} /> : null}
-        </Grid>
+        <div className="room">
+            <div className="local-participant">
+                {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
+            </div>
+            <h3>Remote Participants</h3>
+            <div className="remote-participants">{remoteParticipants}</div>
+        </div>
     );
 };
 
-export default () => (
-    <RoomProvider>
-        <VideoScreen />
-    </RoomProvider>
-);
+export default VideoScreen;

@@ -5,7 +5,7 @@ const useRoom = (localTracks, options) => {
     const [ room, setRoom ] = useState(null);
     const [ isconnecting, setIsconnecting ] = useState(false);
     const optionRef = useRef(null);
-
+    const [ participants, setParticipants ] = useState([]);
     useEffect(
         () => {
             optionRef.current = options;
@@ -30,6 +30,16 @@ const useRoom = (localTracks, options) => {
                     newRoom.localParticipant.videoTracks.forEach(track => {
                         track.setPriority('low');
                     });
+                    const participantConnect = participant => {
+                        setParticipants(prevParticipant => [ ...prevParticipant, participant ]);
+                    };
+
+                    const participantDisconnect = part => {
+                        setParticipants(participants => participants.filter(participant => part !== participant));
+                    };
+                    newRoom?.on('participantConnected', participantConnect);
+                    newRoom?.on('participantDisconnected', participantDisconnect);
+                    newRoom?.participants.forEach(participantConnect);
                     window.addEventListener('beforeunload', disconnect);
                     console.log(newRoom);
                     setIsconnecting(false);
@@ -42,6 +52,6 @@ const useRoom = (localTracks, options) => {
         },
         [ localTracks ]
     );
-    return { room, isconnecting, connect };
+    return { room, isconnecting, connect,participants };
 };
 export default useRoom;

@@ -9,7 +9,7 @@ export const RoomProvider = ({ children }) => {
     const { localTracks, removeLocalAudio, removeLocalVideo, setSettings, settings, isLoading } = useMedia(
         MediaConstraints
     );
-    const { room, isConnecting, connect } = useRoom({ localTracks }, {});
+    const { room, isConnecting, connect, participants } = useRoom(localTracks, { name: 'abcd' });
     useHandleRoomDisconnect(room);
     return (
         <RoomContext.Provider
@@ -22,7 +22,8 @@ export const RoomProvider = ({ children }) => {
                 removeLocalVideo,
                 setSettings,
                 settings,
-                isLoading
+                isLoading,
+                participants
             }}
         >
             {children}

@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
-import MediaConstraints from '../../constants/MediaConstraints';
-import { VideoTracks } from '../../Components/VideoConstraints';
+// import MediaConstraints from '../../constants/MediaConstraints';
+// import { VideoTracks } from '../../Components/VideoConstraints';
 
 const Participant = ({ participant }) => {
     const [ videoTracks, setVideoTracks ] = useState([]);
     const [ audioTracks, setAudioTracks ] = useState([]);
-    const { localAudioTrack, localVideoTrack } = useMedia(MediaConstraints);
+    
     const videoRef = useRef();
     const audioRef = useRef();
     const trackpubsToTracks = trackMap =>
@@ -13,7 +13,7 @@ const Participant = ({ participant }) => {
     useEffect(
         () => {
             setVideoTracks(trackpubsToTracks(participant.videoTracks));
-            setAudioTracks(trackpubsToTracks(participant.audioTrack));
+            setAudioTracks(trackpubsToTracks(participant.audioTracks));
             const trackSubscribed = track => {
                 if (track.kind === 'video') setVideoTracks(videoTracks => [ ...videoTracks, track ]);
                 else if (track.kind === 'audio') setAudioTracks(audioTracks => [ ...audioTracks, track ]);
@@ -40,7 +40,7 @@ const Participant = ({ participant }) => {
             if (videoTrack) {
                 videoTrack.attach(videoRef.current);
                 return () => {
-                    videoTrack.detach();
+                    videoTrack?.detach();
                 };
             }
         },
@@ -53,15 +53,16 @@ const Participant = ({ participant }) => {
                 audioTrack.attach(audioRef.current);
             }
             return () => {
-                audioTrack.detach();
+                audioTrack?.detach();
             };
         },
         [ audioTracks ]
     );
+    console.log('participant=', participant);
     return (
         <div className="participant">
             <h3>{participant.identity}</h3>
-            <VideoTracks track={localVideoTrack} />
+            {/* <VideoTracks track={localVideoTrack} /> */}
             <video ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
