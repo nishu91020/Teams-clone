@@ -4,7 +4,6 @@ import Signup from './Screens/Signup';
 import Login from './Screens/Login';
 import { Router, Route, Switch } from 'react-router-dom';
 import Home from './Screens/Home';
-import TextChat from './Screens/TextChat';
 import history from './history';
 import { UserContext } from '../src/Context/AuthContext';
 import CreateRoom from '../src/Screens/CreateRoom';
@@ -24,7 +23,6 @@ function App () {
                     <Route path="/" exact component={Signup} />
                     <Route path="/Login" exact component={Login} />
                     <Route path="/home" exact component={Home} />
-                    <Route path="/TextChat" exact component={TextChat} />
                     <Route path="/CreateRoom/:id" exact component={CreateRoom} />
                     <Route path="/JoinRoom" exact component={JoinRoom} />
                     <Route path="/VideoScreen/:id" exact component={VideoScreen} />
