@@ -14,9 +14,10 @@ const VideoScreen = () => {
     const [ participants, setParticipants ] = useState([]);
     const { state } = useContext(VideoContext);
     const [ chat, setChat ] = useState({ active: false });
-    const [ videoTrack, setVideoTrack ] = useState({ active: true });
-    const [ audioTrack, setAudioTrack ] = useState({ active: true });
+    const [ isVideoOn, setIsVideoOn ] = useState(true);
+    const [ isAudioOn, setIsAudioOn ] = useState(true);
     const [ participantList, setParticipantList ] = useState({ active: false });
+
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -55,30 +56,30 @@ const VideoScreen = () => {
     );
 
     const handleAudioMute = () => {
-        if (audioTrack === true) {
+        if (isAudioOn === true) {
             room.localParticipant.audioTracks.forEach(trackPublication => {
                 trackPublication.track.disable();
             });
-            setAudioTrack(false);
+            setIsAudioOn(false);
         }
         else {
             room.localParticipant.audioTracks.forEach(trackPublication => {
                 trackPublication.track.enable();
-                setAudioTrack(true);
+                setIsAudioOn(true);
             });
         }
     };
     const handleVideoMute = () => {
-        if (videoTrack === true) {
+        if (isVideoOn === true) {
             room.localParticipant.videoTracks.forEach(publication => {
                 publication.track.disable();
-                setVideoTrack(false);
+                setIsVideoOn(false);
             });
         }
         else {
             room.localParticipant.videoTracks.forEach(publication => {
                 publication.track.enable();
-                setVideoTrack(true);
+                setIsVideoOn(true);
             });
         }
     };
@@ -128,8 +129,8 @@ const VideoScreen = () => {
                 </div>
                 <Grid className="controlContainer">
                     <BtnGroup
-                        audioTrack={audioTrack}
-                        videoTrack={videoTrack}
+                        isAudioOn={isAudioOn}
+                        isVideoOn={isVideoOn}
                         handleVideoMute={handleVideoMute}
                         handleAudioMute={handleAudioMute}
                         handleChat={handleChat}
@@ -140,11 +141,7 @@ const VideoScreen = () => {
             </Grid>
             {chat.active ? <ChatBox handleChat={handleChat} /> : null}
             {participantList.active ? (
-                <ParticipantList
-                    handleParticipants={handleParticipants}
-                    people={people}
-                    owner={room.localParticipant.identity}
-                />
+                <ParticipantList handleParticipants={handleParticipants} people={people} owner={state.username} />
             ) : null}
         </Grid>
     );

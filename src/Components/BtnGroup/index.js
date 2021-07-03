@@ -20,8 +20,8 @@ const BtnGroup = props => {
                 color="default"
                 aria-label="contained primary button group"
             >
-                <Button onClick={props.handleVideoMute}>{props.videoTrack ? <Videocam /> : <VideocamOff />}</Button>
-                <Button onClick={props.handleAudioMute}>{props.audioTrack ? <Mic /> : <MicOff />}</Button>
+                <Button onClick={props.handleVideoMute}>{props.isVideoOn ? <Videocam /> : <VideocamOff />}</Button>
+                <Button onClick={props.handleAudioMute}>{props.isAudioOn ? <Mic /> : <MicOff />}</Button>
                 <Button>
                     <PresentToAll />
                 </Button>

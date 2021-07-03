@@ -33,7 +33,7 @@ app.get('/rooms', (req, res) => {
 app.get('/token', (req, res) => {
     console.log('name');
     console.log(req.query.name);
-    const identity = faker.name.findName();
+    const identity = `${uuidv4()}`;
     console.log(identity);
     const token = new AccessToken(
         process.env.TWILIO_ACCOUNT_SID,
@@ -45,7 +45,8 @@ app.get('/token', (req, res) => {
     token.addGrant(grant);
     res.send({
         identity: token.identity,
-        token: token.toJwt()
+        token: token.toJwt(),
+        usernam: req.query.name
     });
 });
 app.get('/room', (req, res) => {

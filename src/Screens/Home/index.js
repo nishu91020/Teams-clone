@@ -5,7 +5,6 @@ import history from '../../history';
 import { VideoContext } from '../../Context/VideoContext';
 import { UserContext } from '../../Context/AuthContext';
 import Button from '@material-ui/core/Button';
-import { Form } from '../../Components/Form';
 
 const useStyles = makeStyles({
     one: {
@@ -18,6 +17,14 @@ const useStyles = makeStyles({
         fontSize: '30px',
         fontFamily: 'cursive',
         fontStyle: 'italic'
+    },
+    btnAll: {
+        width: '50%',
+        margin: '5%'
+    },
+    logout: {
+        marginTop: '20%',
+        right: '5%'
     }
 });
 const Home = () => {
@@ -39,17 +46,26 @@ const Home = () => {
         history.push('/JoinRoom');
     };
     return state.user ? (
-        <Grid item style={{ padding: '1%', display: 'flex' }} sm={12}>
-            <Grid item className="textArea" sm={6} xs={12} alignItems="center" justify="center">
+        <Grid
+            container
+            item
+            direction="row"
+            xs={12}
+            alignItems="center"
+            justify="center"
+            className={classes.homeContainer}
+        >
+            <Grid container item className="textArea" sm={6} xs={12} alignItems="center" justify="center">
                 <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
                 <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
-                <Grid item style={{ display: 'flex', paddingTop: '10%' }}>
-                    <Grid item style={{ width: '30%' }} onClick={handleCreate} className="btnGroup">
-                        <Form.BtnForm content="Create a room" />
-                    </Grid>
-                    <Grid item style={{ width: '30%' }} onClick={join} className="btnGroup">
-                        <Form.BtnForm content="Join a room" />
-                    </Grid>
+                <Grid container item justify="space-around" className={classes.btnAll}>
+                    <Button styles={classes.btn} onClick={handleCreate} color="primary" variant="contained">
+                        Create a room
+                    </Button>
+
+                    <Button styles={classes.btn} onClick={join} color="primary" variant="contained">
+                        Join a room
+                    </Button>
                 </Grid>
             </Grid>
 
@@ -59,11 +75,16 @@ const Home = () => {
                     height="400px"
                     alt="teams"
                 />
-                <Grid item onClick={handleLogout} style={{ textAlign: 'right', marginTop: '10%' }}>
-                    <Button size="small" variant="outlined" color="secondary">
-                        Logout
-                    </Button>
-                </Grid>
+
+                <Button
+                    className={classes.logout}
+                    onClick={handleLogout}
+                    size="small"
+                    variant="outlined"
+                    color="secondary"
+                >
+                    Logout
+                </Button>
             </Grid>
         </Grid>
     ) : null;

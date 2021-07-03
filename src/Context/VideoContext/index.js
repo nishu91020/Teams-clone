@@ -20,7 +20,7 @@ const api = axios.create({
     baseURL: 'http://localhost:8080'
 });
 export const VideoProvider = ({ children }) => {
-    const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {} });
+    const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {}, username: '' });
     const createRoom = () => {
         api
             .get('/rooms', {})
@@ -44,7 +44,7 @@ export const VideoProvider = ({ children }) => {
             .then(res => {
                 dispatch({
                     type: 'GENERATETOKEN',
-                    payload: { accessToken: res.data.token }
+                    payload: { accessToken: res.data.token, username: name }
                 });
                 console.log('token=', res.data.token);
                 history.push(`/VideoScreen/${roomId}`);
