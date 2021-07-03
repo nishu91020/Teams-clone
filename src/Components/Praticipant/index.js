@@ -61,7 +61,7 @@ const Participant = ({ participant }) => {
     console.log('participant=', participant);
     return (
         <div className="participant">
-            <h3>{participant.identity}</h3>
+            {/* <h3>{participant.identity}</h3> */}
             {/* <VideoTracks track={localVideoTrack} /> */}
             <video style={{borderRadius:'5px',width:'40%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />

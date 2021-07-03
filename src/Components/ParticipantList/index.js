@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Button, makeStyles } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-
 const useStyles = makeStyles({
     box: {
         paddingLeft: '1%'
     }
 });
+
 const ParticipantList = props => {
     const classes = useStyles();
+    console.log('participants in room');
+
     return (
         <Grid sm={4} className={classes.box}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -24,9 +26,8 @@ const ParticipantList = props => {
                     <Close />
                 </Button>
             </div>
-            <div>Nishu</div>
-            <div>Nishu</div>
-            <div>Nishu</div>
+            <Grid>{props.owner}</Grid>
+            <Grid>{props.people}</Grid>
         </Grid>
     );
 };

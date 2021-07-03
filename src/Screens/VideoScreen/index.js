@@ -28,7 +28,7 @@ const VideoScreen = () => {
             };
 
             Video.connect(state.accessToken, {
-                name: 'ascn'
+                name: 'general'
             }).then(room => {
                 setRoom(room);
                 room.on('participantConnected', participantConnected);
@@ -117,7 +117,8 @@ const VideoScreen = () => {
     const remoteParticipants = participants.map(participant => (
         <Participant key={participant.sid} participant={participant} />
     ));
-
+    const people = participants.map(participant => <div>{participant.identity}</div>);
+    //console.log(room.localParticipant.uniqueName);
     return (
         <Grid style={{ display: 'flex' }}>
             <Grid className="videoContainer">
@@ -138,7 +139,13 @@ const VideoScreen = () => {
                 </Grid>
             </Grid>
             {chat.active ? <ChatBox handleChat={handleChat} /> : null}
-            {participantList.active ? <ParticipantList handleParticipants={handleParticipants} /> : null}
+            {participantList.active ? (
+                <ParticipantList
+                    handleParticipants={handleParticipants}
+                    people={people}
+                    owner={room.localParticipant.identity}
+                />
+            ) : null}
         </Grid>
     );
 };
