@@ -28,7 +28,7 @@ const BtnGroup = props => {
                 <Button onClick={props.handleChat}>
                     <Chat />
                 </Button>
-                <Button>
+                <Button onClick={props.handleParticipants}>
                     <Group />
                 </Button>
                 <Button color="secondary" onClick={props.dropCall}>

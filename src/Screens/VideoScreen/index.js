@@ -5,6 +5,7 @@ import Participant from '../../Components/Praticipant';
 import { VideoContext } from '../../Context/VideoContext';
 import BtnGroup from '../../Components/BtnGroup';
 import ChatBox from '../../Components/ChatBox';
+import ParticipantList from '../../Components/ParticipantList';
 import './styles.css';
 import history from '../../history';
 
@@ -15,7 +16,7 @@ const VideoScreen = () => {
     const [ chat, setChat ] = useState({ active: false });
     const [ videoTrack, setVideoTrack ] = useState({ active: true });
     const [ audioTrack, setAudioTrack ] = useState({ active: true });
-
+    const [ participantList, setParticipantList ] = useState({ active: false });
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -100,6 +101,17 @@ const VideoScreen = () => {
         }
         else {
             setChat({ active: true });
+            setParticipantList({ active: false });
+        }
+    };
+
+    const handleParticipants = () => {
+        if (participantList.active === true) {
+            setParticipantList({ active: false });
+        }
+        else {
+            setParticipantList({ active: true });
+            setChat({ active: false });
         }
     };
     const remoteParticipants = participants.map(participant => (
@@ -121,10 +133,12 @@ const VideoScreen = () => {
                         handleAudioMute={handleAudioMute}
                         handleChat={handleChat}
                         dropCall={dropCall}
+                        handleParticipants={handleParticipants}
                     />
                 </Grid>
             </Grid>
             {chat.active ? <ChatBox handleChat={handleChat} /> : null}
+            {participantList.active ? <ParticipantList handleParticipants={handleParticipants} /> : null}
         </Grid>
     );
 };
