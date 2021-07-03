@@ -1,7 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
 dotenv.config();
 
@@ -33,7 +32,7 @@ app.get('/rooms', (req, res) => {
 app.get('/token', (req, res) => {
     console.log('name');
     console.log(req.query.name);
-    const identity = `${uuidv4()}`;
+    const identity = req.query.name + `@${uuidv4()}`;
     console.log(identity);
     const token = new AccessToken(
         process.env.TWILIO_ACCOUNT_SID,
@@ -45,8 +44,7 @@ app.get('/token', (req, res) => {
     token.addGrant(grant);
     res.send({
         identity: token.identity,
-        token: token.toJwt(),
-        usernam: req.query.name
+        token: token.toJwt()
     });
 });
 app.get('/room', (req, res) => {

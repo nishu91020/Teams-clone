@@ -8,16 +8,16 @@ import ChatBox from '../../Components/ChatBox';
 import ParticipantList from '../../Components/ParticipantList';
 import './styles.css';
 import history from '../../history';
+import MediaConstraints from '../../constants/MediaConstraints';
 
 const VideoScreen = () => {
     const [ room, setRoom ] = useState(null);
     const [ participants, setParticipants ] = useState([]);
     const { state } = useContext(VideoContext);
-    const [ chat, setChat ] = useState({ active: false });
+    const [ isChatActive, setIsChatActive ] = useState(false);
     const [ isVideoOn, setIsVideoOn ] = useState(true);
     const [ isAudioOn, setIsAudioOn ] = useState(true);
-    const [ participantList, setParticipantList ] = useState({ active: false });
-
+    const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -29,7 +29,8 @@ const VideoScreen = () => {
             };
 
             Video.connect(state.accessToken, {
-                name: 'general'
+                name: 'general',
+                ...MediaConstraints
             }).then(room => {
                 setRoom(room);
                 room.on('participantConnected', participantConnected);
@@ -97,36 +98,43 @@ const VideoScreen = () => {
     }, []);
 
     const handleChat = () => {
-        if (chat.active === true) {
-            setChat({ active: false });
+        if (isChatActive === true) {
+            setIsChatActive(false);
         }
         else {
-            setChat({ active: true });
-            setParticipantList({ active: false });
+            setIsChatActive(true);
+            setIsParticipantListActive(false);
         }
     };
 
     const handleParticipants = () => {
-        if (participantList.active === true) {
-            setParticipantList({ active: false });
+        if (isParticipantListActive) {
+            setIsParticipantListActive(false);
         }
         else {
-            setParticipantList({ active: true });
-            setChat({ active: false });
+            setIsParticipantListActive(true);
+            setIsChatActive(false);
         }
     };
     const remoteParticipants = participants.map(participant => (
         <Participant key={participant.sid} participant={participant} />
     ));
-    const people = participants.map(participant => <div>{participant.identity}</div>);
+    const people = participants.map(participant => (
+        <div>{participant.identity.substring(0, participant.identity.indexOf('@'))}</div>
+    ));
     //console.log(room.localParticipant.uniqueName);
     return (
-        <Grid style={{ display: 'flex' }}>
-            <Grid className="videoContainer">
-                <div className="local-participant">
-                    {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
-                    {remoteParticipants}
-                </div>
+        <Grid item container direction="row" xs={12}>
+            <Grid
+                item
+                container
+                justify="center"
+                alignItems="center"
+                className="videoContainer"
+                xs={isChatActive || isParticipantListActive ? 9 : 12}
+            >
+                {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
+                {remoteParticipants}
                 <Grid className="controlContainer">
                     <BtnGroup
                         isAudioOn={isAudioOn}
@@ -139,9 +147,19 @@ const VideoScreen = () => {
                     />
                 </Grid>
             </Grid>
-            {chat.active ? <ChatBox handleChat={handleChat} /> : null}
-            {participantList.active ? (
-                <ParticipantList handleParticipants={handleParticipants} people={people} owner={state.username} />
+            {isChatActive ? (
+                <Grid container item xs={3}>
+                    <ChatBox handleChat={handleChat} />
+                </Grid>
+            ) : null}
+            {isParticipantListActive ? (
+                <Grid container item xs={3}>
+                    <ParticipantList
+                        handleParticipants={handleParticipants}
+                        people={people}
+                        owner={room.localParticipant.identity}
+                    />
+                </Grid>
             ) : null}
         </Grid>
     );

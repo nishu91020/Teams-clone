@@ -60,10 +60,10 @@ const Participant = ({ participant }) => {
     );
     console.log('participant=', participant);
     return (
-        <div className="participant">
+        <div >
             {/* <h3>{participant.identity}</h3> */}
             {/* <VideoTracks track={localVideoTrack} /> */}
-            <video style={{borderRadius:'5px',width:'40%'}} ref={videoRef} autoPlay={true} />
+            <video style={{borderRadius:'5px'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
     );
