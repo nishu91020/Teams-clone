@@ -13,6 +13,7 @@ const AccessToken = require('twilio').jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.get('/rooms', (req, res) => {
@@ -30,15 +31,17 @@ app.get('/rooms', (req, res) => {
 });
 
 app.get('/token', (req, res) => {
-    console.log(`token api ${req}`);
+    console.log('name');
+    console.log(req.query.name);
     const identity = faker.name.findName();
+    console.log(identity);
     const token = new AccessToken(
         process.env.TWILIO_ACCOUNT_SID,
         process.env.TWILIO_API_KEY_SID,
         process.env.TWILIO_API_KEY_SECRET
     );
     token.identity = identity;
-    const grant = new VideoGrant({ room: req.params.room });
+    const grant = new VideoGrant({ room: req.query.room });
     token.addGrant(grant);
     res.send({
         identity: token.identity,

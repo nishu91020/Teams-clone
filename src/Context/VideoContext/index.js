@@ -33,6 +33,7 @@ export const VideoProvider = ({ children }) => {
             });
     };
     const generateToken = (roomId, name) => {
+        console.log(name);
         api
             .get('/token', {
                 params: {

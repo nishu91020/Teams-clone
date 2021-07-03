@@ -26,7 +26,6 @@ const JoinRoom = () => {
     const { generateToken, state } = useContext(VideoContext);
 
     const handleJoin = () => {
-        console.log(state.room.uniqueName);
         generateToken(roomId, name);
     };
     // console.log(localAudioTrack);

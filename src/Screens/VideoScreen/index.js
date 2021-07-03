@@ -88,7 +88,7 @@ const VideoScreen = () => {
                     trackPub.track.stop();
                 });
                 prevRoom.disconnect();
-                history.push('/VideoChat');
+                history.push('/Home');
             }
             return null;
         });

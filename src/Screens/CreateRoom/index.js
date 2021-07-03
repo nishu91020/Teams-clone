@@ -27,7 +27,7 @@ const CreateRoom = () => {
     const [ name, setName ] = useState('');
 
     const handleEnter = () => {
-        console.log(state.room.uniqueName);
+        console.log(name);
         generateToken(state.room.uniqueName, name);
     };
     return (

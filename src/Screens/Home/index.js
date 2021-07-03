@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Typography, makeStyles } from '@material-ui/core';
+import { Typography, makeStyles, Grid } from '@material-ui/core';
 import './styles.css';
 import history from '../../history';
 import { VideoContext } from '../../Context/VideoContext';
@@ -9,13 +9,15 @@ import { Form } from '../../Components/Form';
 
 const useStyles = makeStyles({
     one: {
-        fontSize: '40px',
-        fontStyle: 'Lato',
+        fontSize: '50px',
+        fontFamily: 'cursive',
+        fontStyle: 'italic',
         fontWeight: 'bold'
     },
     two: {
         fontSize: '30px',
-        fontStyle: 'Lato'
+        fontFamily: 'cursive',
+        fontStyle: 'italic'
     }
 });
 const Home = () => {
@@ -37,35 +39,33 @@ const Home = () => {
         history.push('/JoinRoom');
     };
     return state.user ? (
-        <div style={{ padding: '1%' }}>
-            <div style={{ display: 'flex' }}>
-                <div style={{ width: '50%' }}>
-                    <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
-                    <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
-                    <div style={{ display: 'flex', paddingTop: '10%' }}>
-                        <div style={{ width: '30%' }} onClick={handleCreate} className="btnGroup">
-                            <Form.BtnForm content="Create a room" />
-                        </div>
-                        <div style={{ width: '30%' }} onClick={join} className="btnGroup">
-                            <Form.BtnForm content="Join a room" />
-                        </div>
-                    </div>
-                </div>
+        <Grid item style={{ padding: '1%', display: 'flex' }} sm={12}>
+            <Grid item className="textArea" sm={6} xs={12} alignItems="center" justify="center">
+                <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
+                <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
+                <Grid item style={{ display: 'flex', paddingTop: '10%' }}>
+                    <Grid item style={{ width: '30%' }} onClick={handleCreate} className="btnGroup">
+                        <Form.BtnForm content="Create a room" />
+                    </Grid>
+                    <Grid item style={{ width: '30%' }} onClick={join} className="btnGroup">
+                        <Form.BtnForm content="Join a room" />
+                    </Grid>
+                </Grid>
+            </Grid>
 
-                <div className="image">
-                    <img
-                        src="https://image.freepik.com/free-vector/flat-worker-conducts-online-meeting-virtual-team-building-videoconference-home-office_88138-508.jpg"
-                        height="400px"
-                        alt="teams"
-                    />
-                    <div onClick={handleLogout} style={{ textAlign: 'right', marginTop: '10%' }}>
-                        <Button size="small" variant="outlined" color="secondary">
-                            Logout
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <Grid item sm={6} xs={12}>
+                <img
+                    src="https://image.freepik.com/free-vector/flat-worker-conducts-online-meeting-virtual-team-building-videoconference-home-office_88138-508.jpg"
+                    height="400px"
+                    alt="teams"
+                />
+                <Grid item onClick={handleLogout} style={{ textAlign: 'right', marginTop: '10%' }}>
+                    <Button size="small" variant="outlined" color="secondary">
+                        Logout
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
     ) : null;
 };
 
