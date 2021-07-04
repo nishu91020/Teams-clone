@@ -1,3 +1,5 @@
+//participants identity card used to display participants currently in room along with avatar.
+
 import React from 'react';
 import { List, ListItem, Avatar, ListItemAvatar, ListItemText } from '@material-ui/core';
 const ParticipantCard = props => {

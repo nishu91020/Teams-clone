@@ -1,3 +1,5 @@
+//chat component of meeting room.
+
 import React from 'react';
 import './styles.css';
 import { Send, Close } from '@material-ui/icons';

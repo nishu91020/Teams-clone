@@ -1,3 +1,5 @@
+//component of meeting room to show active participants in the room and the invite button to copy room's unique name.
+
 import React from 'react';
 import { Grid, Button, makeStyles, List } from '@material-ui/core';
 import ParticipantCard from '../ParticipantCard';
@@ -17,8 +19,8 @@ const useStyles = makeStyles({
 
 const ParticipantList = props => {
     const classes = useStyles();
-    console.log('participants in room');
-    console.log(props.owner);
+    // console.log('participants in room');
+    // console.log(props.owner);
     const ownerName = props.owner;
     return (
         <Grid sm={12} className={classes.box}>
