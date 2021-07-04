@@ -11,6 +11,7 @@ const ParticipantList = props => {
     const classes = useStyles();
     console.log('participants in room');
     console.log(props.owner);
+    const ownerName = props.owner;
     return (
         <Grid sm={12} className={classes.box}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -26,7 +27,7 @@ const ParticipantList = props => {
                     <Close />
                 </Button>
             </div>
-            <Grid>{props.owner}</Grid>
+            <Grid>{ownerName}</Grid>
             <Grid>{props.people}</Grid>
         </Grid>
     );

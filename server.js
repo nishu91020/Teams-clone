@@ -44,9 +44,11 @@ app.get('/token', (req, res) => {
     token.addGrant(grant);
     res.send({
         identity: token.identity,
-        token: token.toJwt()
+        token: token.toJwt(),
+        username: req.query.name
     });
 });
+
 app.get('/room', (req, res) => {
     const roomId = req.params.room;
     console.log(roomId);

@@ -138,6 +138,9 @@ const VideoScreen = () => {
     const people = participants.map(participant => (
         <div>{participant.identity.substring(0, participant.identity.indexOf('@'))}</div>
     ));
+    const ownerName = state.identity;
+    // console.log('this is user in participant list');
+    // console.log(state.identity);
     //console.log(room.localParticipant.uniqueName);
     return (
         <Grid item container direction="row" xs={12}>
@@ -178,11 +181,7 @@ const VideoScreen = () => {
             ) : null}
             {isParticipantListActive ? (
                 <Grid container item xs={3}>
-                    <ParticipantList
-                        handleParticipants={handleParticipants}
-                        people={people}
-                        owner={room.localParticipant.identity}
-                    />
+                    <ParticipantList handleParticipants={handleParticipants} people={people} owner={ownerName} />
                 </Grid>
             ) : null}
         </Grid>
