@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
-import { Grid, Button, makeStyles } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import React from 'react';
+import { Grid, Button, makeStyles, List } from '@material-ui/core';
+import ParticipantCard from '../ParticipantCard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Close, Share } from '@material-ui/icons';
+
 const useStyles = makeStyles({
     box: {
         paddingLeft: '1%'
+    },
+    invite: {
+        width: '80%',
+        margin: '2%',
+        marginLeft: '8%'
     }
 });
 
@@ -27,8 +35,15 @@ const ParticipantList = props => {
                     <Close />
                 </Button>
             </div>
-            <Grid>{ownerName}</Grid>
-            <Grid>{props.people}</Grid>
+            <CopyToClipboard text={props.room}>
+                <Button className={classes.invite} variant="outlined">
+                    <Share /> Share Invite
+                </Button>
+            </CopyToClipboard>
+            <List component="nav">
+                <ParticipantCard name={ownerName} />
+                <Grid>{props.people}</Grid>
+            </List>
         </Grid>
     );
 };

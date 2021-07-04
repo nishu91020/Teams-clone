@@ -10,6 +10,7 @@ import { calcCardWidth } from '../../Util/participantCard';
 import './styles.css';
 import history from '../../history';
 import MediaConstraints from '../../constants/MediaConstraints';
+import ParticipantCard from '../../Components/ParticipantCard';
 
 const VideoScreen = () => {
     const [ room, setRoom ] = useState(null);
@@ -136,7 +137,7 @@ const VideoScreen = () => {
     //participants list
 
     const people = participants.map(participant => (
-        <div>{participant.identity.substring(0, participant.identity.indexOf('@'))}</div>
+        <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />
     ));
     const ownerName = state.identity;
     // console.log('this is user in participant list');
@@ -181,7 +182,12 @@ const VideoScreen = () => {
             ) : null}
             {isParticipantListActive ? (
                 <Grid container item xs={3}>
-                    <ParticipantList handleParticipants={handleParticipants} people={people} owner={ownerName} />
+                    <ParticipantList
+                        handleParticipants={handleParticipants}
+                        people={people}
+                        owner={ownerName}
+                        room={state.room.uniqueName}
+                    />
                 </Grid>
             ) : null}
         </Grid>
