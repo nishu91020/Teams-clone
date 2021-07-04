@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 // import MediaConstraints from '../../constants/MediaConstraints';
 // import { VideoTracks } from '../../Components/VideoConstraints';
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant,dimension }) => {
     const [ videoTracks, setVideoTracks ] = useState([]);
     const [ audioTracks, setAudioTracks ] = useState([]);
     
@@ -60,10 +60,13 @@ const Participant = ({ participant }) => {
     );
     console.log('participant=', participant);
     return (
-        <div >
+        <div styles={{ width  : `${dimension.width - dimension.margin * 2}px`,
+                height : `${dimension.width * (9 / 16) - dimension.margin * 2}px`,
+                margin : `${dimension.margin}px`,
+                overflow: 'hidden',}}>
             {/* <h3>{participant.identity}</h3> */}
             {/* <VideoTracks track={localVideoTrack} /> */}
-            <video style={{borderRadius:'5px'}} ref={videoRef} autoPlay={true} />
+            <video style={{borderRadius:'5px',width:'100%',height:'100%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
     );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useContext, useCallback } from 'react';
 import Video from 'twilio-video';
 import { Grid } from '@material-ui/core';
 import Participant from '../../Components/Praticipant';
@@ -6,6 +6,7 @@ import { VideoContext } from '../../Context/VideoContext';
 import BtnGroup from '../../Components/BtnGroup';
 import ChatBox from '../../Components/ChatBox';
 import ParticipantList from '../../Components/ParticipantList';
+import { calcCardWidth } from '../../Util/participantCard';
 import './styles.css';
 import history from '../../history';
 import MediaConstraints from '../../constants/MediaConstraints';
@@ -18,6 +19,18 @@ const VideoScreen = () => {
     const [ isVideoOn, setIsVideoOn ] = useState(true);
     const [ isAudioOn, setIsAudioOn ] = useState(true);
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
+    const [ dimension, setDimension ] = useState({ width: 0, margin: 0 });
+    const videoContainerRef = useRef(null);
+
+    useEffect(
+        () => {
+            const containerWidth = videoContainerRef.current ? videoContainerRef.current.offsetWidth : 1540;
+            const containerHeight = videoContainerRef.current ? videoContainerRef.current.offsetHeight : 880;
+            setDimension(calcCardWidth(containerWidth, containerHeight, participants.length));
+        },
+        [ participants ]
+    );
+
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -117,8 +130,11 @@ const VideoScreen = () => {
         }
     };
     const remoteParticipants = participants.map(participant => (
-        <Participant key={participant.sid} participant={participant} />
+        <Participant dimension={dimension} key={participant.sid} participant={participant} />
     ));
+
+    //participants list
+
     const people = participants.map(participant => (
         <div>{participant.identity.substring(0, participant.identity.indexOf('@'))}</div>
     ));
@@ -133,7 +149,15 @@ const VideoScreen = () => {
                 className="videoContainer"
                 xs={isChatActive || isParticipantListActive ? 9 : 12}
             >
-                {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
+                {room ? (
+                    <Participant
+                        dimension={dimension}
+                        key={room.localParticipant.sid}
+                        participant={room.localParticipant}
+                    />
+                ) : (
+                    ''
+                )}
                 {remoteParticipants}
                 <Grid className="controlContainer">
                     <BtnGroup
