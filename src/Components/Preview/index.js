@@ -1,5 +1,3 @@
-//set media options of user before entering the room
-
 import React, { useState, useEffect,useContext } from 'react';
 import { Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';

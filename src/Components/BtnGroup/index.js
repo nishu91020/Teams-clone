@@ -1,5 +1,3 @@
-//meeting control buttons for audio,video,screenshare,chat,drop call functionality
-
 import React from 'react';
 import { Button, ButtonGroup, makeStyles } from '@material-ui/core';
 import { Videocam, Mic, Chat, CallEnd, PresentToAll, Group, VideocamOff, MicOff } from '@material-ui/icons';

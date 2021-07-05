@@ -1,5 +1,3 @@
-//deal with participant activity like connect disconnect and handle user media that is displayed in meeting room
-
 import React, { useRef, useEffect, useState } from 'react';
 // import MediaConstraints from '../../constants/MediaConstraints';
 // import { VideoTracks } from '../../Components/VideoConstraints';
@@ -60,7 +58,7 @@ const Participant = ({ participant,dimension }) => {
         },
         [ audioTracks ]
     );
-    // console.log('participant=', participant);
+    console.log('participant=', participant);
     return (
         <div styles={{ width  : `${dimension.width - dimension.margin * 2}px`,
                 height : `${dimension.width * (9 / 16) - dimension.margin * 2}px`,
