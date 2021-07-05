@@ -2,13 +2,14 @@ import React, { useState, useEffect,useContext } from 'react';
 import { Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
 import VideoTrack from '../VideoTracks';
+import {Grid,CircularProgress} from '@material-ui/core'
 import './styles.css';
 
 import {RoomProvider,RoomContext} from '../../Context/RoomContext';
 
 const Preview = () => {
     
-    const {localTracks,setSettings} = useContext(RoomContext);
+    const {localTracks,setSettings,isLoading} = useContext(RoomContext);
 
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
     useEffect(()=>{
@@ -40,6 +41,14 @@ const Preview = () => {
     };
     // console.log(audioTrack);
     // console.log(videoTrack);
+    if(isLoading)
+    {
+        return(
+            <Grid item container alignItems="center" justify="center">
+                <CircularProgress thickness={5} />
+            </Grid>
+        )
+    }
     return (
         
         <div>

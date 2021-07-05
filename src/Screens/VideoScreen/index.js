@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import Video from 'twilio-video';
 import { Grid } from '@material-ui/core';
 import Participant from '../../Components/Praticipant';
@@ -10,6 +10,7 @@ import './styles.css';
 import history from '../../history';
 import MediaConstraints from '../../constants/MediaConstraints';
 import ParticipantCard from '../../Components/ParticipantCard';
+import { cardSize } from '../../utility/cardSize';
 
 const VideoScreen = () => {
     const [ room, setRoom ] = useState(null);
@@ -19,6 +20,8 @@ const VideoScreen = () => {
     const [ isVideoOn, setIsVideoOn ] = useState(true);
     const [ isAudioOn, setIsAudioOn ] = useState(true);
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
+    const [ width, setWidth ] = useState(0);
+    const containerRef = useRef(null);
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -56,7 +59,6 @@ const VideoScreen = () => {
         },
         [ state.accessToken ]
     );
-
     const handleAudioMute = () => {
         if (isAudioOn === true) {
             room.localParticipant.audioTracks.forEach(trackPublication => {
@@ -117,12 +119,8 @@ const VideoScreen = () => {
             setIsChatActive(false);
         }
     };
-    const remoteParticipants = participants.map(participant => (
-        <Participant key={participant.sid} participant={participant} />
-    ));
-    const people = participants.map(participant => (
-        <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />
-    ));
+    const remoteParticipants = participants.map(participant => <Participant len={participants.length} key={participant.sid} participant={participant} />);
+    const people = participants.map(participant => <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />);
     const ownerName = state.identity;
     // console.log('this is user in participant list');
     // console.log(state.identity);
@@ -133,12 +131,15 @@ const VideoScreen = () => {
                 item
                 container
                 justify="center"
+                direction="row"
                 alignItems="center"
                 className="videoContainer"
                 xs={isChatActive || isParticipantListActive ? 9 : 12}
+                ref={containerRef}
             >
-                {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
+                {room ? <Participant len={participants.length} key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
                 {remoteParticipants}
+
                 <Grid className="controlContainer">
                     <BtnGroup
                         isAudioOn={isAudioOn}
@@ -158,12 +159,7 @@ const VideoScreen = () => {
             ) : null}
             {isParticipantListActive ? (
                 <Grid container item xs={3}>
-                    <ParticipantList
-                        handleParticipants={handleParticipants}
-                        people={people}
-                        owner={ownerName}
-                        room={state.room.uniqueName}
-                    />
+                    <ParticipantList handleParticipants={handleParticipants} people={people} owner={ownerName} room={state.room.uniqueName} />
                 </Grid>
             ) : null}
         </Grid>

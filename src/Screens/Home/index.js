@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Typography, makeStyles, Grid } from '@material-ui/core';
+import { Typography, makeStyles, Grid, CircularProgress } from '@material-ui/core';
 import './styles.css';
 import history from '../../history';
 import { VideoContext } from '../../Context/VideoContext';
@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
     one: {
+        color: '#3f51b5',
         fontSize: '50px',
         fontFamily: 'cursive',
         fontStyle: 'italic',
@@ -29,32 +30,37 @@ const useStyles = makeStyles({
 });
 const Home = () => {
     const classes = useStyles();
-    const { state, logout } = useContext(UserContext);
-    const { createRoom } = useContext(VideoContext);
-    useEffect(() => {
-        if (!state.token) {
-            history.push('/');
-        }
-    });
+    const { state, logout, isLoading } = useContext(UserContext);
+    const { createRoom, isConnecting } = useContext(VideoContext);
+    // useEffect(() => {
+    //     if (!state.token) {
+    //         history.push('/');
+    //     }
+    // });
     const handleLogout = () => {
-        logout();
+        const out = async () => {
+            await logout();
+        };
+        out();
     };
-    const handleCreate = () => {
-        createRoom();
+    const handleCreate = async () => {
+        const create = async () => {
+            await createRoom();
+        };
+        create();
     };
     const join = () => {
         history.push('/JoinRoom');
     };
-    return state.user ? (
-        <Grid
-            container
-            item
-            direction="row"
-            xs={12}
-            alignItems="center"
-            justify="center"
-            className={classes.homeContainer}
-        >
+    if (isConnecting || isLoading) {
+        return (
+            <div style={{ top: '50%', left: '50%', position: 'absolute' }}>
+                <CircularProgress thickness={5} />
+            </div>
+        );
+    }
+    return (
+        <Grid container item direction="row" xs={12} alignItems="center" justify="center" className={classes.homeContainer}>
             <Grid container item className="textArea" sm={6} xs={12} alignItems="center" justify="center">
                 <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
                 <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
@@ -76,18 +82,12 @@ const Home = () => {
                     alt="teams"
                 />
 
-                <Button
-                    className={classes.logout}
-                    onClick={handleLogout}
-                    size="small"
-                    variant="outlined"
-                    color="secondary"
-                >
+                <Button className={classes.logout} onClick={handleLogout} size="small" variant="outlined" color="secondary">
                     Logout
                 </Button>
             </Grid>
         </Grid>
-    ) : null;
+    );
 };
 
 export default Home;

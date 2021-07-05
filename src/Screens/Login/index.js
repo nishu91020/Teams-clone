@@ -16,13 +16,13 @@ const useStyle = makeStyles({
 const Login = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const { login, state } = useContext(UserContext);
+    const { login } = useContext(UserContext);
     const classes = useStyle();
-    useEffect(() => {
-        if (state.token) {
-            history.push('/home');
-        }
-    });
+    // useEffect(() => {
+    //     if (state.token) {
+    //         history.push('/home');
+    //     }
+    // });
     const handleLogin = () => {
         login(email, password);
     };
@@ -32,22 +32,9 @@ const Login = () => {
     return (
         <div className="container">
             <Form.AuthModal>
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg"
-                    width="34"
-                    height="34"
-                    alt="Teams"
-                />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg" width="34" height="34" alt="Teams" />
                 <Form.Title heading="Login" />
-                <TextField
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    type="email"
-                    className={classes.input}
-                    id="standard-basic"
-                    size="small"
-                    label="Email"
-                />
+                <TextField value={email} onChange={e => setEmail(e.target.value)} type="email" className={classes.input} id="standard-basic" size="small" label="Email" />
                 <TextField
                     value={password}
                     onChange={e => setPassword(e.target.value)}
