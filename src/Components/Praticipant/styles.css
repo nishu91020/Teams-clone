@@ -1,7 +1,6 @@
 .participantCard {
-    display: flex;
-    height: 200px;
-    width: 340px;
+    height: 162px;
+    width: 288px;
     justify-content: center;
     align-items: center;
     border-radius: 10px;

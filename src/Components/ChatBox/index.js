@@ -8,7 +8,8 @@ const useStyles = makeStyles({
         width: '270px'
     },
     box: {
-        paddingLeft: '1%'
+        paddingLeft: '1%',
+        backgroundColor: '#ffffff'
     }
 });
 const ChatBox = props => {
@@ -18,26 +19,12 @@ const ChatBox = props => {
         <Grid sm={12} className={classes.box}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h3>Meeting Chat</h3>
-                <Button
-                    size="small"
-                    disableRipple
-                    disableFocusRipple
-                    variant="text"
-                    className="cross"
-                    onClick={props.handleChat}
-                >
+                <Button size="small" disableRipple disableFocusRipple variant="text" className="cross" onClick={props.handleChat}>
                     <Close />
                 </Button>
             </div>
             <div className="message">
-                <TextField
-                    className={classes.input}
-                    size="small"
-                    id="standard-basic"
-                    variant="standard"
-                    type="text"
-                    placeholder="Message"
-                />
+                <TextField className={classes.input} size="small" id="standard-basic" variant="standard" type="text" placeholder="Message" />
                 <Send />
             </div>
         </Grid>

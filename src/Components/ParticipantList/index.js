@@ -6,7 +6,8 @@ import { Close, Share } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     box: {
-        paddingLeft: '1%'
+        paddingLeft: '1%',
+        backgroundColor: '#ffffff'
     },
     invite: {
         width: '80%',
@@ -24,14 +25,7 @@ const ParticipantList = props => {
         <Grid sm={12} className={classes.box}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h3>Participants</h3>
-                <Button
-                    size="small"
-                    disableRipple
-                    disableFocusRipple
-                    variant="text"
-                    className="cross"
-                    onClick={props.handleParticipants}
-                >
+                <Button size="small" disableRipple disableFocusRipple variant="text" className="cross" onClick={props.handleParticipants}>
                     <Close />
                 </Button>
             </div>

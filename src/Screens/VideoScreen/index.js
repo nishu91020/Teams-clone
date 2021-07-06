@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import Video from 'twilio-video';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import Participant from '../../Components/Praticipant';
 import { VideoContext } from '../../Context/VideoContext';
 import BtnGroup from '../../Components/BtnGroup';
@@ -19,6 +19,7 @@ const VideoScreen = () => {
     const [ isVideoOn, setIsVideoOn ] = useState(true);
     const [ isAudioOn, setIsAudioOn ] = useState(true);
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
+    const classes = useStyles();
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -116,32 +117,37 @@ const VideoScreen = () => {
             setIsChatActive(false);
         }
     };
-    const remoteParticipants = participants.map(participant => <Participant len={participants.length} key={participant.sid} participant={participant} />);
+    const remoteParticipants = participants.map(participant => <Participant key={participant.sid} participant={participant} />);
     const people = participants.map(participant => <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />);
     const ownerName = state.identity;
     // console.log('this is user in participant list');
     // console.log(state.identity);
     //console.log(room.localParticipant.uniqueName);
     return (
-        <Grid item container direction="row" xs={12} style={{ height: '93vh', overflowY: 'hidden' }}>
-            <div className="carousel-container">
-                {room ? <Participant len={participants.length} key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
-                {remoteParticipants}
-            </div>
+        <Grid item container direction="row" xs={12} className={classes.wrapper}>
+            <Grid xs={isParticipantListActive || isChatActive ? 9 : 12}>
+                <Grid style={{ height: '93vh', overflowY: 'hidden' }} xs={isParticipantListActive || isChatActive ? 4 : 3}>
+                    <div className="carousel-container">
+                        {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
+                        {remoteParticipants}
+                    </div>
+                </Grid>
 
-            <Grid className="controlContainer">
-                <BtnGroup
-                    isAudioOn={isAudioOn}
-                    isVideoOn={isVideoOn}
-                    handleVideoMute={handleVideoMute}
-                    handleAudioMute={handleAudioMute}
-                    handleChat={handleChat}
-                    dropCall={dropCall}
-                    handleParticipants={handleParticipants}
-                />
+                <Grid className="controlContainer">
+                    <BtnGroup
+                        isAudioOn={isAudioOn}
+                        isVideoOn={isVideoOn}
+                        handleVideoMute={handleVideoMute}
+                        handleAudioMute={handleAudioMute}
+                        handleChat={handleChat}
+                        dropCall={dropCall}
+                        handleParticipants={handleParticipants}
+                    />
+                </Grid>
             </Grid>
+
             {isChatActive ? (
-                <Grid container item xs={3}>
+                <Grid container item xs={3} className={classes.side}>
                     <ChatBox handleChat={handleChat} />
                 </Grid>
             ) : null}
@@ -156,21 +162,11 @@ const VideoScreen = () => {
 
 export default VideoScreen;
 
-const responsive = {
-    superLargeDesktop: {
-        breakpoint: { max: 4000, min: 3000 },
-        items: 12
+const useStyles = makeStyles({
+    wrapper: {
+        backgroundColor: '#272727'
     },
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 2
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 4
-    },
-    mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 2
+    side: {
+        right: 0
     }
-};
+});

@@ -62,7 +62,7 @@ const Participant = ({ participant }) => {
     // console.log('participant=', participant);
     return (
         <div className="participantCard">
-            <video style={{flex:1,height:'100%'}} ref={videoRef} autoPlay={true} />
+            <video style={{height:'100%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
     
