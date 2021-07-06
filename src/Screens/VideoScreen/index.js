@@ -19,6 +19,8 @@ const VideoScreen = () => {
     const [ isVideoOn, setIsVideoOn ] = useState(true);
     const [ isAudioOn, setIsAudioOn ] = useState(true);
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
+    const [ selectedParticipant, setSelectedParticipant ] = useState(room?.localParticipant);
+
     const classes = useStyles();
     useEffect(
         () => {
@@ -117,7 +119,7 @@ const VideoScreen = () => {
             setIsChatActive(false);
         }
     };
-    const remoteParticipants = participants.map(participant => <Participant key={participant.sid} participant={participant} />);
+    const remoteParticipants = participants.map(participant => <Participant key={participant.sid} participant={participant} onClick={setSelectedParticipant} />);
     const people = participants.map(participant => <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />);
     const ownerName = state.identity;
     // console.log('this is user in participant list');
@@ -125,14 +127,20 @@ const VideoScreen = () => {
     //console.log(room.localParticipant.uniqueName);
     return (
         <Grid item container direction="row" xs={12} className={classes.wrapper}>
-            <Grid xs={isParticipantListActive || isChatActive ? 9 : 12}>
-                <Grid style={{ height: '93vh', overflowY: 'hidden' }} xs={isParticipantListActive || isChatActive ? 4 : 3}>
-                    <div className="carousel-container">
-                        {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
+            <Grid container item xs={isParticipantListActive || isChatActive ? 9 : 12}>
+                <Grid container item style={{ height: '93vh', overflowY: 'hidden' }}>
+                    <Grid item container className="carousel-container" xs={3}>
+                        {room ? <Participant key={room.localParticipant.sid} participant={room.localParticipant} onClick={setSelectedParticipant}/> : ''}
                         {remoteParticipants}
-                    </div>
+                    </Grid>
+                    <Grid container item xs={9} justify="center" alignItems="center">
+                        {
+                            selectedParticipant && <Participant participant={selectedParticipant}/>
+                        }
+                        
+                    </Grid>
                 </Grid>
-
+                
                 <Grid className="controlContainer">
                     <BtnGroup
                         isAudioOn={isAudioOn}

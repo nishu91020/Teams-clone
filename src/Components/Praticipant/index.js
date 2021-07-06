@@ -3,7 +3,7 @@ import './styles.css';
 // import MediaConstraints from '../../constants/MediaConstraints';
 // import { VideoTracks } from '../../Components/VideoConstraints';
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant ,onClick }) => {
     const [ videoTracks, setVideoTracks ] = useState([]);
     const [ audioTracks, setAudioTracks ] = useState([]);
     // console.log(width);
@@ -59,9 +59,12 @@ const Participant = ({ participant }) => {
         },
         [ audioTracks ]
     );
+    const select=(e)=>{
+        onClick(participant);
+    }
     // console.log('participant=', participant);
     return (
-        <div className="participantCard">
+        <div className="participantCard" onClick={select}>
             <video style={{height:'100%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
