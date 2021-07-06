@@ -1,8 +1,26 @@
-.videoContainer {
-    width: 100vw;
-    height: 93vh;
-    background-color: #272727;
-    overflow-y: hidden;
+.carousel-container {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+}
+.carousel-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.carousel-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.carousel-container::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+.carousel-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 .controlContainer {
     position: absolute;

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import './styles.css';
 // import MediaConstraints from '../../constants/MediaConstraints';
 // import { VideoTracks } from '../../Components/VideoConstraints';
 
@@ -58,12 +59,12 @@ const Participant = ({ participant }) => {
         },
         [ audioTracks ]
     );
-    console.log('participant=', participant);
+    // console.log('participant=', participant);
     return (
-        <>
-            <video style={{borderRadius:'5px',margin:'0.5%',width:'100%'}} ref={videoRef} autoPlay={true} />
+        <div className="participantCard">
+            <video style={{flex:1,height:'100%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
-        </>
+        </div>
     
     );
 };

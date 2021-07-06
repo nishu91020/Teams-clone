@@ -10,7 +10,6 @@ import './styles.css';
 import history from '../../history';
 import MediaConstraints from '../../constants/MediaConstraints';
 import ParticipantCard from '../../Components/ParticipantCard';
-import { cardSize } from '../../utility/cardSize';
 
 const VideoScreen = () => {
     const [ room, setRoom ] = useState(null);
@@ -20,8 +19,6 @@ const VideoScreen = () => {
     const [ isVideoOn, setIsVideoOn ] = useState(true);
     const [ isAudioOn, setIsAudioOn ] = useState(true);
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
-    const [ width, setWidth ] = useState(0);
-    const containerRef = useRef(null);
     useEffect(
         () => {
             const participantConnected = participant => {
@@ -94,7 +91,7 @@ const VideoScreen = () => {
                     trackPub.track.stop();
                 });
                 prevRoom.disconnect();
-                history.push('/Home');
+                history.push('/');
             }
             return null;
         });
@@ -126,31 +123,22 @@ const VideoScreen = () => {
     // console.log(state.identity);
     //console.log(room.localParticipant.uniqueName);
     return (
-        <Grid item container direction="row" xs={12}>
-            <Grid
-                item
-                container
-                justify="center"
-                direction="row"
-                alignItems="center"
-                className="videoContainer"
-                xs={isChatActive || isParticipantListActive ? 9 : 12}
-                ref={containerRef}
-            >
+        <Grid item container direction="row" xs={12} style={{ height: '93vh', overflowY: 'hidden' }}>
+            <div className="carousel-container">
                 {room ? <Participant len={participants.length} key={room.localParticipant.sid} participant={room.localParticipant} /> : ''}
                 {remoteParticipants}
+            </div>
 
-                <Grid className="controlContainer">
-                    <BtnGroup
-                        isAudioOn={isAudioOn}
-                        isVideoOn={isVideoOn}
-                        handleVideoMute={handleVideoMute}
-                        handleAudioMute={handleAudioMute}
-                        handleChat={handleChat}
-                        dropCall={dropCall}
-                        handleParticipants={handleParticipants}
-                    />
-                </Grid>
+            <Grid className="controlContainer">
+                <BtnGroup
+                    isAudioOn={isAudioOn}
+                    isVideoOn={isVideoOn}
+                    handleVideoMute={handleVideoMute}
+                    handleAudioMute={handleAudioMute}
+                    handleChat={handleChat}
+                    dropCall={dropCall}
+                    handleParticipants={handleParticipants}
+                />
             </Grid>
             {isChatActive ? (
                 <Grid container item xs={3}>
@@ -167,3 +155,22 @@ const VideoScreen = () => {
 };
 
 export default VideoScreen;
+
+const responsive = {
+    superLargeDesktop: {
+        breakpoint: { max: 4000, min: 3000 },
+        items: 12
+    },
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 2
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 4
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 2
+    }
+};

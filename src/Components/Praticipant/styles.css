@@ -1,0 +1,10 @@
+.participantCard {
+    display: flex;
+    height: 200px;
+    width: 340px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 5px;
+}
