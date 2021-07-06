@@ -78,26 +78,35 @@ export const UserProvider = ({ children }) => {
     const restore = () => {
         setIsLoading(true);
         app.auth().onAuthStateChanged(user => {
-            user
-                .getIdToken()
-                .then(token => {
-                    dispatch({
-                        type: 'RESTORE_TOKEN',
-                        payload: {
-                            user,
-                            token
-                        }
+            if (user) {
+                user
+                    .getIdToken()
+                    .then(token => {
+                        dispatch({
+                            type: 'RESTORE_TOKEN',
+                            payload: {
+                                user,
+                                token
+                            }
+                        });
+                    })
+                    .catch(() => {
+                        dispatch({
+                            type: 'RESTORE_TOKEN',
+                            payload: { user: null, token: null }
+                        });
+                    })
+                    .finally(() => {
+                        setIsLoading(false);
                     });
-                })
-                .catch(() => {
-                    dispatch({
-                        type: 'RESTORE_TOKEN',
-                        payload: { user: null, token: null }
-                    });
-                })
-                .finally(() => {
-                    setIsLoading(false);
+            }
+            else {
+                dispatch({
+                    type: 'RESTORE_TOKEN',
+                    payload: { user: null, token: null }
                 });
+                setIsLoading(false);
+            }
         });
     };
 

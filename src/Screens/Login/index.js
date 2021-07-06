@@ -23,8 +23,9 @@ const Login = () => {
     //         history.push('/home');
     //     }
     // });
-    const handleLogin = () => {
-        login(email, password);
+    const handleLogin = async () => {
+        await login(email, password);
+        history.push('/');
     };
     const navigateSignup = () => {
         history.push('/');

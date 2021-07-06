@@ -19,8 +19,9 @@ const Signup = () => {
     const [ username, setUsername ] = useState('');
     const classes = useStyle();
     const { signup } = useContext(UserContext);
-    const handleSignup = () => {
-        signup(username, email, password);
+    const handleSignup = async () => {
+        await signup(username, email, password);
+        history.push('/');
     };
     const navigateLogin = () => {
         history.push('/login');
