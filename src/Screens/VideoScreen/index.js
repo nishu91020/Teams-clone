@@ -10,6 +10,7 @@ import './styles.css';
 import history from '../../history';
 import MediaConstraints from '../../constants/MediaConstraints';
 import ParticipantCard from '../../Components/ParticipantCard';
+import SelectedParticipant from '../../Components/SelectedParticipant';
 
 const VideoScreen = () => {
     const [ room, setRoom ] = useState(null);
@@ -135,7 +136,7 @@ const VideoScreen = () => {
                     </Grid>
                     <Grid container item xs={9} justify="center" alignItems="center">
                         {
-                            selectedParticipant && <Participant participant={selectedParticipant}/>
+                            selectedParticipant && <SelectedParticipant participant={selectedParticipant}/>
                         }
                         
                     </Grid>
