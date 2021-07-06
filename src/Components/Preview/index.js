@@ -4,12 +4,11 @@ import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
 import VideoTrack from '../VideoTracks';
 import {Grid,CircularProgress} from '@material-ui/core'
 import './styles.css';
-
-import {RoomProvider,RoomContext} from '../../Context/RoomContext';
+import {useMedia} from '../../Hooks/useMedia';
 
 const Preview = () => {
     
-    const {localTracks,setSettings,isLoading} = useContext(RoomContext);
+    const {localTracks,setSettings,isLoading} =useMedia();
 
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
     useEffect(()=>{
@@ -52,6 +51,7 @@ const Preview = () => {
     return (
         
         <div>
+    
             <VideoTrack track={localTracks} />
             <div className="btngroup">
                 {mediaState.isCameraOff ? (
@@ -77,4 +77,4 @@ const Preview = () => {
         </div>
     );
 };
-export default ()=>(<RoomProvider><Preview/></RoomProvider>);
+export default Preview;

@@ -1,21 +1,16 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { connect as roomConnect } from 'twilio-video';
+import MediaConstraints from '../constants/MediaConstraints';
 
-const useRoom = (localTracks, options) => {
+const useRoom = () => {
     const [ room, setRoom ] = useState(null);
     const [ isconnecting, setIsconnecting ] = useState(false);
-    const optionRef = useRef(null);
     const [ participants, setParticipants ] = useState([]);
-    useEffect(
-        () => {
-            optionRef.current = options;
-        },
-        [ options ]
-    );
+
     const connect = useCallback(
         token => {
             setIsconnecting(true);
-            return roomConnect(token, { ...optionRef.current, tracks: localTracks }).then(
+            return roomConnect(token, {...MediaConstraints }).then(
                 newRoom => {
                     setRoom(newRoom);
                     const disconnect = () => newRoom.disconnect();
@@ -23,7 +18,7 @@ const useRoom = (localTracks, options) => {
                     newRoom.setMaxListeners(15);
 
                     newRoom.once('disconnect', () => {
-                        setTimeout(() => setTimeout(null));
+                        setTimeout(() => setRoom(null));
                         window.removeEventListener('beforeunload', disconnect);
                     });
                     window.twilioRoom = newRoom;
@@ -50,7 +45,7 @@ const useRoom = (localTracks, options) => {
                 }
             );
         },
-        [ localTracks ]
+        []
     );
     return { room, isconnecting, connect,participants };
 };

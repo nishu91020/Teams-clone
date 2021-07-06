@@ -1,28 +1,48 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState,useContext } from 'react';
 import './styles.css';
-// import MediaConstraints from '../../constants/MediaConstraints';
-// import { VideoTracks } from '../../Components/VideoConstraints';
+import { MeetingControlContext } from '../../Context/MeetingControlContext';
 
-const Participant = ({ participant ,onClick }) => {
+const Participant = ({ participant ,onClick ,isLocal}) => {
     const [ videoTracks, setVideoTracks ] = useState([]);
     const [ audioTracks, setAudioTracks ] = useState([]);
     // console.log(width);
+    const [isVideoEnabled,setIsVideoEnabled]=useState(true);
     const videoRef = useRef();
     const audioRef = useRef();
+    const {isAudioOn,isVideoOn}=useContext(MeetingControlContext);
+
     const trackpubsToTracks = trackMap =>
         Array.from(trackMap.values()).map(publication => publication.track).filter(track => track !== null);
     useEffect(
         () => {
             setVideoTracks(trackpubsToTracks(participant.videoTracks));
             setAudioTracks(trackpubsToTracks(participant.audioTracks));
+            const onVideoEnabled=(track)=>{
+                    setIsVideoEnabled(true);
+            }
+            const onVideoDisabled=(track)=>{
+                setIsVideoEnabled(false);
+            }
             const trackSubscribed = track => {
-                if (track.kind === 'video') setVideoTracks(videoTracks => [ ...videoTracks, track ]);
+                if (track.kind === 'video'){
+                    track.on('enabled',onVideoEnabled);
+                    track.on('disabled',onVideoDisabled);
+                    setVideoTracks(videoTracks => [ ...videoTracks, track ]);
+                } 
                 else if (track.kind === 'audio') setAudioTracks(audioTracks => [ ...audioTracks, track ]);
             };
 
             const trackUnsubscribed = track => {
-                if (track.kind === 'video') setVideoTracks(videoTracks => videoTracks.filter(v => v !== track));
-                if (track.kind === 'audio') setAudioTracks(audioTracks => audioTracks.filter(a => a !== track));
+
+                if (track.kind === 'video') {
+                    track.off('enabled',onVideoEnabled);
+                    track.off('disabled',onVideoDisabled)
+                    setVideoTracks(videoTracks => videoTracks.filter(v => v !== track));
+                }
+                if (track.kind === 'audio'){
+                    setAudioTracks(audioTracks => audioTracks.filter(a => a !== track));
+
+                } 
             };
             participant.on('trackUnsubscribed', trackUnsubscribed);
             participant.on('trackSubscribed', trackSubscribed);
@@ -62,8 +82,10 @@ const Participant = ({ participant ,onClick }) => {
     const select=(e)=>{
         onClick(participant);
     }
+    
     // console.log('participant=', participant);
     return (
+        
         <div className="participantCard" onClick={select}>
             <video style={{height:'100%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />

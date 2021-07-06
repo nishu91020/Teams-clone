@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-
+import history from '../history';
 const useHandleRoomDisconnect = room => {
     useEffect(
         () => {
@@ -8,6 +8,7 @@ const useHandleRoomDisconnect = room => {
                     if (error) {
                         console.log(error);
                     }
+                    history.push('/');
                 };
                 room.on('disconnected', onDisconnected);
                 return function cleanup () {
