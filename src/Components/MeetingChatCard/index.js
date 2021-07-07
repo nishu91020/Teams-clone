@@ -14,9 +14,7 @@ const MeetingChatCard = () => {
     const classes = useStyles();
     return (
         <Grid container item xs={12} className={classes.ChatCard} direction="column">
-            <h4>
-                <b>meeting name</b>
-            </h4>
+            <h5>meeting name</h5>
             <div>last message</div>
         </Grid>
     );

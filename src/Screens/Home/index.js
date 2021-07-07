@@ -93,7 +93,7 @@ const Home = () => {
                 />
                 <Grid item container direction="row" alignItems="flex-end" justify="flex-end">
                     <Button variant="contained" color="primary" className={classes.minorBtn} onClick={goToChat}>
-                        <Chat />
+                        <Chat /> Chat
                     </Button>
                     <Button className={classes.minorBtn} onClick={handleLogout} variant="outlined" color="secondary">
                         Logout
