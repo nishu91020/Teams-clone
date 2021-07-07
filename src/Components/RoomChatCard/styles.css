@@ -1,26 +1,26 @@
-.meetingList {
+.msgList {
     padding-left: 2px;
     overflow-x: hidden;
     overflow-y: auto;
     white-space: nowrap;
-    height: 89%;
+    height: 100%;
 }
-.meetingList::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px;
 }
 
 /* Track */
-.meetingList::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
 /* Handle */
-.meetingList::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     padding: 1px;
     background: grey;
 }
 
 /* Handle on hover */
-.meetingList::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #a9a9a9;
 }

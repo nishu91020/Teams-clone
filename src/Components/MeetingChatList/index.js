@@ -10,10 +10,16 @@ import './styles.css';
 const useStyles = makeStyles({
     chatContainer: {
         backgroundColor: '#EFEEEE',
-        height: '45px',
+        height: '9%',
         padding: '1%',
         fontSize: '18px',
         fontWeight: 'bold'
+    },
+    meetingList: {
+        padding: '2px',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        height: '90%'
     }
 });
 const MeetingChatList = () => {
@@ -50,7 +56,7 @@ const MeetingChatList = () => {
         <JoinMessage handleClose={handleJoinMessageDialogClose} open={isJoinMessageDialogOpen} />;
     };
     return (
-        <Grid container item style={{ height: '93vh', overflowY: 'hidden' }}>
+        <Grid container item style={{ height: '100%', overflowY: 'hidden' }}>
             <Grid container item className={classes.chatContainer} alignItems="center" justify="space-between">
                 Chats
                 <MoreVert onClick={handleClick} />
@@ -61,7 +67,7 @@ const MeetingChatList = () => {
                 </Menu>
             </Grid>
 
-            <Grid container item className="meetingList">
+            <Grid container item className={classes.meetingList}>
                 <MeetingChatCard />
                 <MeetingChatCard />
                 <MeetingChatCard />
