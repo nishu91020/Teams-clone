@@ -54,7 +54,9 @@ const Home = () => {
     const handleJoin = () => {
         history.push(`/Preview/${roomId}`);
     };
-
+    const goToChat = () => {
+        history.push('/ChatScreen');
+    };
     if (isConnecting || isLoading) {
         return (
             <div style={{ top: '50%', left: '50%', position: 'absolute' }}>
@@ -90,7 +92,7 @@ const Home = () => {
                     alt="teams"
                 />
                 <Grid item container direction="row" alignItems="flex-end" justify="flex-end">
-                    <Button variant="contained" color="primary" className={classes.minorBtn}>
+                    <Button variant="contained" color="primary" className={classes.minorBtn} onClick={goToChat}>
                         <Chat />
                     </Button>
                     <Button className={classes.minorBtn} onClick={handleLogout} variant="outlined" color="secondary">

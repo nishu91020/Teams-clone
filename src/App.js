@@ -9,6 +9,7 @@ import { UserContext } from '../src/Context/AuthContext';
 import Preview from '../src/Screens/Preview';
 import Header from './Components/Header';
 import VideoScreen from '../src/Screens/VideoScreen';
+import ChatScreen from '../src/Screens/ChatScreen';
 import { CircularProgress } from '@material-ui/core';
 
 function App () {
@@ -42,6 +43,7 @@ function App () {
                             <Route path="/" exact component={Home} />
                             {/* <Route path="/CreateRoom/:id" exact component={CreateRoom} /> */}
                             <Route path="/Preview/:id" exact component={Preview} />
+                            <Route path="/ChatScreen" exact component={ChatScreen} />
                             <Route path="/VideoScreen/:id" exact component={VideoScreen} />
                         </Switch>
                     )}
