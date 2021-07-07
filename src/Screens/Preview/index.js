@@ -1,21 +1,25 @@
 import React, { useState, useEffect,useContext } from 'react';
-import { Fab } from '@material-ui/core';
 import { Videocam, Mic, VideocamOff, MicOff } from '@material-ui/icons';
-import VideoTrack from '../VideoTracks';
-import {Grid,CircularProgress} from '@material-ui/core'
+import VideoTrack from '../../Components/VideoTracks';
+import {CircularProgress,Button,Fab} from '@material-ui/core';
+import {VideoContext} from '../../Context/VideoContext';
 import './styles.css';
 import {useMedia} from '../../Hooks/useMedia';
 
-const Preview = () => {
+const Preview = (props) => {
     
     const {localTracks,setSettings,isLoading} =useMedia();
-
+    const {isConnecting,state,generateToken}=useContext(VideoContext);
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
+    //console.log(state.room.uniqueName);
     useEffect(()=>{
         return()=>{
             setSettings(mediaState);
         }
     })
+    const enterRoom=()=>{
+        generateToken(props.match.params.id);
+    }
     const handleMic = () => {
         if (!mediaState.isMuted) {
          
@@ -40,20 +44,20 @@ const Preview = () => {
     };
     // console.log(audioTrack);
     // console.log(videoTrack);
-    if(isLoading)
+    if(isLoading ||isConnecting)
     {
         return(
-            <Grid item container alignItems="center" justify="center">
+            <div className="loader">
                 <CircularProgress thickness={5} />
-            </Grid>
+            </div>
         )
     }
     return (
-        
-        <div>
+        <div className="outer-preview">
+        <div className="previewContainer">
     
             <VideoTrack track={localTracks} />
-            <div className="btngroup">
+            <div style={{marginLeft:'-10%'}}>
                 {mediaState.isCameraOff ? (
                     <Fab onClick={handleCamera} color="default" style={{ margin: '1%' }}>
                         <VideocamOff />
@@ -74,6 +78,8 @@ const Preview = () => {
                     </Fab>
                 )}
             </div>
+            <Button style={{marginLeft:'-10%',marginTop:'2%'}} onClick={enterRoom} variant="contained" color="primary">Enter Room</Button>
+        </div>
         </div>
     );
 };

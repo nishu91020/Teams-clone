@@ -50,16 +50,16 @@ const VideoScreen = () => {
         }
     };
 
-    const remoteParticipants = participants.map(participant =>participant!==selectedParticipant && <Participant isLocal={false} key={participant.sid} participant={participant} onClick={setSelectedParticipant} />);
-    const people = participants.map(participant => <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />);
-    const ownerName = state.identity;
+    const remoteParticipants = participants.map(participant =>participant!==selectedParticipant && <Participant key={participant.sid} participant={participant} onClick={setSelectedParticipant} />);
+    // const people = participants.map(participant => <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />);
+    // const ownerName = state.identity;
     
     return (
         <Grid item container direction="row" xs={12} className={classes.wrapper}>
             <Grid container item xs={isParticipantListActive || isChatActive ? 9 : 12}>
                 <Grid container item style={{ height: '93vh', overflowY: 'hidden' }}>
-                    <Grid item container className="carousel-container" direction="column" xs={3} justify="space-around" alignItems="center">
-                        {room && (room.localParticipant!==selectedParticipant) ? <Participant isLocal={true} key={room.localParticipant.sid} participant={room.localParticipant} onClick={setSelectedParticipant}/> : ''}
+                    <Grid item container className="carousel-container"  xs={3}>
+                        {room && (room.localParticipant!==selectedParticipant) ? <Participant  key={room.localParticipant.sid} participant={room.localParticipant} onClick={setSelectedParticipant}/> : ''}
                         {remoteParticipants}
                     </Grid>
                     <Grid container item xs={9} justify="center" alignItems="center">
@@ -71,7 +71,7 @@ const VideoScreen = () => {
                 </Grid>
                 
                 <Grid className="controlContainer">
-                    <BtnGroup handleChat={handleChat} handleParticipants={handleParticipants}/>
+                    <BtnGroup handleChat={handleChat} handleParticipants={handleParticipants} />
                 </Grid>
             </Grid>
 
@@ -82,7 +82,7 @@ const VideoScreen = () => {
             ) : null}
             {isParticipantListActive ? (
                 <Grid container item xs={3}>
-                    <ParticipantList handleParticipants={handleParticipants} people={people} owner={ownerName} room={state.room.uniqueName} />
+                    <ParticipantList handleParticipants={handleParticipants} room={state.room.uniqueName} />
                 </Grid>
             ) : null}
         </Grid>

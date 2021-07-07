@@ -40,11 +40,11 @@ const offsets = useOffsets(
     return (
        <Measure bounds onResize={handleResize}>
       {({ measureRef }) => (
-        <div  ref={measureRef} style={{ height: `${container.height}px`,maxWidth:'90%'}}>
+        <div  ref={measureRef} style={{ maxWidth:'90%'}}>
           <video 
             ref={videoRef}
             onCanPlay={handleCanPlay}
-            style={{height:'100%',width:'100%', top: `-${offsets.y}px`, left: `-${offsets.x}px`,borderRadius:'10px' }}
+            style={{height:'50%',width:'50%',borderRadius:'10px' }}
             autoPlay 
             playsInline 
             muted

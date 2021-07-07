@@ -18,9 +18,6 @@ const useStyles = makeStyles({
 
 const ParticipantList = props => {
     const classes = useStyles();
-    console.log('participants in room');
-    console.log(props.owner);
-    const ownerName = props.owner;
     return (
         <Grid sm={12} className={classes.box}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -34,10 +31,6 @@ const ParticipantList = props => {
                     <Share /> Share Invite
                 </Button>
             </CopyToClipboard>
-            <List component="nav">
-                <ParticipantCard name={ownerName} />
-                <Grid>{props.people}</Grid>
-            </List>
         </Grid>
     );
 };

@@ -6,8 +6,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import Home from './Screens/Home';
 import history from './history';
 import { UserContext } from '../src/Context/AuthContext';
-import CreateRoom from '../src/Screens/CreateRoom';
-import JoinRoom from '../src/Screens/JoinRoom';
+import Preview from '../src/Screens/Preview';
 import Header from './Components/Header';
 import VideoScreen from '../src/Screens/VideoScreen';
 import { CircularProgress } from '@material-ui/core';
@@ -41,8 +40,8 @@ function App () {
                     ) : (
                         <Switch>
                             <Route path="/" exact component={Home} />
-                            <Route path="/CreateRoom/:id" exact component={CreateRoom} />
-                            <Route path="/JoinRoom" exact component={JoinRoom} />
+                            {/* <Route path="/CreateRoom/:id" exact component={CreateRoom} /> */}
+                            <Route path="/Preview/:id" exact component={Preview} />
                             <Route path="/VideoScreen/:id" exact component={VideoScreen} />
                         </Switch>
                     )}

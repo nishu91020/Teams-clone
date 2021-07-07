@@ -20,7 +20,7 @@ const api = axios.create({
     baseURL: 'http://localhost:8080'
 });
 export const VideoProvider = ({ children }) => {
-    const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {}, identity: '' });
+    const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {} });
     const [ isConnecting, setIsConnecting ] = useState(false);
     const createRoom = () => {
         setIsConnecting(true);
@@ -28,7 +28,8 @@ export const VideoProvider = ({ children }) => {
             .get('/rooms', {})
             .then(res => {
                 dispatch({ type: 'ROOM', payload: { room: res.data } });
-                history.push(`/CreateRoom/${res.data.uniqueName}`);
+                console.log(res.data.uniqueName);
+                history.push(`/Preview/${res.data.uniqueName}`);
             })
             .catch(err => {
                 dispatch({ type: 'ERROR', payload: { err } });
@@ -37,21 +38,18 @@ export const VideoProvider = ({ children }) => {
                 setIsConnecting(false);
             });
     };
-    const generateToken = (roomId, name) => {
+    const generateToken = roomId => {
         setIsConnecting(true);
-        console.log(name);
         api
             .get('/token', {
                 params: {
-                    room: roomId,
-                    name: name
+                    room: roomId
                 }
             })
             .then(res => {
-                console.log(res.data.username);
                 dispatch({
                     type: 'GENERATETOKEN',
-                    payload: { accessToken: res.data.token, identity: res.data.username }
+                    payload: { accessToken: res.data.token }
                 });
                 console.log('token=', res.data.token);
                 history.push(`/VideoScreen/${roomId}`);
@@ -73,7 +71,7 @@ export const VideoProvider = ({ children }) => {
                 console.log(res.data);
 
                 dispatch({ type: 'GETROOM', payload: { room: res.data.room } });
-                history.push(`/VideoScreen/${res.data.room.uniqueName}`);
+                history.push(`/Preview/${res.data.room.uniqueName}`);
             })
             .catch(err => {
                 console.log(err);

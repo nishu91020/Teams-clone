@@ -30,22 +30,15 @@ app.get('/rooms', (req, res) => {
 });
 
 app.get('/token', (req, res) => {
-    console.log('name');
-    console.log(req.query.name);
-    const identity = req.query.name + `@${uuidv4()}`;
+    const identity = `${uuidv4()}`;
     console.log(identity);
-    const token = new AccessToken(
-        process.env.TWILIO_ACCOUNT_SID,
-        process.env.TWILIO_API_KEY_SID,
-        process.env.TWILIO_API_KEY_SECRET
-    );
+    const token = new AccessToken(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_API_KEY_SID, process.env.TWILIO_API_KEY_SECRET);
     token.identity = identity;
     const grant = new VideoGrant({ room: req.query.room });
     token.addGrant(grant);
     res.send({
         identity: token.identity,
-        token: token.toJwt(),
-        username: req.query.name
+        token: token.toJwt()
     });
 });
 

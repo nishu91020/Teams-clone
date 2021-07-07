@@ -1,0 +1,17 @@
+.previewContainer {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-left: 5%;
+    padding-top: 2%;
+}
+.outer-preview {
+    background: #272727;
+    padding: 0;
+    height: 93vh;
+}
+.loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
