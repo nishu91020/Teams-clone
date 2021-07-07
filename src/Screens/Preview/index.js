@@ -78,7 +78,7 @@ const Preview = (props) => {
                     </Fab>
                 )}
             </div>
-            <Button style={{marginLeft:'-10%',marginTop:'2%'}} onClick={enterRoom} variant="contained" color="primary">Enter Room</Button>
+            <Button style={{marginLeft:'-10%',marginTop:'2%'}} onClick={enterRoom} variant="outlined" color="primary">Enter Room</Button>
         </div>
         </div>
     );
