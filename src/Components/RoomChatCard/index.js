@@ -47,13 +47,16 @@ const RoomChatCard = ({ room }) => {
     getMessage(room?.roomId,callback);
     },[room])
     console.log(room);
-    
-    
 
     const handleSend=()=>{
         addMessage(room?.roomId,{sentAt:new Date().toISOString(),message,sentBy:state.user});
         setMessage('');
     }
+    const handleKeyPress=(e)=>{
+        if(e.keyCode ===13)
+            handleSend();
+    }
+    
     return (
         <Grid container item style={{ height: '100%', width: '100%',backgroundColor: '#8f94fb' }} direction="column">
             <Grid container item className={classes.chatContainer} justify="space-between">
@@ -77,7 +80,7 @@ const RoomChatCard = ({ room }) => {
             
             {room && 
             <Grid container item className={classes.chatInput} justify="center">
-                <TextField style={{ width: '85%' }} placeholder="message" value={message} onChange={(e)=>setMessage(e.target.value)}/>
+                <TextField style={{ width: '85%' }} placeholder="message" onKeyDown={handleKeyPress} value={message} onChange={(e)=>setMessage(e.target.value)}/>
                 <Button onClick={handleSend}  disabled={!message} color="primary">
                      Send
                 </Button>
