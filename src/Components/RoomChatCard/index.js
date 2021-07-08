@@ -1,5 +1,5 @@
 import React,{useState,useContext,useEffect} from 'react';
-import { TextField, Grid, makeStyles, Button } from '@material-ui/core';
+import { TextField, Grid, makeStyles, Button,Typography } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import {UserContext} from '../../Context/AuthContext';
 import Message from '../Message';
@@ -57,12 +57,14 @@ const RoomChatCard = ({ room }) => {
     return (
         <Grid container item style={{ height: '100%', width: '100%',backgroundColor: '#8f94fb' }} direction="column">
             <Grid container item className={classes.chatContainer} justify="space-between">
+                
                 {room?.roomTitle}
                 
               {room &&  <Button size="small" color="primary" variant="contained" className={classes.joinBtn}>
                     join
                 </Button>}
             </Grid>
+            
             <Grid container item className={classes.msgList} direction="column-reverse">
                 {
                     messages.map((message,key)=>{
@@ -72,7 +74,8 @@ const RoomChatCard = ({ room }) => {
                 
                 
             </Grid>
-
+            
+            {room && 
             <Grid container item className={classes.chatInput} justify="center">
                 <TextField style={{ width: '85%' }} placeholder="message" value={message} onChange={(e)=>setMessage(e.target.value)}/>
                 <Button onClick={handleSend}  disabled={!message} color="primary">
@@ -80,6 +83,8 @@ const RoomChatCard = ({ room }) => {
                 </Button>
                
             </Grid>
+            }
+            
         </Grid>
     );
 };

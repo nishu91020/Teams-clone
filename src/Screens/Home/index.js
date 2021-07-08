@@ -34,11 +34,6 @@ const Home = () => {
     const { state, logout, isLoading } = useContext(UserContext);
     const { createRoom, isConnecting, generateToken } = useContext(VideoContext);
     const [ roomId, setRoomId ] = useState('');
-    // useEffect(() => {
-    //     if (!state.token) {
-    //         history.push('/');
-    //     }
-    // });
     const handleLogout = () => {
         const out = async () => {
             await logout();

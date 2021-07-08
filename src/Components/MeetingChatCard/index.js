@@ -1,14 +1,19 @@
 import React from 'react';
-import { Card, Typography, CardContent, makeStyles } from '@material-ui/core';
-
+import { Card, Typography, Button, makeStyles } from '@material-ui/core';
+import { Share } from '@material-ui/icons';
+import CopyToClipboard from 'react-copy-to-clipboard';
 const useStyles = makeStyles({
     ChatCard: {
-        backgroundColor: '#f4f0ec',
-        height: '50px',
-        width: '98%',
+        backgroundColor: '#FEFEFF',
+        fontFamily: 'Helvetica',
+        height: '45px',
+        width: '94%',
         borderRadius: '5px',
-        padding: '1%',
-        marginTop: '1%'
+        padding: '2%',
+        margin: '1%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     title: {
         fontSize: '13px'
@@ -19,10 +24,16 @@ const useStyles = makeStyles({
     }
 });
 const MeetingChatCard = ({ room, selectRoom }) => {
+    console.log(room);
     const classes = useStyles();
     return (
         <Card className={classes.ChatCard} onClick={() => selectRoom(room)}>
             <Typography className={classes.title}>{room.roomTitle}</Typography>
+            <CopyToClipboard text={room.roomId}>
+                <Button style={{ justifyContent: 'right' }}>
+                    invite<Share />
+                </Button>
+            </CopyToClipboard>
         </Card>
     );
 };
