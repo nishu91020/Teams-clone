@@ -34,8 +34,8 @@ const Dialogs = () => {
         <div>
             <MoreVert onClick={handleClick} />
             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                <MenuItem onClick={handleJoinDialog}>Create Meeting</MenuItem>
-                <MenuItem onClick={handleCreateDialog}>Join Meeting</MenuItem>
+                <MenuItem onClick={handleCreateDialog}>Create Meeting</MenuItem>
+                <MenuItem onClick={handleJoinDialog}>Join Meeting</MenuItem>
                 <MenuItem onClick={handleJoinMessageDialog}>Join Chats</MenuItem>
             </Menu>
             <Dialog open={isCreateDialogOpen} onClose={handleCreateDialogClose}>
@@ -55,7 +55,7 @@ const Dialogs = () => {
             <Dialog open={isJoinDialogOpen} onClose={handleJoinDialogClose}>
                 <DialogTitle>Join Room</DialogTitle>
                 <DialogContent>
-                    <TextField variant="outlined" label="Room ID" />
+                    <TextField label="Room ID" />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleJoinDialogClose} color="primary">
@@ -69,7 +69,7 @@ const Dialogs = () => {
             <Dialog open={isJoinMessageDialogOpen} onClose={handleJoinMessageDialogClose}>
                 <DialogTitle>Join Room</DialogTitle>
                 <DialogContent>
-                    <TextField variant="outlined" label="Room ID" />
+                    <TextField label="Room ID" />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleJoinMessageDialogClose} color="primary">

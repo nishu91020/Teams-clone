@@ -5,18 +5,18 @@ const useStyles = makeStyles({
     ChatCard: {
         justify: 'center',
         alignItems: 'center',
-        backgroundColor: '#E5E5E5',
-        height: '70px',
+        backgroundColor: '#f4f0ec',
+        height: '50px',
         width: '98%',
         borderRadius: '5px',
         margin: '1%',
         padding: '2%'
     },
     title: {
-        fontSize: '17px'
+        fontSize: '13px'
     },
     sub: {
-        fontSize: '14px',
+        fontSize: '10px',
         color: 'grey'
     }
 });
