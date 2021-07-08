@@ -28,7 +28,7 @@ const MeetingChatList = ({ rooms, selectRoom }) => {
                 <Dialogs />
             </Grid>
 
-            <Grid container item className={classes.meetingList}>
+            <Grid container item className={classes.meetingList} direction="column" justify="flex-start">
                 {rooms.map((room, key) => <MeetingChatCard room={room} key={key} selectRoom={selectRoom} />)}
             </Grid>
         </Grid>

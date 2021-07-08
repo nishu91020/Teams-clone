@@ -63,7 +63,7 @@ const RoomChatCard = ({ room }) => {
                     join
                 </Button>}
             </Grid>
-            <Grid container item className={classes.msgList} direction="column-reverse" justify="center" alignItems="center">
+            <Grid container item className={classes.msgList} direction="column-reverse">
                 {
                     messages.map((message,key)=>{
                             return <LocalMessage message={message} key={key}/>

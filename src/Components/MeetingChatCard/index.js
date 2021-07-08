@@ -3,14 +3,12 @@ import { Card, Typography, CardContent, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
     ChatCard: {
-        justify: 'center',
-        alignItems: 'center',
         backgroundColor: '#f4f0ec',
         height: '50px',
         width: '98%',
         borderRadius: '5px',
-        margin: '1%',
-        padding: '2%'
+        padding: '1%',
+        marginTop: '1%'
     },
     title: {
         fontSize: '13px'
