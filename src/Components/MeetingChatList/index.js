@@ -19,9 +19,8 @@ const useStyles = makeStyles({
         height: '90%'
     }
 });
-const MeetingChatList = () => {
+const MeetingChatList = ({ rooms, selectRoom }) => {
     const classes = useStyles();
-
     return (
         <Grid container item style={{ height: '100%', overflowY: 'hidden' }}>
             <Grid container item className={classes.chatContainer} alignItems="center" justify="space-between">
@@ -30,18 +29,7 @@ const MeetingChatList = () => {
             </Grid>
 
             <Grid container item className={classes.meetingList}>
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
-                <MeetingChatCard />
+                {rooms.map((room, key) => <MeetingChatCard room={room} key={key} selectRoom={selectRoom} />)}
             </Grid>
         </Grid>
     );

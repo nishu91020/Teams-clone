@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, Divider, makeStyles, Typography, Avatar } from '@material-ui/core';
-
+import moment from 'moment';
 const useStyles = makeStyles({
     msgLocal: {
-        backgroundColor: '#4169e1',
+        backgroundColor: '#FEFFFF',
         opacity: 0.7,
         padding: '0.6%',
         margin: '0.5%',
@@ -21,23 +21,23 @@ const useStyles = makeStyles({
         margin: '0.5%'
     }
 });
-const LocalMessage = () => {
+const LocalMessage = ({ message }) => {
     const classes = useStyles();
     return (
         <Grid item container className={classes.messageContainer}>
             <Grid>
-                <Avatar>N</Avatar>
+                <Avatar src={message?.sentBy.photoURL} />
             </Grid>
             <Grid item container direction="column" className={classes.msgLocal}>
                 <Grid container item direction="row" justify="space-between">
-                    <Typography className={classes.userInfo}>Nishu Rai</Typography>
+                    <Typography className={classes.userInfo}>{message?.sentBy.displayName}</Typography>
 
-                    <Typography className={classes.userInfo}> 08/07/21 6:00 pm</Typography>
+                    <Typography className={classes.userInfo}>{moment(message?.sentAt).format('LT')}</Typography>
                 </Grid>
 
                 <Divider />
                 <Grid item container>
-                    <Typography className={classes.msg}>ashajshagdydfwytweuwehswujhsnajnbxzxczxzvcxv</Typography>
+                    <Typography className={classes.msg}>{message?.message}</Typography>
                 </Grid>
             </Grid>
         </Grid>

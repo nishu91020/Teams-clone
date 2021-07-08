@@ -19,8 +19,7 @@ app.get('/rooms', (req, res) => {
     client.video.rooms
         .create({
             type: 'group',
-            uniqueName: `${uuidv4()}`,
-            roomName: req.roomName
+            uniqueName: `${uuidv4()}`
         })
         .then(room => {
             res.send(room);

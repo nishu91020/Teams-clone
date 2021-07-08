@@ -11,6 +11,12 @@ import 'firebase/firestore';
 //getUserFromRoom-
 //GetRoomOfUser-
 //getRoom
+const addRoom = room => {
+    return db.collection('meeting').doc(room.roomId).set({
+        room,
+        CreatedAt: firebase.firestore.Timestamp.now()
+    });
+};
 
 const addUser = async user => {
     console.log(user.displayName);
@@ -31,42 +37,25 @@ const addUser = async user => {
         });
 };
 
-const addMeetingToUser = async (user, meeting, callback) => {
-    const userMeetingList = db.collection('user').doc(user.uid).collection('rooms');
-    userMeetingList
-        .add(meeting)
-        .then(() => {
-            console.log('you entered the room');
-        })
-        .catch(() => {
-            console.log('failed to get into room');
-        });
+const addUserToMeeting = (user, roomId) => {
+    return db.collection('meeting').doc(roomId).collection('participant').doc(user.uid).set({ ...user });
 };
 
-const addMessage = (message, meeting) => {
-    const textMessage = db.collection('meeting').doc(meeting.uniqueName).collection('messages');
-    textMessage
-        .add(message)
-        .then(() => {
-            console.log('message sent successfully');
-        })
-        .catch(() => {
-            console.log('failed');
-        });
+const addMeetingToUser = async (userId, room) => {
+    console.log(room);
+    return db.collection('user').doc(userId).collection('room').doc(room.roomId).set({ ...room });
 };
-const getMessage = (meeting, callback) => {
-    const getMsg = db.collection('meeting').doc(meeting.uniqueName).collection('messages').orderBy('timestamp', 'desc');
-    getMsg.onSnapshot(querySnapshot => {
-        let messages = [];
-        querySnapshot.forEach(doc => {
-            messages.push({ message: doc.data() });
-        });
 
-        callback(messages);
-    });
+const addMessage = (roomId, message) => {
+    const textMessage = db.collection('meeting').doc(roomId).collection('messages');
+    textMessage.add(message);
+};
+const getMessage = (roomId, callback) => {
+    const getMsg = db.collection('meeting').doc(roomId).collection('messages').orderBy('sentAt', 'desc');
+    getMsg.onSnapshot(callback);
 };
 const getUserFromRoom = (meeting, callback) => {
-    const getParticipants = db.collection('meeting').doc(meeting.uniqueName).collection('participant');
+    const getParticipants = db.collection('meeting').doc(meeting.roomId).collection('participant');
     getParticipants.onSnapshot(querySnapshot => {
         let participantsList = [];
         querySnapshot.forEach(doc => {
@@ -75,14 +64,13 @@ const getUserFromRoom = (meeting, callback) => {
         callback(participantsList);
     });
 };
-const getRoomOfUser = callback => {
-    const roomOfUser = db.collection('user').collection('room');
-    roomOfUser.onSnapshot(querySnapshot => {
-        let joinedRooms = [];
-        querySnapshot.forEach(doc => {
-            joinedRooms.push({ room: doc.data() });
-        });
-        callback(joinedRooms);
-    });
+const getRoomOfUser = (userId, callback) => {
+    const roomOfUser = db.collection('user').doc(userId).collection('room');
+    roomOfUser.onSnapshot(callback);
 };
-export { addUser, addMessage, getRoomOfUser, getUserFromRoom, getMessage, addMeetingToUser };
+
+const fetchRoom = roomId => {
+    const ref = db.collection('meeting').doc(roomId);
+    return ref.get();
+};
+export { addRoom, addUser, addUserToMeeting, addMessage, getRoomOfUser, fetchRoom, getUserFromRoom, getMessage, addMeetingToUser };

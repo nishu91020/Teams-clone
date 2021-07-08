@@ -16,6 +16,7 @@
         "express": "^4.17.1",
         "faker": "^5.5.3",
         "firebase": "^8.6.7",
+        "moment": "^2.29.1",
         "qs": "^6.7.0",
         "react": "^17.0.2",
         "react-copy-to-clipboard": "^5.0.3",

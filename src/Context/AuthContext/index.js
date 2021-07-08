@@ -28,7 +28,7 @@ export const UserProvider = ({ children }) => {
             const user = authCredentials.user;
             await addUser(user);
             const token = await user.getIdToken();
-            dispatch({ type: 'SIGNIN', payload: { user, token } });
+            dispatch({ type: 'SIGNIN', payload: { user: { uid: user.uid, displayName: user.displayName, email: user.email, photoURL: user.photoURL }, token } });
         } catch (error) {
             alert(error.message);
         } finally {
@@ -56,7 +56,7 @@ export const UserProvider = ({ children }) => {
                         dispatch({
                             type: 'RESTORE_TOKEN',
                             payload: {
-                                user,
+                                user: { uid: user.uid, displayName: user.displayName, email: user.email, photoURL: user.photoURL },
                                 token
                             }
                         });

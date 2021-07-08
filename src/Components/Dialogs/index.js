@@ -14,38 +14,18 @@ const Dialogs = () => {
     const [ isJoinDialogOpen, setIsJoinDialogOpen ] = useState(false);
     const [ isCreateDialogOpen, setIsCreateDialogOpen ] = useState(false);
     const [ anchorEl, setAnchorEl ] = useState(null);
-    const { createRoom } = useContext(VideoContext);
+    const { createRoom, joinChat } = useContext(VideoContext);
     const [ name, setName ] = useState('');
-    const addRoom = () => {
-        createRoom(name).then(() => {
-            db
-                .collection('meeting')
-                .doc(room.uniqueName)
-                .set({
-                    title: room.roomName,
-                    uniqueName: room.uniqueName,
-                    CreatedAt: firebase.firestore.Timestamp.now()
-                })
-                .then(() => {
-                    console.log('meeting added successfully');
-                })
-                .catch(() => {
-                    console.log('meeting not created');
-                });
-        });
-    };
-    const addUserToMeeting = () => {
-        const meetingParticipantList = db.collection('meeting').doc(room.uniqueName).collection('participant');
-        meetingParticipantList
-            .add(state.user)
-            .then(() => {
-                console.log('participants added');
-            })
-            .catch(() => {
-                console.log('unable to add participnats');
-            });
-    };
+    const [ roomId, setRoomId ] = useState('');
 
+    const handleCreate = async () => {
+        await createRoom(name);
+        setIsCreateDialogOpen(false);
+    };
+    const handleJoin = async () => {
+        await joinChat(roomId);
+        setIsJoinDialogOpen(false);
+    };
     const handleClick = event => {
         setAnchorEl(event.currentTarget);
     };
@@ -80,7 +60,7 @@ const Dialogs = () => {
                     <Button onClick={handleCreateDialogClose} color="primary">
                         Close
                     </Button>
-                    <Button onClick={addRoom} color="primary">
+                    <Button onClick={handleCreate} color="primary">
                         Create
                     </Button>
                 </DialogActions>
@@ -88,13 +68,13 @@ const Dialogs = () => {
             <Dialog open={isJoinDialogOpen} onClose={handleJoinDialogClose}>
                 <DialogTitle>Join Room</DialogTitle>
                 <DialogContent>
-                    <TextField label="Room ID" />
+                    <TextField label="Room ID" value={roomId} onChange={e => setRoomId(e.target.value)} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleJoinDialogClose} color="primary">
                         Close
                     </Button>
-                    <Button onClick={addUserToMeeting} color="primary">
+                    <Button onClick={handleJoin} color="primary">
                         Join
                     </Button>
                 </DialogActions>

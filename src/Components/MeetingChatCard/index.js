@@ -20,12 +20,11 @@ const useStyles = makeStyles({
         color: 'grey'
     }
 });
-const MeetingChatCard = () => {
+const MeetingChatCard = ({ room, selectRoom }) => {
     const classes = useStyles();
     return (
-        <Card container item className={classes.ChatCard} direction="column">
-            <Typography className={classes.title}>Meeting Name</Typography>
-            <Typography className={classes.sub}>last message</Typography>
+        <Card className={classes.ChatCard} onClick={() => selectRoom(room)}>
+            <Typography className={classes.title}>{room.roomTitle}</Typography>
         </Card>
     );
 };

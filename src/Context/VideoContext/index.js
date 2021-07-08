@@ -1,6 +1,10 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useContext } from 'react';
 import axios from 'axios';
+import * as uuid from 'uuid';
+import { addRoom, addMeetingToUser, addUserToMeeting, fetchRoom } from '../../db';
 import history from '../../history';
+import { UserContext } from '../AuthContext';
+import { CloudDownloadTwoTone } from '@material-ui/icons';
 export const VideoContext = React.createContext();
 
 const reducer = (state, action) => {
@@ -22,23 +26,21 @@ const api = axios.create({
 export const VideoProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {} });
     const [ isConnecting, setIsConnecting ] = useState(false);
-    const createRoom = name => {
+    const { state: authState } = useContext(UserContext);
+    const createRoom = async name => {
         setIsConnecting(true);
-        api
-            .get('/rooms', {
-                roomName: name
-            })
-            .then(res => {
-                dispatch({ type: 'ROOM', payload: { room: res.data } });
-                console.log(res.data.uniqueName);
-                history.push(`/Preview/${res.data.uniqueName}`);
-            })
-            .catch(err => {
-                dispatch({ type: 'ERROR', payload: { err } });
-            })
-            .finally(() => {
-                setIsConnecting(false);
-            });
+        try {
+            const roomId = `${uuid.v4()}`;
+            await addRoom({ roomId, roomTitle: name });
+            await addMeetingToUser(authState.user.uid, { roomId, roomTitle: name });
+            await addUserToMeeting(authState.user, roomId);
+            dispatch({ type: 'ROOM', payload: { room: roomId } });
+            // console.log(res.data.uniqueName);
+        } catch (err) {
+            dispatch({ type: 'ERROR', payload: { err } });
+        } finally {
+            setIsConnecting(false);
+        }
     };
     const generateToken = roomId => {
         setIsConnecting(true);
@@ -63,25 +65,33 @@ export const VideoProvider = ({ children }) => {
                 setIsConnecting(false);
             });
     };
-    const getRoom = roomId => {
+    const joinChat = async roomId => {
         setIsConnecting(true);
-        api
-            .get('/room', {
-                params: { room: roomId }
-            })
-            .then(res => {
-                console.log(res.data);
-
-                dispatch({ type: 'GETROOM', payload: { room: res.data.room } });
-                history.push(`/Preview/${res.data.room.uniqueName}`);
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch({ type: 'ERROR', payload: { err: err } });
-            })
-            .finally(() => {
-                setIsConnecting(false);
-            });
+        try {
+            const res = await validRoom(roomId);
+            console.log(res);
+            if (res) {
+                await addMeetingToUser(authState.user.uid, { ...res.room });
+                await addUserToMeeting(authState.user, roomId);
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setIsConnecting(false);
+        }
     };
-    return <VideoContext.Provider value={{ state, createRoom, generateToken, getRoom, isConnecting }}>{children}</VideoContext.Provider>;
+    const validRoom = async roomId => {
+        setIsConnecting(true);
+
+        try {
+            const doc = await fetchRoom(roomId);
+            if (doc.exists) return doc.data();
+            else return false;
+        } catch (err) {
+            return false;
+        } finally {
+            setIsConnecting(false);
+        }
+    };
+    return <VideoContext.Provider value={{ state, joinChat, validRoom, createRoom, generateToken, isConnecting }}>{children}</VideoContext.Provider>;
 };
