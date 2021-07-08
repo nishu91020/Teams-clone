@@ -22,10 +22,12 @@ const api = axios.create({
 export const VideoProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {} });
     const [ isConnecting, setIsConnecting ] = useState(false);
-    const createRoom = () => {
+    const createRoom = name => {
         setIsConnecting(true);
         api
-            .get('/rooms', {})
+            .get('/rooms', {
+                roomName: name
+            })
             .then(res => {
                 dispatch({ type: 'ROOM', payload: { room: res.data } });
                 console.log(res.data.uniqueName);

@@ -24,7 +24,7 @@ const Login = () => {
     //     }
     // });
     const handleLogin = async () => {
-        await login(email, password);
+        await login();
         history.push('/');
     };
     const navigateSignup = () => {
