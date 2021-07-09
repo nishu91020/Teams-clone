@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, Divider, makeStyles } from '@material-ui/core';
+import { Grid, Divider, makeStyles,Avatar,Typography } from '@material-ui/core';
+import moment from 'moment';
 
 const useStyles = makeStyles({
     msgLocal: {
@@ -9,21 +10,36 @@ const useStyles = makeStyles({
         margin: '1%',
         borderRadius: '5px',
         width: '80%'
-    }
+    },
+    userInfo: {
+        fontSize: '10px',
+        wordWrap: 'break-word'
+    },
+    msg: {
+        fontSize: '13px',
+        fontFamily: 'cursive'
+    },
 });
-const Message = () => {
+const Message = ({message}) => {
     const classes = useStyles();
     return (
         <Grid item container direction="row" className={classes.msgLocal}>
-            <Grid container item direction="row" justify="space-between">
-                <Grid>Nishu Rai</Grid>
-
-                <Grid> 08/07/21 6:00 pm</Grid>
-            </Grid>
-
-            <Divider />
             <Grid item container>
-                ashajshagdydfwytweuwehswujhsnajnbxzxczxzvcxv
+                 <Grid>
+                <Avatar src={message?.sentBy.photoURL} />
+            </Grid>
+            <Grid item container direction="column" className={classes.msgLocal}>
+                <Grid container item direction="row" justify="space-between">
+                    <Typography className={classes.userInfo}>{message?.sentBy.displayName}</Typography>
+
+                    <Typography className={classes.userInfo}>{moment(message?.sentAt).format('LT')}</Typography>
+                </Grid>
+
+                <Divider />
+                <Grid item container>
+                    <Typography className={classes.msg}>{message?.message}</Typography>
+                </Grid>
+            </Grid>
             </Grid>
         </Grid>
     );

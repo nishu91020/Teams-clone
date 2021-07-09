@@ -77,12 +77,12 @@ const VideoScreen = () => {
 
             {isChatActive ? (
                 <Grid container item xs={3} className={classes.side}>
-                    <ChatBox handleChat={handleChat} />
+                    <ChatBox handleChat={handleChat} room={state.room}/>
                 </Grid>
             ) : null}
             {isParticipantListActive ? (
                 <Grid container item xs={3}>
-                    <ParticipantList handleParticipants={handleParticipants} room={state.room.uniqueName} />
+                    <ParticipantList handleParticipants={handleParticipants} room={state.room} />
                 </Grid>
             ) : null}
         </Grid>

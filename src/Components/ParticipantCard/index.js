@@ -1,15 +1,24 @@
 import React from 'react';
-import { List, ListItem, Avatar, ListItemAvatar, ListItemText } from '@material-ui/core';
-const ParticipantCard = props => {
+import { Avatar, Grid, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    text: {
+        fontFamily: 'cursive',
+        fontSize: '18px'
+    },
+    card: {
+        marginTop: '5px'
+    }
+});
+const ParticipantCard = ({ participant }) => {
+    const classes = useStyles();
     return (
-        <List>
-            <ListItem>
-                <ListItemAvatar>
-                    <Avatar color="parimary">{props.name.charAt(0).toUpperCase()}</Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={props.name.toUpperCase()} />
-            </ListItem>
-        </List>
+        <Grid container item direction="row" className={classes.card}>
+            <Avatar>
+                <img src={participant.photoURL} width="40px" />
+            </Avatar>
+            <div className={classes.text}>{participant.displayName}</div>
+        </Grid>
     );
 };
 
