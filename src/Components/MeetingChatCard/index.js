@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Typography, Button, makeStyles } from '@material-ui/core';
-import { Share } from '@material-ui/icons';
-import CopyToClipboard from 'react-copy-to-clipboard';
+
 const useStyles = makeStyles({
     ChatCard: {
         backgroundColor: '#FEFEFF',
@@ -29,11 +28,6 @@ const MeetingChatCard = ({ room, selectRoom }) => {
     return (
         <Card className={classes.ChatCard} onClick={() => selectRoom(room)}>
             <Typography className={classes.title}>{room.roomTitle}</Typography>
-            <CopyToClipboard text={room.roomId}>
-                <Button style={{ justifyContent: 'right' }}>
-                    invite<Share />
-                </Button>
-            </CopyToClipboard>
         </Card>
     );
 };

@@ -1,11 +1,11 @@
 import React,{useState,useContext,useEffect} from 'react';
 import { TextField, Grid, makeStyles, Button,Typography } from '@material-ui/core';
-import { Send } from '@material-ui/icons';
 import history from '../../history';
 import {UserContext} from '../../Context/AuthContext';
-import Message from '../Message';
+import { Share } from '@material-ui/icons';
 import LocalMessage from '../LocalMessage';
 import {addMessage,getMessage} from '../../db';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import './styles.css';
 const useStyles = makeStyles({
     chatContainer: {
@@ -61,14 +61,22 @@ const RoomChatCard = ({ room }) => {
     }
     
     return (
-        <Grid container item style={{ height: '100%', width: '100%',backgroundColor: '#8f94fb' }} direction="column">
+        <Grid container item style={{ height: '100%', width: '100%',backgroundColor: '#FEFFFF' }} direction="column">
             <Grid container item className={classes.chatContainer} justify="space-between">
                 
                 {room?.roomTitle}
-                
-              {room &&  <Button size="small" color="primary" variant="contained" onClick={handleJoin} className={classes.joinBtn}>
+            <div>
+              {room && 
+              <CopyToClipboard text={room.roomId}>
+                <Button style={{ justifyContent: 'right' }} variant="outlined" color="primary" size="small" style={{ marginRight: '3px' }}>
+                    invite<Share />
+                </Button>
+            </CopyToClipboard>}
+            {room &&
+              <Button size="small" color="primary" variant="contained" onClick={handleJoin} className={classes.joinBtn}>
                     join
                 </Button>}
+            </div>
             </Grid>
             
             <Grid container item className={classes.msgList} direction="column-reverse">
@@ -84,7 +92,7 @@ const RoomChatCard = ({ room }) => {
             {room && 
             <Grid container item className={classes.chatInput} justify="center">
                 <TextField variant="outlined" size="small" style={{ width: '85%' }} placeholder="message" onKeyDown={handleKeyPress} value={message} onChange={(e)=>setMessage(e.target.value)}/>
-                <Button onClick={handleSend}  disabled={!message} variant="outlined" color="primary">
+                <Button onClick={handleSend}  disabled={!message} variant="outlined" color="primary" size="small">
                      Send
                 </Button>
                

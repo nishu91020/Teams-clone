@@ -3,8 +3,7 @@ import { Grid, Divider, makeStyles, Typography, Avatar } from '@material-ui/core
 import moment from 'moment';
 const useStyles = makeStyles({
     msgLocal: {
-        backgroundColor: '#FEFFFF',
-        opacity: 0.7,
+        backgroundColor: '#f8f4ff',
         padding: '0.6%',
         margin: '0.5%',
         borderRadius: '5px',
