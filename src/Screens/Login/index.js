@@ -1,59 +1,33 @@
 import React, { useState, useContext, useEffect } from 'react';
-
-import { Form } from '../../Components/Form';
-import './styles.css';
 import history from '../../../src/history';
 import { UserContext } from '../../Context/AuthContext';
-import { TextField, makeStyles } from '@material-ui/core';
-const useStyle = makeStyles({
-    input: {
-        width: '250px',
-        margin: '3%',
-        display: 'flex'
+import { Button, Grid, Typography, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    logo: {
+        fontSize: '30px',
+        fontFamily: 'cursive',
+        fontStyle: 'italic',
+        margin: '1%'
     }
 });
-
 const Login = () => {
-    const [ email, setEmail ] = useState('');
-    const [ password, setPassword ] = useState('');
+    const classes = useStyles();
     const { login } = useContext(UserContext);
-    const classes = useStyle();
-    // useEffect(() => {
-    //     if (state.token) {
-    //         history.push('/home');
-    //     }
-    // });
+
     const handleLogin = async () => {
         await login();
         history.push('/');
     };
-    const navigateSignup = () => {
-        history.push('/');
-    };
     return (
-        <div className="container">
-            <Form.AuthModal>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg" width="34" height="34" alt="Teams" />
-                <Form.Title heading="Login" />
-                <TextField value={email} onChange={e => setEmail(e.target.value)} type="email" className={classes.input} id="standard-basic" size="small" label="Email" />
-                <TextField
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    type="password"
-                    className={classes.input}
-                    id="standard-basic"
-                    size="small"
-                    label="Password"
-                />
-
-                <div onClick={handleLogin}>
-                    <Form.BtnForm content="Login" />
-                </div>
-                <div onClick={navigateSignup}>
-                    <Form.BtnOutline content="Signup" />
-                </div>
-            </Form.AuthModal>
-        </div>
+        <Grid container item justify="center" alignItems="center" xs={12} style={{ height: '100%', flex: 1 }} direction="column">
+            <img src="https://image.freepik.com/free-vector/couple-with-smartphones-talking-through-video-call_74855-5226.jpg" width="750px" />
+            <Typography className={classes.logo}>Meet,collaborate and innovate!</Typography>
+            <Button onClick={handleLogin} variant="outlined" color="primary">
+                <img src="https://freesvg.org/img/1534129544.png" width="25px" />
+                Sign in with google
+            </Button>
+        </Grid>
     );
 };
 

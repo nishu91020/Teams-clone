@@ -1,6 +1,7 @@
 import React,{useState,useContext,useEffect} from 'react';
 import { TextField, Grid, makeStyles, Button,Typography } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
+import history from '../../history';
 import {UserContext} from '../../Context/AuthContext';
 import Message from '../Message';
 import LocalMessage from '../LocalMessage';
@@ -18,7 +19,6 @@ const useStyles = makeStyles({
         justiy: 'flex-end'
     },
     chatInput: {
-        border: '2px solid #3f51b5',
         padding: '1px',
         borderRadius: '5px'
     },
@@ -48,6 +48,9 @@ const RoomChatCard = ({ room }) => {
     },[room])
     console.log(room);
 
+    const handleJoin=()=>{
+        history.push(`/Preview/${room.roomId}`);
+    }
     const handleSend=()=>{
         addMessage(room?.roomId,{sentAt:new Date().toISOString(),message,sentBy:state.user});
         setMessage('');
@@ -63,7 +66,7 @@ const RoomChatCard = ({ room }) => {
                 
                 {room?.roomTitle}
                 
-              {room &&  <Button size="small" color="primary" variant="contained" className={classes.joinBtn}>
+              {room &&  <Button size="small" color="primary" variant="contained" onClick={handleJoin} className={classes.joinBtn}>
                     join
                 </Button>}
             </Grid>
@@ -80,8 +83,8 @@ const RoomChatCard = ({ room }) => {
             
             {room && 
             <Grid container item className={classes.chatInput} justify="center">
-                <TextField style={{ width: '85%' }} placeholder="message" onKeyDown={handleKeyPress} value={message} onChange={(e)=>setMessage(e.target.value)}/>
-                <Button onClick={handleSend}  disabled={!message} color="primary">
+                <TextField variant="outlined" size="small" style={{ width: '85%' }} placeholder="message" onKeyDown={handleKeyPress} value={message} onChange={(e)=>setMessage(e.target.value)}/>
+                <Button onClick={handleSend}  disabled={!message} variant="outlined" color="primary">
                      Send
                 </Button>
                

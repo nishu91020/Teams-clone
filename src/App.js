@@ -1,6 +1,5 @@
 import './App.css';
 import { useContext, useEffect } from 'react';
-import Signup from './Screens/Signup';
 import Login from './Screens/Login';
 import { Router, Route, Switch } from 'react-router-dom';
 import Home from './Screens/Home';
@@ -35,8 +34,7 @@ function App () {
 
                     {!state.token ? (
                         <Switch>
-                            <Route path="/" exact component={Signup} />
-                            <Route path="/Login" exact component={Login} />
+                            <Route path="/" exact component={Login} />
                         </Switch>
                     ) : (
                         <Switch>
