@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Typography, makeStyles, Grid, CircularProgress, TextField } from '@material-ui/core';
+import { Typography, makeStyles, Grid, CircularProgress, TextField, Dialog, DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
 import './styles.css';
 import { Chat } from '@material-ui/icons';
 import history from '../../history';
@@ -7,13 +7,14 @@ import { VideoContext } from '../../Context/VideoContext';
 import { UserContext } from '../../Context/AuthContext';
 import Button from '@material-ui/core/Button';
 
+import { name } from 'faker/locale/zh_TW';
+
 const useStyles = makeStyles({
     one: {
         color: '#3f51b5',
         fontSize: '50px',
         fontFamily: 'cursive',
-        fontStyle: 'italic',
-        fontWeight: 'bold'
+        fontStyle: 'italic'
     },
     two: {
         fontSize: '30px',
@@ -31,23 +32,32 @@ const useStyles = makeStyles({
 });
 const Home = () => {
     const classes = useStyles();
+    const [ isCreateDialogOpen, setIsCreateDialogOpen ] = useState(false);
     const { state, logout, isLoading } = useContext(UserContext);
-    const { createRoom, isConnecting, generateToken } = useContext(VideoContext);
+    const { joinChat, createRoom, isConnecting } = useContext(VideoContext);
     const [ roomId, setRoomId ] = useState('');
+    const [ name, setName ] = useState('');
+
+    const handleJoin = async () => {
+        await joinChat(roomId);
+        history.push('/ChatScreen');
+    };
+    const handleCreteDialog = () => {
+        setIsCreateDialogOpen(true);
+    };
+    const handleCreateDialogClose = () => {
+        setIsCreateDialogOpen(false);
+    };
+    const handleCreate = async () => {
+        await createRoom(name);
+        setIsCreateDialogOpen(false);
+        history.push('/ChatScreen');
+    };
     const handleLogout = () => {
         const out = async () => {
             await logout();
         };
         out();
-    };
-    const handleCreate = async () => {
-        const create = async () => {
-            await createRoom();
-        };
-        create();
-    };
-    const handleJoin = () => {
-        history.push(`/Preview/${roomId}`);
     };
     const goToChat = () => {
         history.push('/ChatScreen');
@@ -68,12 +78,12 @@ const Home = () => {
                     <Grid item container direction="row">
                         <TextField value={roomId} size="small" label="Room ID" className={classes.input} type="text" variant="outlined" onChange={e => setRoomId(e.target.value)} />
 
-                        <Button styles={classes.btn} onClick={handleJoin} color="primary" variant="contained">
+                        <Button styles={classes.btn} onClick={handleJoin} color="primary" variant="contained" disabled={!roomId} size="small">
                             Join
                         </Button>
                     </Grid>
                     <Grid container item justify="space-around" className={classes.btnAll}>
-                        <Button styles={classes.btn} onClick={handleCreate} color="primary" variant="contained">
+                        <Button styles={classes.btn} onClick={handleCreteDialog} color="primary" variant="contained">
                             Create a room
                         </Button>
                     </Grid>
@@ -95,6 +105,20 @@ const Home = () => {
                     </Button>
                 </Grid>
             </Grid>
+            <Dialog open={isCreateDialogOpen} onClose={handleCreateDialogClose}>
+                <DialogTitle>Crete a room</DialogTitle>
+                <DialogContent>
+                    <TextField label=" Meeting Title" value={name} onChange={e => setName(e.target.value)} />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCreateDialogClose} color="primary">
+                        Close
+                    </Button>
+                    <Button onClick={handleCreate} color="primary">
+                        Create
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Grid>
     );
 };

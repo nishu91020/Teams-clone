@@ -4,7 +4,7 @@ import { Card, Typography, Button, makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
     ChatCard: {
         backgroundColor: '#FEFEFF',
-        fontFamily: 'Helvetica',
+
         height: '45px',
         width: '94%',
         borderRadius: '5px',
@@ -15,7 +15,8 @@ const useStyles = makeStyles({
         justifyContent: 'space-between'
     },
     title: {
-        fontSize: '13px'
+        fontSize: '15px',
+        fontFamily: 'cursive'
     },
     sub: {
         fontSize: '10px',
