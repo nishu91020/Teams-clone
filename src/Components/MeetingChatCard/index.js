@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, Typography, Button, makeStyles } from '@material-ui/core';
-
+import { VideoContext } from '../../Context/VideoContext';
 const useStyles = makeStyles({
     ChatCard: {
         backgroundColor: '#FEFEFF',
-
         height: '45px',
         width: '94%',
         borderRadius: '5px',
@@ -23,11 +22,12 @@ const useStyles = makeStyles({
         color: 'grey'
     }
 });
-const MeetingChatCard = ({ room, selectRoom }) => {
+const MeetingChatCard = ({ room }) => {
+    const { selectedRoom } = useContext(VideoContext);
     console.log(room);
     const classes = useStyles();
     return (
-        <Card className={classes.ChatCard} onClick={() => selectRoom(room)}>
+        <Card className={classes.ChatCard} onClick={() => selectedRoom(room)}>
             <Typography className={classes.title}>{room.roomTitle}</Typography>
         </Card>
     );

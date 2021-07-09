@@ -3,6 +3,7 @@ import { Grid, makeStyles, Button } from '@material-ui/core';
 import MeetingChatList from '../../Components/MeetingChatList';
 import RoomChatCard from '../../Components/RoomChatCard';
 import { UserContext } from '../../Context/AuthContext';
+import { VideoContext } from '../../Context/VideoContext';
 import { getRoomOfUser } from '../../db';
 import './styles.css';
 
@@ -17,8 +18,8 @@ const useStyles = makeStyles({
 const ChatScreen = () => {
     const classes = useStyles();
     const [ rooms, setRooms ] = useState([]);
-    const [ selectedRoom, setSelectedRoom ] = useState(null);
-    const { state } = useContext(UserContext);
+    const { state: authState } = useContext(UserContext);
+    const { state } = useContext(VideoContext);
     useEffect(() => {
         const callback = snapshot => {
             let roomsList = [];
@@ -28,16 +29,16 @@ const ChatScreen = () => {
             });
             setRooms(roomsList);
         };
-        getRoomOfUser(state.user.uid, callback);
+        getRoomOfUser(authState.user.uid, callback);
     }, []);
     console.log(rooms, 'chatscreen');
     return (
         <Grid container item xs={12} className={classes.chatContainerOuter}>
             <Grid container item xs={3} className={classes.roomChat}>
-                <MeetingChatList rooms={rooms} selectRoom={setSelectedRoom} />
+                <MeetingChatList rooms={rooms} />
             </Grid>
             <Grid container item xs={9} className={classes.roomChat}>
-                <RoomChatCard room={selectedRoom} />
+                <RoomChatCard room={state.room} />
             </Grid>
         </Grid>
     );

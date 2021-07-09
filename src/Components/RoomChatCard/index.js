@@ -6,6 +6,7 @@ import { Share } from '@material-ui/icons';
 import LocalMessage from '../LocalMessage';
 import {addMessage,getMessage} from '../../db';
 import CopyToClipboard from 'react-copy-to-clipboard';
+
 import './styles.css';
 const useStyles = makeStyles({
     chatContainer: {
@@ -34,7 +35,7 @@ const RoomChatCard = ({ room }) => {
     const classes = useStyles();
     const [message,setMessage]=useState('');
     const [messages,setMessages]=useState([])
-    const {state} =useContext(UserContext);
+    const {state:authState} =useContext(UserContext);
     useEffect(()=>{
     const callback=(snapshot)=>{
         const messageList=[];
@@ -52,7 +53,7 @@ const RoomChatCard = ({ room }) => {
         history.push(`/Preview/${room.roomId}`);
     }
     const handleSend=()=>{
-        addMessage(room?.roomId,{sentAt:new Date().toISOString(),message,sentBy:state.user});
+        addMessage(room?.roomId,{sentAt:new Date().toISOString(),message,sentBy:authState.user});
         setMessage('');
     }
     const handleKeyPress=(e)=>{

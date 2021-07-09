@@ -15,7 +15,10 @@ const reducer = (state, action) => {
             return { ...state, ...action.payload };
         case 'GETROOM':
             return { ...state, ...action.payload };
-
+        case 'JOINCHAT':
+            return { ...state, ...action.payload };
+        case 'SELECT':
+            return { ...state, ...action.payload };
         default:
             return state;
     }
@@ -24,7 +27,7 @@ const api = axios.create({
     baseURL: 'http://localhost:8080'
 });
 export const VideoProvider = ({ children }) => {
-    const [ state, dispatch ] = useReducer(reducer, { room: {}, accessToken: '', track: [], err: {} });
+    const [ state, dispatch ] = useReducer(reducer, { room: undefined, accessToken: '', track: [], err: {} });
     const [ isConnecting, setIsConnecting ] = useState(false);
     const { state: authState } = useContext(UserContext);
     const createRoom = async name => {
@@ -34,13 +37,16 @@ export const VideoProvider = ({ children }) => {
             await addRoom({ roomId, roomTitle: name });
             await addMeetingToUser(authState.user.uid, { roomId, roomTitle: name });
             await addUserToMeeting(authState.user, roomId);
-            dispatch({ type: 'ROOM', payload: { room: roomId } });
+            dispatch({ type: 'ROOM', payload: { room: { roomId: roomId, roomTitle: name } } });
             // console.log(res.data.uniqueName);
         } catch (err) {
             dispatch({ type: 'ERROR', payload: { err } });
         } finally {
             setIsConnecting(false);
         }
+    };
+    const selectedRoom = room => {
+        dispatch({ type: 'SELECT', payload: { room: room } });
     };
     const generateToken = roomId => {
         setIsConnecting(true);
@@ -73,6 +79,7 @@ export const VideoProvider = ({ children }) => {
             if (res) {
                 await addMeetingToUser(authState.user.uid, { ...res.room });
                 await addUserToMeeting(authState.user, roomId);
+                dispatch({ type: 'JOINCHAT', payload: { room: res.data().room } });
             }
         } catch (err) {
             console.log(err);
@@ -93,5 +100,5 @@ export const VideoProvider = ({ children }) => {
             setIsConnecting(false);
         }
     };
-    return <VideoContext.Provider value={{ state, joinChat, validRoom, createRoom, generateToken, isConnecting }}>{children}</VideoContext.Provider>;
+    return <VideoContext.Provider value={{ state, selectedRoom, joinChat, validRoom, createRoom, generateToken, isConnecting }}>{children}</VideoContext.Provider>;
 };
