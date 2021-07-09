@@ -12,7 +12,15 @@ const useStyles = makeStyles({
     },
     box: {
         paddingLeft: '1%',
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        overflowY: 'hidden'
+    },
+    chatList:{
+        paddingLeft: '2px',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        height: '75vh',
+        width: '310px'
     }
 });
 const ChatBox = ({handleChat,room}) => {
@@ -42,23 +50,24 @@ const ChatBox = ({handleChat,room}) => {
     console.log(room);
     // console.log('helooooo');
     return (
-        <Grid sm={12} className={classes.box}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Grid container item sm={12} className={classes.box}>
+            <Grid item container direction="row" justify="space-between">
                 <h3>Meeting Chat</h3>
                 <Button size="small" disableRipple disableFocusRipple variant="text" className="cross" onClick={handleChat}>
                     <Close />
                 </Button>
-            </div>
-            <div>
-            <Grid container item className={classes.msgList} direction="column-reverse">
+            </Grid>
+
+            <Grid container item className={classes.chatList}   direction="row">
+                <Grid container item direction="column-reverse">
                 {
                     messages.map((message,key)=>{
                             return <Message message={message} key={key}/>
                     })
                 }
-                
+                </Grid>
             </Grid>
-            </div>
+            
             <Grid direction="row" >
                 <TextField className={classes.input} size="small" id="standard-basic" onKeyDown={handleKeyPress} variant="standard" type="text" placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} />
                 <Button onClick={handleSend}>

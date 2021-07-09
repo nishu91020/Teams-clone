@@ -1,15 +1,14 @@
 import React from 'react';
-import { Grid, Divider, makeStyles,Avatar,Typography } from '@material-ui/core';
+import { Grid, Divider, makeStyles, Typography, Avatar } from '@material-ui/core';
 import moment from 'moment';
-
 const useStyles = makeStyles({
     msgLocal: {
         backgroundColor: '#dcdcdc',
-        opacity: 0.8,
-        padding: '1%',
-        margin: '1%',
+        padding: '0.6%',
+        margin: '0.5%',
         borderRadius: '5px',
-        width: '80%'
+        width: '75%',
+         
     },
     userInfo: {
         fontSize: '10px',
@@ -19,13 +18,15 @@ const useStyles = makeStyles({
         fontSize: '13px',
         fontFamily: 'cursive'
     },
+    messageContainer: {
+        margin: '0.5%'
+    }
 });
-const Message = ({message}) => {
+const LocalMessage = ({ message }) => {
     const classes = useStyles();
     return (
-        <Grid item container direction="row" className={classes.msgLocal}>
-            <Grid item container>
-                 <Grid>
+        <Grid item container className={classes.messageContainer}>
+            <Grid>
                 <Avatar src={message?.sentBy.photoURL} />
             </Grid>
             <Grid item container direction="column" className={classes.msgLocal}>
@@ -40,9 +41,8 @@ const Message = ({message}) => {
                     <Typography className={classes.msg}>{message?.message}</Typography>
                 </Grid>
             </Grid>
-            </Grid>
         </Grid>
     );
 };
 
-export default Message;
+export default LocalMessage;

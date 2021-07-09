@@ -21,10 +21,12 @@ const Dialogs = () => {
     const handleCreate = async () => {
         await createRoom(name);
         setIsCreateDialogOpen(false);
+        setName('');
     };
     const handleJoin = async () => {
         await joinChat(roomId);
         setIsJoinDialogOpen(false);
+        setRoomId('');
     };
     const handleClick = event => {
         setAnchorEl(event.currentTarget);
@@ -34,12 +36,14 @@ const Dialogs = () => {
     };
     const handleJoinDialogClose = () => {
         setIsJoinDialogOpen(false);
+        setRoomId('');
     };
     const handleJoinDialog = () => {
         setIsJoinDialogOpen(true);
     };
     const handleCreateDialogClose = () => {
         setIsCreateDialogOpen(false);
+        setName('');
     };
     const handleCreateDialog = () => {
         setIsCreateDialogOpen(true);

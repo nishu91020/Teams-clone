@@ -98,9 +98,11 @@ export default ()=>(
 
 const useStyles = makeStyles({
     wrapper: {
-        backgroundColor: '#272727'
+        backgroundColor: '#272727',
     },
     side: {
-        right: 0
+        right: 0, 
+        overflowY: 'hidden',
+        height:'93vh'
     }
 });
