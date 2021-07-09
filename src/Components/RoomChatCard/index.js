@@ -48,6 +48,7 @@ const RoomChatCard = ({ room }) => {
     getMessage(room?.roomId,callback);
     },[room])
     console.log(room);
+    messages.reverse();
 
     const handleJoin=()=>{
         history.push(`/Preview/${room.roomId}`);
@@ -80,14 +81,15 @@ const RoomChatCard = ({ room }) => {
             </div>
             </Grid>
             
-            <Grid container item className={classes.msgList} direction="column-reverse">
-                {
+            <Grid container item className={classes.msgList} direction="row">
+                <Grid item container direction="column-reverse">
+                    {
+                    
                     messages.map((message,key)=>{
                             return <LocalMessage message={message} key={key}/>
                     })
                 }
-                
-                
+                </Grid>
             </Grid>
             
             {room && 
