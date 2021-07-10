@@ -9,11 +9,11 @@ const useStyles = makeStyles({
         backgroundColor: '#EFEEEE',
         height: '9%',
         padding: '1%',
-        fontSize: '18px',
+        fontSize: '120%',
         fontWeight: 'bold'
     },
     meetingList: {
-        padding: '2px',
+        padding: '1%',
         overflowX: 'hidden',
         overflowY: 'auto',
         height: '90%'

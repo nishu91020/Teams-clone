@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         backgroundColor: '#EFEEEE',
         height: '9%',
         padding: '1%',
-        fontSize: '18px',
+        fontSize: '120%',
         fontWeight: 'bold'
     },
     joinBtn: {

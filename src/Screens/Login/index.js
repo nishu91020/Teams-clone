@@ -5,7 +5,7 @@ import { Button, Grid, Typography, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
     logo: {
-        fontSize: '30px',
+        fontSize: '200%',
         fontFamily: 'cursive',
         fontStyle: 'italic',
         margin: '1%'
@@ -21,7 +21,7 @@ const Login = () => {
     };
     return (
         <Grid container item justify="center" alignItems="center" xs={12} style={{ height: '100%', flex: 1 }} direction="column">
-            <img src="https://image.freepik.com/free-vector/couple-with-smartphones-talking-through-video-call_74855-5226.jpg" width="750px" />
+            <img src="https://image.freepik.com/free-vector/couple-with-smartphones-talking-through-video-call_74855-5226.jpg" width="60%" />
             <Typography className={classes.logo}>Meet,collaborate and innovate!</Typography>
             <Button onClick={handleLogin} variant="outlined" color="primary">
                 <img src="https://freesvg.org/img/1534129544.png" width="25px" />

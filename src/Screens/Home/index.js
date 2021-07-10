@@ -11,12 +11,12 @@ import MuiAlert from '@material-ui/lab/Alert';
 const useStyles = makeStyles({
     one: {
         color: '#3f51b5',
-        fontSize: '50px',
+        fontSize: '290%',
         fontFamily: 'cursive',
         fontStyle: 'italic'
     },
     two: {
-        fontSize: '30px',
+        fontSize: '220%',
         fontFamily: 'cursive',
         fontStyle: 'italic'
     },
@@ -58,6 +58,7 @@ const Home = () => {
         else {
             setFailSnackbar(true);
         }
+        setRoomId('');
     };
     const handleCreteDialog = () => {
         setIsCreateDialogOpen(true);
@@ -89,13 +90,16 @@ const Home = () => {
     return (
         <Grid container item direction="row" xs={12} alignItems="center" justify="center" className={classes.homeContainer}>
             <Grid container item className="textArea" sm={6} xs={12} alignItems="center" justify="center">
-                <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
-                <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
-                <Grid container item justify="space-around" className={classes.btnAll}>
-                    <Grid item container direction="row">
+                <div style={{ alignItems: 'center', textAlign: 'center' }}>
+                    <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
+                    <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
+                </div>
+
+                <Grid container item justify="space-around" className={classes.btnAll} alignItems="center" justify="center">
+                    <Grid item container direction="row" justify="center">
                         <TextField value={roomId} size="small" label="Room ID" className={classes.input} type="text" variant="outlined" onChange={e => setRoomId(e.target.value)} />
 
-                        <Button styles={classes.btn} onClick={handleJoin} color="primary" variant="contained" disabled={!roomId} size="small">
+                        <Button styles={classes.btn} onClick={handleJoin} color="primary" variant="contained" disabled={!roomId}>
                             Join
                         </Button>
                     </Grid>
@@ -110,7 +114,7 @@ const Home = () => {
             <Grid item container sm={6} xs={12} direction="column">
                 <img
                     src="https://image.freepik.com/free-vector/flat-worker-conducts-online-meeting-virtual-team-building-videoconference-home-office_88138-508.jpg"
-                    width="500px"
+                    width="80%"
                     alt="teams"
                 />
                 <Grid item container direction="row" alignItems="flex-end" justify="flex-end">

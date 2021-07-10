@@ -11,11 +11,11 @@ const useStyles = makeStyles({
          
     },
     userInfo: {
-        fontSize: '10px',
+        fontSize: '90%',
         wordWrap: 'break-word'
     },
     msg: {
-        fontSize: '13px',
+        fontSize: '100%',
         fontFamily: 'cursive'
     },
     messageContainer: {

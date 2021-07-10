@@ -4,7 +4,7 @@ import { VideoContext } from '../../Context/VideoContext';
 const useStyles = makeStyles({
     ChatCard: {
         backgroundColor: '#FEFEFF',
-        height: '45px',
+        height: '10%',
         width: '94%',
         borderRadius: '5px',
         padding: '2%',
@@ -14,12 +14,8 @@ const useStyles = makeStyles({
         justifyContent: 'space-between'
     },
     title: {
-        fontSize: '15px',
+        fontSize: '110%',
         fontFamily: 'cursive'
-    },
-    sub: {
-        fontSize: '10px',
-        color: 'grey'
     }
 });
 const MeetingChatCard = ({ room }) => {

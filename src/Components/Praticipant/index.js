@@ -78,7 +78,7 @@ const Participant = ({ participant ,onClick }) => {
     return (
         
         <div className="participantCard" onClick={select}>
-            <video style={{height:'100%'}} ref={videoRef} autoPlay={true} />
+            <video style={{height:'100%',width:'100%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
     

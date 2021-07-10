@@ -7,15 +7,15 @@ const useStyles = makeStyles({
         padding: '0.6%',
         margin: '0.5%',
         borderRadius: '5px',
-        width: '75%',
+        width: '80%',
          
     },
     userInfo: {
-        fontSize: '10px',
+        fontSize: '90%',
         wordWrap: 'break-word'
     },
     msg: {
-        fontSize: '13px',
+        fontSize: '100%',
         fontFamily: 'cursive'
     },
     messageContainer: {

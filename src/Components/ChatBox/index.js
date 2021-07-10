@@ -7,8 +7,8 @@ import {addMessage,getMessage} from '../../db';
 import Message from '../Message';
 
 const useStyles = makeStyles({
-    input: {
-        width: '230px'
+    input:{
+        width: '75%',
     },
     box: {
         paddingLeft: '1%',
@@ -19,8 +19,11 @@ const useStyles = makeStyles({
         paddingLeft: '2px',
         overflowX: 'hidden',
         overflowY: 'auto',
-        height: '75vh',
-        width: '310px'
+        height: '70vh',
+        width: '90%'
+    },
+    in:{
+        height:'5%'
     }
 });
 const ChatBox = ({handleChat,room}) => {
@@ -68,12 +71,15 @@ const ChatBox = ({handleChat,room}) => {
                 </Grid>
             </Grid>
             
-            <Grid direction="row" >
-                <TextField className={classes.input} size="small" id="standard-basic" onKeyDown={handleKeyPress} variant="standard" type="text" placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} />
-                <Button onClick={handleSend}>
-                        <Send />
-                </Button>
+            <Grid item container className={classes.in}>
                 
+                     <TextField className={classes.input} size="small" id="standard-basic" onKeyDown={handleKeyPress} variant="outlined" type="text" placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} />
+        
+
+                    <Button onClick={handleSend} size="small">
+                        <Send/>
+                </Button>
+               
             </Grid>
         </Grid>
     );
