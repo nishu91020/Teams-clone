@@ -30,7 +30,7 @@ app.get('/rooms', (req, res) => {
 });
 
 app.get('/token', (req, res) => {
-    const identity = `${uuidv4()}`;
+    const identity = req.query.identity;
     console.log(identity);
     const token = new AccessToken(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_API_KEY_SID, process.env.TWILIO_API_KEY_SECRET);
     token.identity = identity;

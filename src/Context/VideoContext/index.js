@@ -24,7 +24,7 @@ const reducer = (state, action) => {
     }
 };
 const api = axios.create({
-    baseURL: 'http://localhost:8080'
+    baseURL: 'https://teamsclone-server.web.app'
 });
 export const VideoProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, { room: undefined, accessToken: '', track: [], err: {} });
