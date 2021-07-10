@@ -28,7 +28,7 @@ const MeetingChatList = ({ rooms, selectRoom }) => {
                 <Dialogs />
             </Grid>
             <Grid item container className={classes.meetingList} direction="row">
-                <Grid container item direction="column-reverse">
+                <Grid container item direction="column">
                     {rooms.map((room, key) => <MeetingChatCard room={room} key={key} selectRoom={selectRoom} />)}
                 </Grid>
             </Grid>
