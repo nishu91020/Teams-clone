@@ -61,7 +61,7 @@ const SelectedParticipant = ({ participant }) => {
     // console.log('participant=', participant);
     return (
         <div className="selectedParticipantCard">
-            <video style={{height:'100%'}} ref={videoRef} autoPlay={true} />
+            <video style={{height:'90%'}} ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} />
         </div>
     

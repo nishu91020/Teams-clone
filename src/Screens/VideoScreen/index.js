@@ -58,11 +58,11 @@ const VideoScreen = () => {
         <Grid item container direction="row" xs={12} className={classes.wrapper}>
             <Grid container item xs={isParticipantListActive || isChatActive ? 9 : 12}>
                 <Grid container item style={{ height: '93vh', overflowY: 'hidden' }}>
-                    <Grid item container className="carousel-container"  xs={3}>
+                    <Grid item container className="carousel-container"  xs={isParticipantListActive || isChatActive ? 4:3}>
                         {room && (room.localParticipant!==selectedParticipant) ? <Participant  key={room.localParticipant.sid} participant={room.localParticipant} onClick={setSelectedParticipant}/> : ''}
                         {remoteParticipants}
                     </Grid>
-                    <Grid container item xs={9} justify="center" alignItems="center">
+                    <Grid container item xs={isParticipantListActive || isChatActive ?8:9} justify="center" alignItems="center">
                         {
                             selectedParticipant && <SelectedParticipant participant={selectedParticipant}/>
                         }
