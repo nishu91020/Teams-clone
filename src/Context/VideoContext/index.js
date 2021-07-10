@@ -79,10 +79,13 @@ export const VideoProvider = ({ children }) => {
             if (res) {
                 await addMeetingToUser(authState.user.uid, { ...res.room });
                 await addUserToMeeting(authState.user, roomId);
-                dispatch({ type: 'JOINCHAT', payload: { room: res.data().room } });
+                dispatch({ type: 'JOINCHAT', payload: { room: res.room } });
+                return true;
             }
+            return false;
         } catch (err) {
             console.log(err);
+            return false;
         } finally {
             setIsConnecting(false);
         }

@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Typography, makeStyles, Grid, CircularProgress, TextField, Dialog, DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
+import { Typography, makeStyles, Grid, CircularProgress, TextField, Dialog, DialogContent, DialogTitle, DialogActions, Snackbar } from '@material-ui/core';
 import './styles.css';
 import { Chat } from '@material-ui/icons';
 import history from '../../history';
 import { VideoContext } from '../../Context/VideoContext';
 import { UserContext } from '../../Context/AuthContext';
 import Button from '@material-ui/core/Button';
-
-import { name } from 'faker/locale/zh_TW';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles({
     one: {
@@ -35,12 +34,30 @@ const Home = () => {
     const [ isCreateDialogOpen, setIsCreateDialogOpen ] = useState(false);
     const { state, logout, isLoading } = useContext(UserContext);
     const { joinChat, createRoom, isConnecting } = useContext(VideoContext);
+    const [ failSnackbar, setFailSnackbar ] = useState(false);
+
     const [ roomId, setRoomId ] = useState('');
     const [ name, setName ] = useState('');
 
+    const Alert = props => {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    };
+    const handleErrorClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setFailSnackbar(false);
+    };
+
     const handleJoin = async () => {
-        await joinChat(roomId);
-        history.push('/ChatScreen');
+        const result = await joinChat(roomId);
+        if (result) {
+            history.push('/ChatScreen');
+        }
+        else {
+            setFailSnackbar(true);
+        }
     };
     const handleCreteDialog = () => {
         setIsCreateDialogOpen(true);
@@ -119,6 +136,9 @@ const Home = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar open={failSnackbar} autoHideDuration={2000} onClose={handleErrorClose}>
+                <Alert severity="error">This room does not exists</Alert>
+            </Snackbar>
         </Grid>
     );
 };

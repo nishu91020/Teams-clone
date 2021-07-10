@@ -1,22 +1,30 @@
 import React, { useState, useContext } from 'react';
-import { db } from '../../firebase';
-import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { RoomContext } from '../../Context/RoomContext';
-import { MoreVert } from '@material-ui/icons';
 import { VideoContext } from '../../Context/VideoContext';
-import { UserContext } from '../../Context/AuthContext';
-import { Menu, MenuItem, Dialog, DialogContent, DialogTitle, DialogActions, TextField, Button } from '@material-ui/core';
+import { MoreVert } from '@material-ui/icons';
+import MuiAlert from '@material-ui/lab/Alert';
+import { Menu, MenuItem, Dialog, DialogContent, DialogTitle, DialogActions, TextField, Button, Snackbar } from '@material-ui/core';
 
 const Dialogs = () => {
-    const { room } = useContext(RoomContext);
-    const { state } = useContext(UserContext);
     const [ isJoinDialogOpen, setIsJoinDialogOpen ] = useState(false);
     const [ isCreateDialogOpen, setIsCreateDialogOpen ] = useState(false);
     const [ anchorEl, setAnchorEl ] = useState(null);
     const { createRoom, joinChat } = useContext(VideoContext);
+    const [ failSnackbar, setFailSnackbar ] = useState(false);
+    const [ successSnackbar, setSuccessSnackbar ] = useState(false);
     const [ name, setName ] = useState('');
     const [ roomId, setRoomId ] = useState('');
+
+    const Alert = props => {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    };
+    const handleErrorClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSuccessSnackbar(false);
+        setFailSnackbar(false);
+    };
 
     const handleCreate = async () => {
         await createRoom(name);
@@ -24,7 +32,10 @@ const Dialogs = () => {
         setName('');
     };
     const handleJoin = async () => {
-        await joinChat(roomId);
+        const result = await joinChat(roomId);
+        console.log(result);
+        if (!result) setFailSnackbar(true);
+        else setSuccessSnackbar(true);
         setIsJoinDialogOpen(false);
         setRoomId('');
     };
@@ -83,6 +94,12 @@ const Dialogs = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar open={failSnackbar} autoHideDuration={2000} onClose={handleErrorClose}>
+                <Alert severity="error">This room does not exists</Alert>
+            </Snackbar>
+            <Snackbar open={successSnackbar} autoHideDuration={2000} onClose={handleErrorClose}>
+                <Alert severity="success">Room added to your chat list</Alert>
+            </Snackbar>
         </div>
     );
 };
