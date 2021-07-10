@@ -48,8 +48,6 @@ const RoomChatCard = ({ room }) => {
     getMessage(room?.roomId,callback);
     },[room])
     console.log(room);
-    messages.reverse();
-
     const handleJoin=()=>{
         history.push(`/Preview/${room.roomId}`);
     }
@@ -93,8 +91,8 @@ const RoomChatCard = ({ room }) => {
             </Grid>
             
             {room && 
-            <Grid container item className={classes.chatInput} justify="center">
-                <TextField variant="outlined" size="small" style={{ width: '85%' }} placeholder="message" onKeyDown={handleKeyPress} value={message} onChange={(e)=>setMessage(e.target.value)}/>
+            <Grid container item className={classes.chatInput} justify="center">    
+                <TextField variant="outlined" size="small" style={{ width: '85%' }} placeholder="message" onKeyDown={handleKeyPress}  value={message} onChange={(e)=>setMessage(e.target.value)}/>
                 <Button onClick={handleSend}  disabled={!message} variant="outlined" color="primary" size="small">
                      Send
                 </Button>
