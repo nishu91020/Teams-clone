@@ -27,9 +27,10 @@ const MeetingChatList = ({ rooms, selectRoom }) => {
                 Chats
                 <Dialogs />
             </Grid>
-
-            <Grid container item className={classes.meetingList} direction="row" justify="flex-start">
-                {rooms.map((room, key) => <MeetingChatCard room={room} key={key} selectRoom={selectRoom} />)}
+            <Grid item container className={classes.meetingList} direction="row">
+                <Grid container item direction="column">
+                    {rooms.map((room, key) => <MeetingChatCard room={room} key={key} selectRoom={selectRoom} />)}
+                </Grid>
             </Grid>
         </Grid>
     );
