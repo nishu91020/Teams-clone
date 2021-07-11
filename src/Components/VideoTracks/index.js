@@ -4,9 +4,9 @@ import Measure from 'react-measure';
 import { useCardRatio } from '../../Hooks/useCardRatio';
 import {useOffsets} from '../../Hooks/useOffset';
 
-
 const VideoTrack = props => {
     const videoRef = useRef();
+    const audioRef = useRef();
     const [ container, setContainer ] = useState({ height: 0 });
     const [ aspectRatio, setAspectRatio ] = useCardRatio(1.3334);
 const offsets = useOffsets(
@@ -30,7 +30,7 @@ const offsets = useOffsets(
     useEffect(
         () => {
             if (props.track) {
-                // props.track[0]?.attach(audioRef.current);
+                props.track[0]?.attach(audioRef.current);
                 props.track[1]?.attach(videoRef.current);
             }
         },
@@ -44,11 +44,12 @@ const offsets = useOffsets(
           <video 
             ref={videoRef}
             onCanPlay={handleCanPlay}
-            style={{height:'50%',width:'50%',borderRadius:'10px' }}
+            style={{top: `-${offsets.y}px`, left: `-${offsets.x}px` ,height:'10%',borderRadius:'5px'}}
             autoPlay 
             playsInline 
             muted
           />
+          <audio ref={audioRef}/>
         </div>
       )}
     </Measure>

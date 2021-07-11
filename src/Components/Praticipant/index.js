@@ -1,87 +1,41 @@
-import React, { useRef, useEffect, useState,useContext } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import './styles.css';
+import VideoTrack from '../VideoTracks';
+import { Avatar, Grid } from '@material-ui/core';
+import { useParticipantPublications } from '../../Hooks/useParticipantPublications';
+import { useParticipantTracks } from '../../Hooks/useParticipantTracks';
+import { useIsTrackEnabled } from '../../Hooks/useIsTrackEnabled';
 
-const Participant = ({ participant ,onClick }) => {
-    const [ videoTracks, setVideoTracks ] = useState([]);
-    const [ audioTracks, setAudioTracks ] = useState([]);
-    // console.log(width);
-    const videoRef = useRef();
-    const audioRef = useRef();
-
-
-    const trackpubsToTracks = trackMap =>
-        Array.from(trackMap.values()).map(publication => publication.track).filter(track => track !== null);
-    useEffect(
-        () => {
-            setVideoTracks(trackpubsToTracks(participant.videoTracks));
-            setAudioTracks(trackpubsToTracks(participant.audioTracks));
-           
-            const trackSubscribed = track => {
-                if (track.kind === 'video'){
-                   
-                    setVideoTracks(videoTracks => [ ...videoTracks, track ]);
-                } 
-                else if (track.kind === 'audio') setAudioTracks(audioTracks => [ ...audioTracks, track ]);
-            };
-
-            const trackUnsubscribed = track => {
-
-                if (track.kind === 'video') {
-                   
-                    setVideoTracks(videoTracks => videoTracks.filter(v => v !== track));
-                }
-                if (track.kind === 'audio'){
-                    setAudioTracks(audioTracks => audioTracks.filter(a => a !== track));
-
-                } 
-            };
-            participant.on('trackUnsubscribed', trackUnsubscribed);
-            participant.on('trackSubscribed', trackSubscribed);
-
-            return () => {
-                setVideoTracks([]);
-                setAudioTracks([]);
-                participant.removeAllListeners();
-            };
-        },
-        [ participant ]
-    );
-    useEffect(
-        () => {
-            const videoTrack = videoTracks[0];
-            if (videoTrack) {
-                videoTrack.attach(videoRef.current);
-                return () => {
-                    videoTrack?.detach();
-                };
-            }
-        },
-        [ videoTracks ]
-    );
-    useEffect(
-        () => {
-            const audioTrack = audioTracks[0];
-            if (audioTrack) {
-                audioTrack.attach(audioRef.current);
-            }
-            return () => {
-                audioTrack?.detach();
-            };
-        },
-        [ audioTracks ]
-    );
-    const select=(e)=>{
+const Participant = ({ participant, onClick }) => {
+    const pubs = useParticipantPublications(participant);
+    const filteredPubs = pubs.filter(pub => pub !== undefined);
+    const audioPubs = filteredPubs.find(pub => pub.kind === 'audio');
+    const videoPubs = filteredPubs.find(pub => pub.kind === 'video');
+    const audioTrack = useParticipantTracks(audioPubs);
+    const isAudioEnabled = useIsTrackEnabled(audioTrack);
+    const videoTrack = useParticipantTracks(videoPubs);
+    const isVideoEnabled = useIsTrackEnabled(videoTrack);
+    const user = participant.identity;
+    console.log(user.photoURL);
+    console.log(isVideoEnabled);
+    console.log(audioTrack, videoTrack);
+    console.log(pubs);
+    const select = e => {
         onClick(participant);
-    }
-    
+    };
+    //mujhe pura likhne do
     // console.log('participant=', participant);
     return (
-        
         <div className="participantCard" onClick={select}>
-            <video style={{height:'100%',width:'100%'}} ref={videoRef} autoPlay={true} />
-            <audio ref={audioRef} />
+            {isVideoEnabled ? (
+                <VideoTrack track={[ audioTrack, videoTrack ]} />
+            ) : (
+                <Grid style={{ backgroundColor: '#000000', height: '100%' }} alignItems="center" justify="center" justifyContent="center">
+                    {' '}
+                    <Avatar>{user.photoURL}</Avatar>
+                </Grid>
+            )}
         </div>
-    
     );
 };
 export default Participant;

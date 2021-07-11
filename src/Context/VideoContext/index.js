@@ -59,9 +59,10 @@ export const VideoProvider = ({ children }) => {
             .then(res => {
                 dispatch({
                     type: 'GENERATETOKEN',
-                    payload: { accessToken: res.data.token }
+                    payload: { accessToken: res.data.token, identity: res.data.identity }
                 });
                 console.log('token=', res.data.token);
+                console.log('identity=', res.data.identity);
                 history.push(`/VideoScreen/${roomId}`);
             })
             .catch(err => {

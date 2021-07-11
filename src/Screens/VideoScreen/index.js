@@ -62,9 +62,9 @@ const VideoScreen = () => {
                         {room && (room.localParticipant!==selectedParticipant) ? <Participant  key={room.localParticipant.sid} participant={room.localParticipant} onClick={setSelectedParticipant}/> : ''}
                         {remoteParticipants}
                     </Grid>
-                    <Grid container item xs={isParticipantListActive || isChatActive ?8:9} justify="center" alignItems="center">
+                    <Grid container item xs={isParticipantListActive || isChatActive ?8:9} alignItems="center" justify="center">
                         {
-                            selectedParticipant && <SelectedParticipant participant={selectedParticipant}/>
+                            selectedParticipant && <Participant participant={selectedParticipant}/>
                         }
                         
                     </Grid>
@@ -99,11 +99,11 @@ export default ()=>(
 const useStyles = makeStyles({
     wrapper: {
         backgroundColor: '#272727',
-        height:'95vh'
+        height:'94vh'
     },
     side: {
         right: 0, 
         overflowY: 'hidden',
-        height:'95vh'
+        height:'94vh'
     }
 });
