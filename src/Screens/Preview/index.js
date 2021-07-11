@@ -53,11 +53,13 @@ const Preview = (props) => {
         )
     }
     return (
-        <div className="outer-preview">
+        
         <div className="previewContainer">
-    
-            <VideoTrack track={localTracks} isVideoEnabled={!mediaState.isCamerOff}/>
-            <div style={{marginLeft:'-10%'}}>
+            <div style={{width:'55%'}} className="previewVideo">
+                <VideoTrack track={localTracks} isVideoEnabled={!mediaState.isCamerOff}/>
+            </div>
+            
+            <div style={{marginLeft:'-10%',marginTop:'30%'}}>
                 {mediaState.isCameraOff ? (
                     <Fab onClick={handleCamera} color="default" style={{ margin: '1%' }}>
                         <VideocamOff />
@@ -80,7 +82,7 @@ const Preview = (props) => {
             </div>
             <Button style={{marginLeft:'-10%',marginTop:'2%'}} onClick={enterRoom} variant="outlined" color="primary">Enter Room</Button>
         </div>
-        </div>
+
     );
 };
 export default Preview;

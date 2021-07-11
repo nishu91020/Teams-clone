@@ -5,7 +5,10 @@
     padding-left: 5%;
     padding-top: 2%;
 }
-
+.previewVideo {
+    position: absolute;
+    left: 22%;
+}
 .loader {
     position: absolute;
     left: 50%;
