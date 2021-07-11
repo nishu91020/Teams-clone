@@ -1,4 +1,4 @@
-<div style={{display:'flex'}}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg/768px-Microsoft_Office_Teams_%282018%E2%80%93present%29.svg.png" width='30px'/>
+<div style={{display:'flex'}}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg/768px-Microsoft_Office_Teams_%282018%E2%80%93present%29.svg.png" width='40px'/>
 <h1>Microsoft Teams Clone</h1></div>
 <br/>
 //hosted link<br/>
