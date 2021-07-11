@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import Video, { connect } from 'twilio-video';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Paper, Grid, makeStyles } from '@material-ui/core';
 import Participant from '../../Components/Praticipant';
 import { VideoContext } from '../../Context/VideoContext';
 import BtnGroup from '../../Components/BtnGroup';
@@ -51,26 +51,30 @@ const VideoScreen = () => {
     };
 
     const remoteParticipants = participants.map(participant =>participant!==selectedParticipant && <Participant key={participant.sid} participant={participant} onClick={setSelectedParticipant} />);
-    // const people = participants.map(participant => <ParticipantCard name={participant.identity.substring(0, participant.identity.indexOf('@'))} />);
-    // const ownerName = state.identity;
+    
     
     return (
         <Grid item container direction="row" xs={12} className={classes.wrapper}>
-            <Grid container item xs={isParticipantListActive || isChatActive ? 9 : 12}>
-                <Grid container item style={{ height: '93vh', overflowY: 'hidden' }}>
-                    <Grid item container className="carousel-container"  xs={isParticipantListActive || isChatActive ? 4:3}>
-                        {room && (room.localParticipant!==selectedParticipant) ? <Participant  key={room.localParticipant.sid} participant={room.localParticipant} onClick={setSelectedParticipant}/> : ''}
-                        {remoteParticipants}
-                    </Grid>
-                    <Grid container item xs={isParticipantListActive || isChatActive ?8:9} alignItems="center" justify="center">
-                        {
-                            selectedParticipant && <Participant participant={selectedParticipant}/>
-                        }
-                        
+            <Grid container item className={classes.mainVideoContainer} direction="column" xs={isParticipantListActive || isChatActive ? 9 : 12}>
+                <Grid container item direction="row" className={classes.videoContainer} >
+                    <Paper elevation={0}className={classes.carousel}>
+    
+                         <Participant participant={room?.localParticipant}/>
+                          <Participant participant={room?.localParticipant}/>
+                           <Participant participant={room?.localParticipant}/>
+                            <Participant participant={room?.localParticipant}/>
+                             <Participant participant={room?.localParticipant}/>
+                              <Participant participant={room?.localParticipant}/>
+                               <Participant participant={room?.localParticipant}/>
+
+                    </Paper>
+                    <Grid container item justify="center" alignItems="center" className={classes.selected} xs={9}>
+                        <Participant participant={room?.localParticipant}/>
                     </Grid>
                 </Grid>
+               
                 
-                <Grid className="controlContainer">
+                <Grid container item direction="row" justify="center" alignItems="center" className={classes.controlContainer}>
                     <BtnGroup handleChat={handleChat} handleParticipants={handleParticipants} />
                 </Grid>
             </Grid>
@@ -99,11 +103,44 @@ export default ()=>(
 const useStyles = makeStyles({
     wrapper: {
         backgroundColor: '#272727',
-        height:'94vh'
+        height:'94vh',
+        margin:0
     },
     side: {
         right: 0, 
         overflowY: 'hidden',
         height:'94vh'
+    },
+    mainVideoContainer: {
+        height: '100%',
+        transition:'all 0.4s'
+    },
+    videoContainer: {
+        height:'90%',
+        width:'100%',
+        transition:'all 0.4s'
+       
+    },
+    controlContainer: {
+        height:'10%',
+        width:'100%',    
+        
+       
+    },
+    carousel:{
+        height:'100%',
+        border:'1px solid white',
+        background:'transparent',
+        overflowX:'hidden',
+        overflowY:'auto',
+        width:'20%',
+        display:'flex',
+        alignItems:'center',
+        flexDirection:'column'
+
+    },
+    selected: {
+        height:'100%',
     }
+
 });

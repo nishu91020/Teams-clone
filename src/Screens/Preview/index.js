@@ -56,7 +56,7 @@ const Preview = (props) => {
         <div className="outer-preview">
         <div className="previewContainer">
     
-            <VideoTrack track={localTracks} />
+            <VideoTrack track={localTracks} isVideoEnabled={!mediaState.isCamerOff}/>
             <div style={{marginLeft:'-10%'}}>
                 {mediaState.isCameraOff ? (
                     <Fab onClick={handleCamera} color="default" style={{ margin: '1%' }}>

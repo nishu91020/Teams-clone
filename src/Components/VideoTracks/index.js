@@ -1,15 +1,17 @@
 import React, { useEffect,useState, useRef } from 'react';
 import Measure from 'react-measure';
-
+import {makeStyles} from '@material-ui/core'
 import { useCardRatio } from '../../Hooks/useCardRatio';
 import {useOffsets} from '../../Hooks/useOffset';
+import ParticipantVideoOffCard from '../ParticipantVideoOffCard';
 
 const VideoTrack = props => {
     const videoRef = useRef();
     const audioRef = useRef();
+    const classes = useStyles();
     const [ container, setContainer ] = useState({ height: 0 });
-    const [ aspectRatio, setAspectRatio ] = useCardRatio(1.7778);
-const offsets = useOffsets(
+    const [aspectRatio, calculateRatio ] = useCardRatio(1.7778);
+    const offsets = useOffsets(
     videoRef.current && videoRef.current.videoWidth,
     videoRef.current && videoRef.current.videoHeight,
     container.width,
@@ -24,7 +26,7 @@ const offsets = useOffsets(
     }
 
     function handleCanPlay () {
-        setAspectRatio(videoRef.current.videoHeight, videoRef.current.videoWidth);
+        calculateRatio(videoRef.current.videoHeight, videoRef.current.videoWidth);
         videoRef.current.play();
     }
     useEffect(
@@ -37,23 +39,44 @@ const offsets = useOffsets(
         [ props.track ]
     );
     // console.log(props.track);
+    console.log("height", container.height);
     return (
        <Measure bounds onResize={handleResize}>
       {({ measureRef }) => (
-        <div  ref={measureRef} style={{ maxWidth:'90%'}}>
+        
+        <div  ref={measureRef} className={classes.root} style={{height:`${container.height}px`}}>
+         { (props.isVideoEnabled)?(
           <video 
             ref={videoRef}
             onCanPlay={handleCanPlay}
-            style={{top: `-${offsets.y}px`, left: `-${offsets.x}px` ,height:'10%',borderRadius:'5px'}}
             autoPlay 
             playsInline 
             muted
-          />
+            className={classes.video}
+          />):(
+            <ParticipantVideoOffCard user={props.user}/>
+          )
+        }
           <audio ref={audioRef}/>
         </div>
       )}
     </Measure>
     );
 };
+
+//nhi remote waali video badi ho gyi thi size mein aisa kyu hua dekh rha hu
+
+const useStyles = makeStyles({
+  root :{
+    display:'flex',
+    justifyContent : 'center',
+    alignItems : 'center',
+    width:'90%'
+  },
+  video:{
+    flex:1,
+    height:'90%'
+  }
+})
 
 export default VideoTrack;

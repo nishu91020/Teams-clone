@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import './styles.css';
 import VideoTrack from '../VideoTracks';
-import { Avatar, Grid } from '@material-ui/core';
+import { Avatar, Grid,makeStyles } from '@material-ui/core';
 import { useParticipantPublications } from '../../Hooks/useParticipantPublications';
 import { useParticipantTracks } from '../../Hooks/useParticipantTracks';
 import { useIsTrackEnabled } from '../../Hooks/useIsTrackEnabled';
+
 import { getParticipant } from '../../db';
 
 const Participant = ({ participant, onClick }) => {
@@ -17,6 +18,7 @@ const Participant = ({ participant, onClick }) => {
     const videoTrack = useParticipantTracks(videoPubs);
     const isVideoEnabled = useIsTrackEnabled(videoTrack);
     const [ user, setUser ] = useState(undefined);
+    const classes = useStyles();
     useEffect(() => {
         const getUser =async()=>{
             const res=await getParticipant(participant?.identity);
@@ -33,15 +35,19 @@ const Participant = ({ participant, onClick }) => {
     //mujhe pura likhne do
     // console.log('participant=', participant);
     return (
-        <div className="participantCard" onClick={select}>
-            {isVideoEnabled ? (
-                <VideoTrack track={[ audioTrack, videoTrack ]} />
-            ) : (
-                <Grid style={{ backgroundColor: '#000000' }} alignItems="center" justify="center" justifyContent="center">
-                    <Avatar src={user?.photoURL}></Avatar>
-                </Grid>
-            )}
-        </div>
+        // <Grid className={classes.cardContainer} onClick={select}>
+           <React.Fragment> 
+                <VideoTrack track={[ audioTrack, videoTrack ]} isVideoEnabled={isVideoEnabled} user={user}/>
+            </React.Fragment>
+        // </Grid>
     );
 };
+
+const useStyles = makeStyles({
+    cardContainer: {
+        width:'100%'
+    },
+
+})
+
 export default Participant;
