@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, {  useEffect, useState } from 'react';
 import './styles.css';
 import VideoTrack from '../VideoTracks';
-import { Avatar, Grid,makeStyles } from '@material-ui/core';
+import {Grid,makeStyles } from '@material-ui/core';
 import { useParticipantPublications } from '../../Hooks/useParticipantPublications';
 import { useParticipantTracks } from '../../Hooks/useParticipantTracks';
 import { useIsTrackEnabled } from '../../Hooks/useIsTrackEnabled';
@@ -35,11 +35,11 @@ const Participant = ({ participant, onClick }) => {
     //mujhe pura likhne do
     // console.log('participant=', participant);
     return (
-        // <Grid className={classes.cardContainer} onClick={select}>
-           <Grid onClick={select}> 
+         <Grid className={classes.cardContainer} onClick={select}>
+           
                 <VideoTrack  track={[ audioTrack, videoTrack ]} isVideoEnabled={isVideoEnabled} user={user}/>
-            </Grid>
-        // </Grid>
+       
+         </Grid>
     );
 };
 
