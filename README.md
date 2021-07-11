@@ -1,3 +1,4 @@
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg/768px-Microsoft_Office_Teams_%282018%E2%80%93present%29.svg.png" width='30px'/>
 <h1>Microsoft Teams Clone</h1><br/>
 //hosted link<br/>
 This project has been made for Microsoft Engage 2021. <br/>
