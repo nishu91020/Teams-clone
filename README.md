@@ -1,6 +1,7 @@
-#Microsoft Teams Clone
-//hosted link
-This project has been made for Microsoft Engage 2021. 
+<h1>Microsoft Teams Clone</h1><br/>
+//hosted link<br/>
+This project has been made for Microsoft Engage 2021. <br/>
+<hr/>
 It is a clone of Microsoft Teams with the following features-
 
  :video_camera: organize a meeting 
