@@ -73,8 +73,12 @@ const fetchRoom = roomId => {
     const ref = db.collection('meeting').doc(roomId);
     return ref.get();
 };
+const getParticipant = userId => {
+    const ref = db.collection('user').doc(userId);
+    return ref.get();
+};
 const fetchParticipants = (roomId, callback) => {
     const ref = db.collection('meeting').doc(roomId).collection('participant');
     ref.onSnapshot(callback);
 };
-export { addRoom, fetchParticipants, addUser, addUserToMeeting, addMessage, getRoomOfUser, fetchRoom, getUserFromRoom, getMessage, addMeetingToUser };
+export { addRoom, fetchParticipants, getParticipant, addUser, addUserToMeeting, addMessage, getRoomOfUser, fetchRoom, getUserFromRoom, getMessage, addMeetingToUser };

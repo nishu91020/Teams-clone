@@ -8,7 +8,7 @@ const VideoTrack = props => {
     const videoRef = useRef();
     const audioRef = useRef();
     const [ container, setContainer ] = useState({ height: 0 });
-    const [ aspectRatio, setAspectRatio ] = useCardRatio(1.3334);
+    const [ aspectRatio, setAspectRatio ] = useCardRatio(1.7778);
 const offsets = useOffsets(
     videoRef.current && videoRef.current.videoWidth,
     videoRef.current && videoRef.current.videoHeight,

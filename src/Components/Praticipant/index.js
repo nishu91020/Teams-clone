@@ -5,6 +5,7 @@ import { Avatar, Grid } from '@material-ui/core';
 import { useParticipantPublications } from '../../Hooks/useParticipantPublications';
 import { useParticipantTracks } from '../../Hooks/useParticipantTracks';
 import { useIsTrackEnabled } from '../../Hooks/useIsTrackEnabled';
+import { getParticipant } from '../../db';
 
 const Participant = ({ participant, onClick }) => {
     const pubs = useParticipantPublications(participant);
@@ -15,11 +16,17 @@ const Participant = ({ participant, onClick }) => {
     const isAudioEnabled = useIsTrackEnabled(audioTrack);
     const videoTrack = useParticipantTracks(videoPubs);
     const isVideoEnabled = useIsTrackEnabled(videoTrack);
-    const user = participant.identity;
-    console.log(user.photoURL);
-    console.log(isVideoEnabled);
-    console.log(audioTrack, videoTrack);
-    console.log(pubs);
+    const [ user, setUser ] = useState(undefined);
+    useEffect(() => {
+        const getUser =async()=>{
+            const res=await getParticipant(participant?.identity);
+            setUser(res.data());
+        }
+            getUser();
+        },
+        [ participant ]
+    );
+    console.log( "participant=",user);
     const select = e => {
         onClick(participant);
     };
@@ -30,9 +37,8 @@ const Participant = ({ participant, onClick }) => {
             {isVideoEnabled ? (
                 <VideoTrack track={[ audioTrack, videoTrack ]} />
             ) : (
-                <Grid style={{ backgroundColor: '#000000', height: '100%' }} alignItems="center" justify="center" justifyContent="center">
-                    {' '}
-                    <Avatar>{user.photoURL}</Avatar>
+                <Grid style={{ backgroundColor: '#000000' }} alignItems="center" justify="center" justifyContent="center">
+                    <Avatar src={user?.photoURL}></Avatar>
                 </Grid>
             )}
         </div>

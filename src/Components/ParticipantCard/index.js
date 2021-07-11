@@ -14,9 +14,7 @@ const ParticipantCard = ({ participant }) => {
     const classes = useStyles();
     return (
         <Grid container item direction="row" className={classes.card}>
-            <Avatar>
-                <img src={participant.photoURL} alt={participant.displayName.charAt(0)} width="40px" />
-            </Avatar>
+            <Avatar src={participant.photoURL} />
             <div className={classes.text}>{participant.displayName}</div>
         </Grid>
     );

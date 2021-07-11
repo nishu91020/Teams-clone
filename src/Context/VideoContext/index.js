@@ -53,10 +53,12 @@ export const VideoProvider = ({ children }) => {
         api
             .get('/token', {
                 params: {
-                    room: roomId
+                    room: roomId,
+                    identity: authState.user.uid
                 }
             })
             .then(res => {
+                console.log(authState.user.uid);
                 dispatch({
                     type: 'GENERATETOKEN',
                     payload: { accessToken: res.data.token, identity: res.data.identity }
