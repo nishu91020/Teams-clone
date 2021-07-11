@@ -29,16 +29,16 @@ const Participant = ({ participant, onClick }) => {
         [ participant ]
     );
     console.log( "participant=",user);
-    const select = e => {
+    const select = (e) => {
         onClick(participant);
     };
     //mujhe pura likhne do
     // console.log('participant=', participant);
     return (
         // <Grid className={classes.cardContainer} onClick={select}>
-           <React.Fragment> 
-                <VideoTrack track={[ audioTrack, videoTrack ]} isVideoEnabled={isVideoEnabled} user={user}/>
-            </React.Fragment>
+           <Grid onClick={select}> 
+                <VideoTrack  track={[ audioTrack, videoTrack ]} isVideoEnabled={isVideoEnabled} user={user}/>
+            </Grid>
         // </Grid>
     );
 };

@@ -13,6 +13,7 @@ const useStyles = makeStyles({
         fontWeight: 'bold'
     },
     meetingList: {
+        backgroundColor: '#f8f4ff',
         padding: '1%',
         overflowX: 'hidden',
         overflowY: 'auto',

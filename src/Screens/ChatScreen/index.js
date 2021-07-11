@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         height: '100%'
     },
     chatContainerOuter: {
-        height: '93vh'
+        height: '94vh'
     }
 });
 const ChatScreen = () => {

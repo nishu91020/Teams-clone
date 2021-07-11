@@ -6,8 +6,8 @@ import { Share } from '@material-ui/icons';
 import LocalMessage from '../LocalMessage';
 import {addMessage,getMessage} from '../../db';
 import CopyToClipboard from 'react-copy-to-clipboard';
-
 import './styles.css';
+
 const useStyles = makeStyles({
     chatContainer: {
         backgroundColor: '#EFEEEE',
@@ -29,7 +29,16 @@ const useStyles = makeStyles({
         overflowY: 'auto',
         height: '83%',
         width: '100%'
+    },
+    alt:{
+        fontSize: '220%',
+        fontFamily: 'cursive',
+        fontStyle: 'italic',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
     }
+    
 });
 const RoomChatCard = ({ room }) => {
     const classes = useStyles();
@@ -61,14 +70,14 @@ const RoomChatCard = ({ room }) => {
     }
     
     return (
-        <Grid container item style={{ height: '100%', width: '100%',backgroundColor: '#FEFFFF' }} direction="column">
+        <Grid container item style={{ height: '100%', width: '100%',backgroundColor: '#FEFFFF',overflowX:'hidden' }} direction="column">
             <Grid container item className={classes.chatContainer} justify="space-between">
                 
                 {room?.roomTitle}
             <div>
               {room && 
               <CopyToClipboard text={room.roomId}>
-                <Button style={{ justifyContent: 'right' }} variant="outlined" color="primary" size="small" style={{ marginRight: '3px' }}>
+                <Button style={{ justifyContent: 'right',marginRight: '3px' }} variant="outlined" color="primary" size="small" >
                     invite<Share />
                 </Button>
             </CopyToClipboard>}
@@ -78,6 +87,13 @@ const RoomChatCard = ({ room }) => {
                 </Button>}
             </div>
             </Grid>
+            {
+                !room && (<div><Typography className={classes.alt}>Hey start chatting with your friends here!</Typography>
+                            <div style={{alignItems:'center',justifyContent:'center',textAlign:'center'}}>
+                                <img src="https://image.freepik.com/free-vector/customers-sharing-references-earning-money_74855-5231.jpg" alt="friend" width="70%" />
+                            </div>
+                            </div>)
+            }
             
             <Grid container item className={classes.msgList} direction="row">
                 <Grid item container direction="column-reverse">
