@@ -1,3 +1,5 @@
+//participant card to show when video of the participant is muted.
+
 import React,{useState} from 'react'
 import {Grid,Avatar,makeStyles, Typography} from '@material-ui/core'
 import Measure from 'react-measure';

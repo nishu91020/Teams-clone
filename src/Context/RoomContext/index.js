@@ -1,3 +1,5 @@
+//handles and stores properties related to room
+
 import { createContext } from 'react';
 import useRoom from '../../Hooks/useRoom';
 import useHandleRoomDisconnect from '../../Hooks/useHandleRoomDisconnect';

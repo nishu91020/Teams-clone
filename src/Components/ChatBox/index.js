@@ -1,3 +1,5 @@
+// chat component of the videoScreen.
+
 import React,{useEffect,useState,useContext} from 'react';
 import './styles.css';
 import {UserContext} from '../../Context/AuthContext';

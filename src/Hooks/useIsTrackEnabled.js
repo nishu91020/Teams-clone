@@ -1,3 +1,5 @@
+// used to determine the props of track associated with participant.
+
 import { useState, useEffect } from 'react';
 
 export function useIsTrackEnabled (track) {

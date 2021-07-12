@@ -1,3 +1,5 @@
+//user is provided with the option to login using gmail account.
+
 import React, { useContext, useState } from 'react';
 import history from '../../../src/history';
 import { UserContext } from '../../Context/AuthContext';

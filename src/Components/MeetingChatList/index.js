@@ -1,3 +1,5 @@
+//list of meetings that the person has joined
+
 import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import MeetingChatCard from '../MeetingChatCard';

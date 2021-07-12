@@ -1,3 +1,5 @@
+//used to handle media related props to the participants
+
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
 import { createLocalTracks } from 'twilio-video';

@@ -1,3 +1,5 @@
+//handle disconnection from room.
+
 import { useEffect } from 'react';
 import history from '../history';
 const useHandleRoomDisconnect = room => {

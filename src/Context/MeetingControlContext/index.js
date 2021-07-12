@@ -1,3 +1,5 @@
+//handle user state inside the room
+
 import React, { useState, useContext } from 'react';
 import { RoomContext } from '../RoomContext';
 

@@ -1,3 +1,5 @@
+//participants card to show in participant list inside the meeting
+
 import React from 'react';
 import { Avatar, Grid, makeStyles } from '@material-ui/core';
 

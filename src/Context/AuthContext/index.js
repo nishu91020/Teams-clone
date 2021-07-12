@@ -2,7 +2,6 @@ import React, { useReducer, useState } from 'react';
 import { addUser } from '../../db';
 import { auth } from '../../firebase';
 import { signin, signout } from '../../firebaseAuth';
-import history from '../../history';
 export const UserContext = React.createContext();
 
 const reducer = (state, action) => {
@@ -20,6 +19,11 @@ const reducer = (state, action) => {
 export const UserProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, { user: {}, token: undefined });
     const [ isLoading, setIsLoading ] = useState(false);
+
+    /**
+     * hadle signup of users through google signup
+     * 
+     */
     const login = async () => {
         setIsLoading(true);
         try {
@@ -34,6 +38,9 @@ export const UserProvider = ({ children }) => {
             setIsLoading(false);
         }
     };
+    /**
+     * handle logout 
+     */
     const logout = async () => {
         setIsLoading(true);
         try {

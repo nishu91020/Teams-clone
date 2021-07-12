@@ -1,3 +1,5 @@
+//handle the functionalities- join room,create room, check if the room is valid,join a chat room by providing a room Id
+
 import React, { useReducer, useState, useContext } from 'react';
 import axios from 'axios';
 import * as uuid from 'uuid';

@@ -1,3 +1,5 @@
+//handle publication of participants inside the room
+
 import { useEffect, useState } from 'react';
 
 export const useParticipantPublications = (participant) => {

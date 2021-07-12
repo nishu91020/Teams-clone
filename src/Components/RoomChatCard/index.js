@@ -1,3 +1,5 @@
+//component of chatScreen to show the list of chats for the room selected.
+
 import React,{useState,useContext,useEffect} from 'react';
 import { TextField, Grid, makeStyles, Button,Typography } from '@material-ui/core';
 import history from '../../history';

@@ -1,3 +1,5 @@
+//participant list component of videoScreen.
+
 import React, { useEffect, useState } from 'react';
 import { Grid, Button, makeStyles } from '@material-ui/core';
 import ParticipantCard from '../ParticipantCard';

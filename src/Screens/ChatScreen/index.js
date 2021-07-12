@@ -1,3 +1,5 @@
+// screen for displaying chat history of user and facilitate room creation and room joining.
+
 import React, { useEffect, useState, useContext } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import MeetingChatList from '../../Components/MeetingChatList';

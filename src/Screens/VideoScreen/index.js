@@ -1,3 +1,5 @@
+//video conference room for real time video chat along with text chat and facility to see the participants of user
+
 import React, { useState, useEffect, useContext } from 'react';
 import { Paper, Grid, makeStyles } from '@material-ui/core';
 import Participant from '../../Components/Praticipant';
@@ -14,6 +16,11 @@ const VideoScreen = () => {
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
     const [ isChatActive, setIsChatActive ] = useState(false);
     const [ selectedParticipant, setSelectedParticipant ] = useState(room?.localParticipant);
+
+    // useEffect(()=>{
+    //     if(!room.accessToken)
+    //         history.push('/Preview')
+    // })
 
     const classes = useStyles();
     useEffect(() => {

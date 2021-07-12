@@ -1,3 +1,5 @@
+// set tracks for participants.
+
 import { useState, useEffect } from 'react';
 
 export const useParticipantTracks = publication => {

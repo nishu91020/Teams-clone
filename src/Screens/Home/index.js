@@ -1,3 +1,6 @@
+/**introductory page to the website, contain options like-room creation,
+ * join room and navigate to chat screen or exit the website i.e,logout**/
+
 import React, { useContext, useState } from 'react';
 import { Typography, makeStyles, Grid, CircularProgress, TextField, Dialog, DialogContent, DialogTitle, DialogActions, Snackbar } from '@material-ui/core';
 import './styles.css';

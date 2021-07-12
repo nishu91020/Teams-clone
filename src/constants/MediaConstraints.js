@@ -1,3 +1,5 @@
+//set the properties of media for tracks
+
 const MeadiaConstraints = {
     audio: {
         echoCancellation: true,

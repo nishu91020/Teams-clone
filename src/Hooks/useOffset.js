@@ -1,3 +1,5 @@
+//participant card size calculation
+
 import { useState, useEffect } from 'react';
 
 export function useOffsets (vWidth, vHeight, cWidth, cHeight) {

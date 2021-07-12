@@ -1,3 +1,5 @@
+//message styling for chatBox
+
 import React from 'react';
 import { Grid, Divider, makeStyles, Typography, Avatar } from '@material-ui/core';
 import moment from 'moment';

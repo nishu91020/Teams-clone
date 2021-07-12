@@ -1,3 +1,5 @@
+//used for sizing the cards
+
 import { useState, useCallback } from 'react';
 
 export function useCardRatio (initialRatio) {

@@ -1,3 +1,5 @@
+//joining and creating options in chat screen.
+
 import React, { useState, useContext } from 'react';
 import 'firebase/firestore';
 import { VideoContext } from '../../Context/VideoContext';

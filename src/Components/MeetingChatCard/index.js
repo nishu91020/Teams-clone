@@ -1,3 +1,5 @@
+//meeting list cards for Meeting chat list component
+
 import React, { useContext } from 'react';
 import { Card, Typography, makeStyles } from '@material-ui/core';
 import { VideoContext } from '../../Context/VideoContext';

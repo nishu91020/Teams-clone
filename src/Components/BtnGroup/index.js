@@ -1,3 +1,5 @@
+//this component handles the meeting controls of videoScreen
+
 import React, { useContext } from 'react';
 import { Button, ButtonGroup, makeStyles } from '@material-ui/core';
 import { Videocam, Mic, Chat, CallEnd, PresentToAll, Group, VideocamOff, MicOff } from '@material-ui/icons';

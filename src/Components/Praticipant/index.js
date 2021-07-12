@@ -1,3 +1,5 @@
+//component to show video of the participant in the room
+
 import React, {  useEffect, useState } from 'react';
 import VideoTrack from '../VideoTracks';
 import {Grid,makeStyles } from '@material-ui/core';
