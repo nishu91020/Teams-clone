@@ -9,7 +9,6 @@ import ParticipantList from '../../Components/ParticipantList';
 import { MeetingControlProvider } from '../../Context/MeetingControlContext';
 import './styles.css';
 import ParticipantCard from '../../Components/ParticipantCard';
-import SelectedParticipant from '../../Components/SelectedParticipant';
 import { RoomContext } from '../../Context/RoomContext';
 
 const VideoScreen = () => {
