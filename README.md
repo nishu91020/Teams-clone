@@ -15,13 +15,15 @@ It is a clone of Microsoft Teams with the following features-
 :speech_balloon: send text messages to the participants before, after, and during the meeting<br/>
 :runner: leave a chat room<br/>
 :closed_lock_with_key: This application also includes google authentication.<br/>
+:cinema: set audio and video configuration before joining the room<br/>
 <br/>
 meeting controls comprise of the following options-<br/>
 	:mute: mute/unmute audio<br/>
 	:camera: mute/unmute the video<br/>
 	:telephone_receiver: drop the call<br/>
 	:two_men_holding_hands: see the participants list currently in the room<br/>
-	:speech_balloon: chat with fellow participants
+	:speech_balloon: chat with fellow participants<br/>
+	
 <hr/>
 Tech-stack
 	<ul>
