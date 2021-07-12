@@ -56,7 +56,7 @@ const VideoTrack = props => {
             muted
             className={classes.video}
           />):(
-            <ParticipantVideoOffCard user={props.user}/>
+            <ParticipantVideoOffCard user={props.user} isAudioEnabled={props.isAudioEnabled}/>
           )
         }
           <audio ref={audioRef}/>

@@ -3,7 +3,7 @@
 import React,{useState} from 'react'
 import {Grid,Avatar,makeStyles, Typography} from '@material-ui/core'
 import Measure from 'react-measure';
-
+import {Mic,MicOff} from '@material-ui/icons';
 import { useCardRatio } from '../../Hooks/useCardRatio';
 import {useOffsets} from '../../Hooks/useOffset';
 
@@ -15,7 +15,7 @@ const ParticipantVideoCard = (props) => {
     container.width,
     container.height
   );
-  // console.log(props.track);
+  
     function handleResize (contentRect) {
         setContainer({
             height: Math.round(contentRect.bounds.width / aspectRatio),
@@ -30,7 +30,9 @@ const ParticipantVideoCard = (props) => {
                    <Grid item comtainer justify="flex-end" alignItems="flex-end">
                          <Typography className={classes.username}>{props.user?.displayName}</Typography>
                    </Grid>
-                  
+                  {
+                      props.isAudioEnabled?<Mic style={{color:"white"}}/>:<MicOff style={{color:"white"}}/>
+                  }
                </Grid>)
             }
         </Measure>

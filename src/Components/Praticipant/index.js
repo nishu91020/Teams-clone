@@ -38,7 +38,7 @@ const Participant = ({ participant, onClick }) => {
     return (
          <Grid className={classes.cardContainer} onClick={select}>
            
-                <VideoTrack  track={[ audioTrack, videoTrack ]} isVideoEnabled={isVideoEnabled} user={user}/>
+                <VideoTrack  track={[ audioTrack, videoTrack ]} isAudioEnabled={isAudioEnabled} isVideoEnabled={isVideoEnabled} user={user}/>
        
          </Grid>
     );
