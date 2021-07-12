@@ -17,6 +17,17 @@ const useRoom = () => {
                     setRoom(newRoom);
                     const disconnect = () => newRoom.disconnect();
 
+                    if(window.mediaSettings.isAudioMuted)
+                    {
+                        newRoom.localParticipant.audioTracks.forEach(trackPublication=>{
+                            trackPublication.track.disable();
+                        })
+                    }
+                    if(window.mediaSettings.isVideoMuted){
+                        newRoom.localParticipant.videoTracks.forEach(trackPublication=>{
+                            trackPublication.track.disable();
+                        })
+                    }
                     newRoom.setMaxListeners(15);
 
                     newRoom.once('disconnect', () => {

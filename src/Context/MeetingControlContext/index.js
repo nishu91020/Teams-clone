@@ -7,8 +7,8 @@ export const MeetingControlContext = React.createContext();
 
 export const MeetingControlProvider = ({ children }) => {
     const { room } = useContext(RoomContext);
-    const [ isVideoOn, setIsVideoOn ] = useState(true);
-    const [ isAudioOn, setIsAudioOn ] = useState(true);
+    const [ isVideoOn, setIsVideoOn ] = useState(!window.mediaSettings?.isVideoMuted);
+    const [ isAudioOn, setIsAudioOn ] = useState(!window.mediaSettings?.isAudioMuted);
 
     const handleAudioMute = () => {
         if (isAudioOn === true) {

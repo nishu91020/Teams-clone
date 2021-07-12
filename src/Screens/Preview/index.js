@@ -8,13 +8,16 @@ import {useMedia} from '../../Hooks/useMedia';
 
 const Preview = (props) => {
     
-    const {localTracks,setSettings,isLoading} =useMedia();
+    const {localTracks,isLoading} =useMedia();
     const {isConnecting,generateToken}=useContext(VideoContext);
-    const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
+    const [ mediaState, setMediaState ] = useState({ isMuted: false, isCameraOff: false });
     
     useEffect(()=>{
         return()=>{
-            setSettings(mediaState);
+            window.mediaSettings={
+                isAudioMuted:mediaState.isMuted,
+                isVideoMuted:mediaState.isCameraOff
+            }
         }
     })
     const enterRoom=()=>{
