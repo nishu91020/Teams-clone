@@ -6,7 +6,7 @@ import './styles.css';
 
 const useStyles = makeStyles({
     chatContainer: {
-        backgroundColor: '#EFEEEE',
+        backgroundColor: '#f8f4ff',
         height: '9%',
         padding: '1%',
         fontSize: '120%',

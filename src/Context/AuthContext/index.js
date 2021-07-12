@@ -2,7 +2,7 @@ import React, { useReducer, useState } from 'react';
 import { addUser } from '../../db';
 import { auth } from '../../firebase';
 import { signin, signout } from '../../firebaseAuth';
-
+import history from '../../history';
 export const UserContext = React.createContext();
 
 const reducer = (state, action) => {
@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
             const token = await user.getIdToken();
             dispatch({ type: 'SIGNIN', payload: { user: { uid: user.uid, displayName: user.displayName, email: user.email, photoURL: user.photoURL }, token } });
         } catch (error) {
-            alert(error.message);
+            console.log(error.message);
         } finally {
             setIsLoading(false);
         }
