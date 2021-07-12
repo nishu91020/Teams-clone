@@ -42,6 +42,10 @@ export const MeetingControlProvider = ({ children }) => {
         if (room) {
             room.localParticipant.tracks.forEach(trackPub => {
                 trackPub.track.stop();
+                
+            });
+            room.localParticipant.tracks.forEach(trackPub =>
+                 {trackPub.track.detach();
             });
             room.disconnect();
         }

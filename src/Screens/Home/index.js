@@ -10,7 +10,7 @@ import { VideoContext } from '../../Context/VideoContext';
 import { UserContext } from '../../Context/AuthContext';
 import Button from '@material-ui/core/Button';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import homeImg from '../../images/homeImg.jpg';
 const useStyles = makeStyles({
     one: {
         color: '#3f51b5',
@@ -115,11 +115,7 @@ const Home = () => {
             </Grid>
 
             <Grid item container sm={6} xs={12} direction="column">
-                <img
-                    src="https://image.freepik.com/free-vector/flat-worker-conducts-online-meeting-virtual-team-building-videoconference-home-office_88138-508.jpg"
-                    width="80%"
-                    alt="teams"
-                />
+                <img src={homeImg} width="80%" alt="teams" />
                 <Grid item container direction="row" alignItems="flex-end" justify="flex-end">
                     <Button variant="contained" color="primary" className={classes.minorBtn} onClick={goToChat}>
                         <Chat /> Chat

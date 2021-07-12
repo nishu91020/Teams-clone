@@ -6,9 +6,10 @@ import history from '../../history';
 import {UserContext} from '../../Context/AuthContext';
 import { Share } from '@material-ui/icons';
 import LocalMessage from '../LocalMessage';
-import {addMessage,getMessage} from '../../db';
+import {addMessage,getMessage,deleteParticipantFromRoom,deleteRoomFromParticipant} from '../../db';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import './styles.css';
+import img from '../../images/roomChatCardImage.jpg'
 
 const useStyles = makeStyles({
     chatContainer: {
@@ -70,6 +71,10 @@ const RoomChatCard = ({ room }) => {
         if(e.keyCode ===13)
             handleSend();
     }
+    const handleLeave=()=>{
+        deleteRoomFromParticipant(room.roomId,authState.user.uid);
+        deleteParticipantFromRoom(room.roomId,authState.user.uid);
+    }
     
     return (
         <Grid container item style={{ height: '100%', width: '100%',backgroundColor: '#FEFFFF',overflowX:'hidden' }} direction="column">
@@ -84,15 +89,20 @@ const RoomChatCard = ({ room }) => {
                 </Button>
             </CopyToClipboard>}
             {room &&
-              <Button size="small" color="primary" variant="contained" onClick={handleJoin} className={classes.joinBtn}>
-                    join
-                </Button>}
+                <React.Fragment>
+                    <Button style={{ justifyContent: 'right',marginRight: '3px' }} size="small" color="primary" variant="contained" onClick={handleLeave}>Leave</Button>
+                    <Button size="small" color="primary" variant="contained" onClick={handleJoin} className={classes.joinBtn}>
+                        join
+                    </Button>
+                </React.Fragment>
+               
+                }
             </div>
             </Grid>
             {
                 !room && (<div><Typography className={classes.alt}>Hey start chatting with your friends here!</Typography>
                             <div style={{alignItems:'center',justifyContent:'center',textAlign:'center'}}>
-                                <img src="https://image.freepik.com/free-vector/customers-sharing-references-earning-money_74855-5231.jpg" alt="friend" width="70%" />
+                                <img src={img} alt="friend" width="70%" />
                             </div>
                             </div>)
             }

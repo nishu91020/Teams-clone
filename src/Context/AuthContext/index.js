@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
     const [ isLoading, setIsLoading ] = useState(false);
 
     /**
-     * hadle signup of users through google signup
+     * handle signup of users through google signup
      * 
      */
     const login = async () => {

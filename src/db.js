@@ -136,4 +136,26 @@ const fetchParticipants = (roomId, callback) => {
     const ref = db.collection('meeting').doc(roomId).collection('participant');
     ref.onSnapshot(callback);
 };
-export { addRoom, fetchParticipants, getParticipant, addUser, addUserToMeeting, addMessage, getRoomOfUser, fetchRoom, getUserFromRoom, getMessage, addMeetingToUser };
+
+const deleteRoomFromParticipant = (roomId, participantId) => {
+    db.collection('user').doc(participantId).collection('room').doc(roomId).delete().then(() => console.log('successfully deleted room'));
+};
+
+const deleteParticipantFromRoom = (roomId, participantId) => {
+    db.collection('meeting').doc(roomId).collection('participant').doc(participantId).delete().then(() => console.log('successfully deleted participant'));
+};
+export {
+    addRoom,
+    fetchParticipants,
+    getParticipant,
+    addUser,
+    addUserToMeeting,
+    addMessage,
+    getRoomOfUser,
+    fetchRoom,
+    getUserFromRoom,
+    getMessage,
+    addMeetingToUser,
+    deleteRoomFromParticipant,
+    deleteParticipantFromRoom
+};
