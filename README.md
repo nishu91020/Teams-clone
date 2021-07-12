@@ -8,14 +8,14 @@ This project has been made for Microsoft Engage 2021. <br/>
 <br/>
 <div>In the engage program we were given the task of cloning Microsoft teams, in one month we were expected to complete a basic feature of making two people talk to each other on a video call, and in the surprise feature that was announced at a later stage in the program we were expected to integrate chat with our video conference application such that we can chat before after and during the meeting.</div>
 <hr/>
-It is a clone of Microsoft Teams with the following features-
+this project consists of the following features-
 
 :video_camera: organize a meeting <br/>
 :two_women_holding_hands: invite your friends to join (group video chat)<br/>
+:cinema: set audio and video configuration before joining the room<br/>
 :speech_balloon: send text messages to the participants before, after, and during the meeting<br/>
 :runner: leave a chat room<br/>
 :closed_lock_with_key: This application also includes google authentication.<br/>
-:cinema: set audio and video configuration before joining the room<br/>
 <br/>
 meeting controls comprise of the following options-<br/>
 	:mute: mute/unmute audio<br/>
