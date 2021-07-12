@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import MeetingChatCard from '../MeetingChatCard';
 import Dialogs from '../Dialogs';

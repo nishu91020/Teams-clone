@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Typography, makeStyles, Grid, CircularProgress, TextField, Dialog, DialogContent, DialogTitle, DialogActions, Snackbar } from '@material-ui/core';
 import './styles.css';
 import { Chat } from '@material-ui/icons';

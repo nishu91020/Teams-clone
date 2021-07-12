@@ -50,8 +50,6 @@ const ChatBox = ({handleChat,room}) => {
         if(e.keyCode ===13)
             handleSend();
     }
-    console.log(room);
-    // console.log('helooooo');
     return (
         <Grid container item sm={12} className={classes.box}>
             <Grid item container direction="row" justify="space-between">

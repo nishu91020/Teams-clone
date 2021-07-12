@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
-import Video, { connect } from 'twilio-video';
+import React, { useState, useEffect, useContext } from 'react';
 import { Paper, Grid, makeStyles } from '@material-ui/core';
 import Participant from '../../Components/Praticipant';
 import { VideoContext } from '../../Context/VideoContext';
@@ -7,8 +6,6 @@ import BtnGroup from '../../Components/BtnGroup';
 import ChatBox from '../../Components/ChatBox';
 import ParticipantList from '../../Components/ParticipantList';
 import { MeetingControlProvider } from '../../Context/MeetingControlContext';
-import './styles.css';
-import ParticipantCard from '../../Components/ParticipantCard';
 import { RoomContext } from '../../Context/RoomContext';
 
 const VideoScreen = () => {
@@ -16,7 +13,7 @@ const VideoScreen = () => {
     const { connect, room, participants } = useContext(RoomContext);
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
     const [ isChatActive, setIsChatActive ] = useState(false);
-    const [ selectedParticipant, setSelectedParticipant ] = useState(undefined);
+    const [ selectedParticipant, setSelectedParticipant ] = useState(room?.localParticipant);
 
     const classes = useStyles();
     useEffect(() => {
@@ -62,7 +59,11 @@ const VideoScreen = () => {
                         {remoteParticipants}
                     </Paper>
                     <Grid container item justify="center" alignItems="center" className={classes.selected} xs={9}>
-                        {selectedParticipant && <Participant participant={selectedParticipant} />}
+                        {selectedParticipant ? (
+                            <Participant participant={selectedParticipant} onClick={setSelectedParticipant} />
+                        ) : (
+                            room && <Participant participant={room.localParticipant} onClick={setSelectedParticipant} />
+                        )}
                     </Grid>
                 </Grid>
 

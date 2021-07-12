@@ -9,9 +9,9 @@ import {useMedia} from '../../Hooks/useMedia';
 const Preview = (props) => {
     
     const {localTracks,setSettings,isLoading} =useMedia();
-    const {isConnecting,state,generateToken}=useContext(VideoContext);
+    const {isConnecting,generateToken}=useContext(VideoContext);
     const [ mediaState, setMediaState ] = useState({ isMuted: false, isCamerOff: false });
-    //console.log(state.room.uniqueName);
+    
     useEffect(()=>{
         return()=>{
             setSettings(mediaState);
@@ -42,8 +42,7 @@ const Preview = (props) => {
             setMediaState({ ...mediaState, isCameraOff: false });
         }
     };
-    // console.log(audioTrack);
-    // console.log(videoTrack);
+
     if(isLoading ||isConnecting)
     {
         return(

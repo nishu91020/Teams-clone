@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Button, makeStyles, List } from '@material-ui/core';
+import { Grid, Button, makeStyles } from '@material-ui/core';
 import ParticipantCard from '../ParticipantCard';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Close, Share } from '@material-ui/icons';
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 const ParticipantList = ({ handleParticipants, room }) => {
     const [ participants, setParticipants ] = useState([]);
     const classes = useStyles();
-    console.log(room);
+
     useEffect(() => {
         const callback = snapshot => {
             let participantList = [];
@@ -33,7 +33,7 @@ const ParticipantList = ({ handleParticipants, room }) => {
         };
         fetchParticipants(room.roomId, callback);
     }, []);
-    console.log(participants);
+
     return (
         <Grid sm={12} className={classes.box}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>

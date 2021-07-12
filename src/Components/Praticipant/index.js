@@ -1,5 +1,4 @@
 import React, {  useEffect, useState } from 'react';
-import './styles.css';
 import VideoTrack from '../VideoTracks';
 import {Grid,makeStyles } from '@material-ui/core';
 import { useParticipantPublications } from '../../Hooks/useParticipantPublications';
@@ -19,6 +18,7 @@ const Participant = ({ participant, onClick }) => {
     const isVideoEnabled = useIsTrackEnabled(videoTrack);
     const [ user, setUser ] = useState(undefined);
     const classes = useStyles();
+
     useEffect(() => {
         const getUser =async()=>{
             const res=await getParticipant(participant?.identity);
@@ -32,8 +32,7 @@ const Participant = ({ participant, onClick }) => {
     const select = (e) => {
         onClick(participant);
     };
-    //mujhe pura likhne do
-    // console.log('participant=', participant);
+
     return (
          <Grid className={classes.cardContainer} onClick={select}>
            

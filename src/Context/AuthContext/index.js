@@ -1,6 +1,5 @@
 import React, { useReducer, useState } from 'react';
 import { addUser } from '../../db';
-import history from '../../history';
 import { auth } from '../../firebase';
 import { signin, signout } from '../../firebaseAuth';
 

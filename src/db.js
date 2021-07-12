@@ -1,16 +1,7 @@
-import { db, auth } from './firebase';
+import { db } from './firebase';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-//addUser-
-//addRoom-
-//addMeetingToUser-
-//addUserToMeeting-
-//addMessage-
-//getMessage-
-//getUserFromRoom-
-//GetRoomOfUser-
-//getRoom
 const addRoom = room => {
     return db.collection('meeting').doc(room.roomId).set({
         room,

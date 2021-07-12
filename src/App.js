@@ -39,7 +39,6 @@ function App () {
                     ) : (
                         <Switch>
                             <Route path="/" exact component={Home} />
-                            {/* <Route path="/CreateRoom/:id" exact component={CreateRoom} /> */}
                             <Route path="/Preview/:id" exact component={Preview} />
                             <Route path="/ChatScreen" exact component={ChatScreen} />
                             <Route path="/VideoScreen/:id" exact component={VideoScreen} />

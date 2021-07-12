@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Grid, makeStyles, Button } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import MeetingChatList from '../../Components/MeetingChatList';
 import RoomChatCard from '../../Components/RoomChatCard';
 import { UserContext } from '../../Context/AuthContext';
@@ -31,7 +31,6 @@ const ChatScreen = () => {
         };
         getRoomOfUser(authState.user.uid, callback);
     }, []);
-    console.log(rooms, 'chatscreen');
     return (
         <Grid container item xs={12} className={classes.chatContainerOuter}>
             <Grid container item xs={3} className={classes.roomChat}>

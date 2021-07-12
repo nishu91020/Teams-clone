@@ -33,7 +33,6 @@ const Dialogs = () => {
     };
     const handleJoin = async () => {
         const result = await joinChat(roomId);
-        console.log(result);
         if (!result) setFailSnackbar(true);
         else setSuccessSnackbar(true);
         setIsJoinDialogOpen(false);

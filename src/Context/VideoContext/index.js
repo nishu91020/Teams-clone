@@ -4,7 +4,6 @@ import * as uuid from 'uuid';
 import { addRoom, addMeetingToUser, addUserToMeeting, fetchRoom } from '../../db';
 import history from '../../history';
 import { UserContext } from '../AuthContext';
-import { CloudDownloadTwoTone } from '@material-ui/icons';
 export const VideoContext = React.createContext();
 
 const reducer = (state, action) => {
@@ -38,7 +37,6 @@ export const VideoProvider = ({ children }) => {
             await addMeetingToUser(authState.user.uid, { roomId, roomTitle: name });
             await addUserToMeeting(authState.user, roomId);
             dispatch({ type: 'ROOM', payload: { room: { roomId: roomId, roomTitle: name } } });
-            // console.log(res.data.uniqueName);
         } catch (err) {
             dispatch({ type: 'ERROR', payload: { err } });
         } finally {
@@ -58,7 +56,6 @@ export const VideoProvider = ({ children }) => {
                 }
             })
             .then(res => {
-                console.log(authState.user.uid);
                 dispatch({
                     type: 'GENERATETOKEN',
                     payload: { accessToken: res.data.token, identity: res.data.identity }
@@ -78,7 +75,7 @@ export const VideoProvider = ({ children }) => {
         setIsConnecting(true);
         try {
             const res = await validRoom(roomId);
-            console.log(res);
+
             if (res) {
                 await addMeetingToUser(authState.user.uid, { ...res.room });
                 await addUserToMeeting(authState.user, roomId);

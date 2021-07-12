@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import {  useState, useCallback } from 'react';
 import { connect as roomConnect } from 'twilio-video';
 import MediaConstraints from '../constants/MediaConstraints';
 
