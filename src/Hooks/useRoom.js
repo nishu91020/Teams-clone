@@ -30,9 +30,9 @@ const useRoom = () => {
                     newRoom.setMaxListeners(15);
 
                     newRoom.once('disconnected', () => {
-                         
+                        setTimeout(()=>setRoom(null));
                         window.removeEventListener('beforeunload', disconnect);
-                        setTimeout(() => setRoom(null));
+                        
     
                         
                     });

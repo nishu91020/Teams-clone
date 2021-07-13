@@ -37,7 +37,7 @@ const VideoTrack = props => {
                 props.track[0]?.attach(audioRef.current);
                 props.track[1]?.attach(videoRef.current);
             }
-            return()=>{
+             return()=>{
               if(props.track) {
                   props.track[0]?.detach();
                   props.track[1]?.detach();
