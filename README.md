@@ -30,7 +30,7 @@ Tech-stack
 	<li>React</li>
 	<li>Firebase</li>
 	<li>Node JS</li>
-	<li>Twilio video chat APIs</li>
+	<li>Twilio programmable video APIs</li>
 </ul>
 <hr/>
 Run application in local machine
