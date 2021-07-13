@@ -5,7 +5,7 @@ import './styles.css';
 const Header = props => {
     return (
         <div className="HeaderContainer">
-            <p>Microsoft Teams</p>
+            <p>Meet Up</p>
         </div>
     );
 };

@@ -3,7 +3,6 @@
 import {  useState, useCallback } from 'react';
 import { connect as roomConnect } from 'twilio-video';
 import MediaConstraints from '../constants/MediaConstraints';
-import history from '../history';
 const useRoom = () => {
     const [ room, setRoom ] = useState(null);
     const [ isconnecting, setIsconnecting ] = useState(false);
@@ -31,8 +30,9 @@ const useRoom = () => {
                     newRoom.setMaxListeners(15);
 
                     newRoom.once('disconnected', () => {
-                         setTimeout(() => setRoom(null));
+                         
                         window.removeEventListener('beforeunload', disconnect);
+                        setTimeout(() => setRoom(null));
     
                         
                     });

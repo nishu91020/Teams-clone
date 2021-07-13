@@ -15,7 +15,7 @@ const VideoScreen = () => {
     const { connect, room, participants } = useContext(RoomContext);
     const [ isParticipantListActive, setIsParticipantListActive ] = useState(false);
     const [ isChatActive, setIsChatActive ] = useState(false);
-    const [ selectedParticipant, setSelectedParticipant ] = useState(room?.localParticipant);
+    const [ selectedParticipant, setSelectedParticipant ] = useState(undefined);
 
     // useEffect(()=>{
     //     if(!room.accessToken)
@@ -66,11 +66,7 @@ const VideoScreen = () => {
                         {remoteParticipants}
                     </Paper>
                     <Grid container item justify="center" alignItems="center" className={classes.selected} xs={9}>
-                        {selectedParticipant ? (
-                            <Participant participant={selectedParticipant} onClick={setSelectedParticipant} />
-                        ) : (
-                            room && <Participant participant={room.localParticipant} onClick={setSelectedParticipant} />
-                        )}
+                        {selectedParticipant && <Participant participant={selectedParticipant} onClick={setSelectedParticipant} />}
                     </Grid>
                 </Grid>
 

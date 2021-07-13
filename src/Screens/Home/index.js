@@ -95,7 +95,7 @@ const Home = () => {
             <Grid container item className="textArea" sm={6} xs={12} alignItems="center" justify="center">
                 <div style={{ alignItems: 'center', textAlign: 'center' }}>
                     <Typography className={classes.one}>Hello {state.user.displayName} !</Typography>
-                    <Typography className={classes.two}>Welcome to Microsoft Teams</Typography>
+                    <Typography className={classes.two}>Welcome to Meet Up</Typography>
                 </div>
 
                 <Grid container item justify="space-around" className={classes.btnAll} alignItems="center" justify="center">
