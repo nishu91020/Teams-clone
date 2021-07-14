@@ -39,6 +39,4 @@ Run application in local machine
 	 npm install</li>
 <li>start the react app <br/>
 	npm start</li>
-<li>start the server <br/>
-	nodemon server.js</li>
-	</ul>
+</ul>
